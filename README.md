@@ -1,0 +1,2 @@
+Typescript Information: https://www.freecodecamp.org/news/an-introduction-to-typescript/
+Typescript Starting Information: https://www.diegorodrigo.dev/en/2022/03/13/starting-a-project-with-nodejs-express-and-typescript/
