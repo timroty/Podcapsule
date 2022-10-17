@@ -1,14 +1,6 @@
-const axios = require('axios')
+import { Podcast, PodcastSearchResult } from "../types/PodcastTypes";
 
-type PodcastSearchResult = {
-  id: number;
-  title: string;
-  description?: string;
-  imageUrl?: string;
-  numberOfEpisodes?: number;
-  ratingAverage?: number;
-  ratingCount?: number;
-};
+const axios = require('axios')
 
 export async function PodcastSearch(podcastName:string): Promise<PodcastSearchResult[]> {
   let data = JSON.stringify({
@@ -27,8 +19,8 @@ export async function PodcastSearch(podcastName:string): Promise<PodcastSearchRe
               title,
               description,
               imageUrl,
-              numberOfEpisodes
-              ratingAverage
+              numberOfEpisodes,
+              ratingAverage,
               ratingCount
           }
       }
@@ -47,6 +39,44 @@ export async function PodcastSearch(podcastName:string): Promise<PodcastSearchRe
   };
   
   let response:PodcastSearchResult[] = (await axios(config)).data.data.podcasts.data;
+  
+  return response;
+}
+
+export async function GetPodcast(Id:number): Promise<PodcastSearchResult[]> {
+  let data = JSON.stringify({
+    query: `query {
+      podcast(identifier: {
+          id: ${Id},
+          type: PODCHASER
+      }) {
+          data {
+              id,
+              title,
+              description,
+              imageUrl,
+              numberOfEpisodes,
+              ratingAverage,
+              ratingCount,
+              rssUrl
+          }
+      }
+  }`,
+    variables: {}
+  });
+  
+  let config = {
+    method: 'post',
+    url: 'https://api.podchaser.com/graphql',
+    headers: { 
+      'Authorization': `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`, 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  // TODO MAKE THIS RIGHT
+  let response:Podcast[] = (await axios(config)).data.data.podcasts.data;
   
   return response;
 }
