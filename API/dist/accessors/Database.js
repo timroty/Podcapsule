@@ -30,7 +30,7 @@ function GetFavoritedPodcasts(Id) {
         const supabase = createClient(process.env.SUPABASE_PROJECT_URL, process.env.SUPABASE_PROJECT_SECRET);
         const { data, error } = yield supabase
             .from('FavoritedPodcasts')
-            .select('Id,CreateDate,PodcastId,Name,ImageUrl')
+            .select('Id,CreateDate,PodcastId,Title,ImageUrl')
             .eq('UserId', Id);
         let result = data;
         return result;
