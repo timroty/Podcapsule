@@ -28,9 +28,9 @@ export async function GetFavoritedPodcasts(Id:string): Promise<FavoritedPodcast[
 
     const { data, error } = await supabase
         .from('FavoritedPodcasts')
-        .select('Id,CreateDate,PodcastId,Name,ImageUrl')
+        .select('Id,CreateDate,PodcastId,Title,ImageUrl')
         .eq('UserId', Id);
-    
+
     let result:FavoritedPodcast[] = data;
 
     return result;
