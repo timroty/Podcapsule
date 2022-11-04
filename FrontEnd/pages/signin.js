@@ -100,7 +100,13 @@ const Index = () => {
 
             <Typography.Text>
               <Link href="/profile">
-                <a>SSR example with getServerSideProps</a>
+                SSR example with getServerSideProps
+              </Link>
+            </Typography.Text>
+
+            <Typography.Text>
+              <Link href="/favorited-podcasts">
+                SSR example with getServerSideProps
               </Link>
             </Typography.Text>
           </>

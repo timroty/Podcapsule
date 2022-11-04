@@ -26,7 +26,7 @@ export default function Profile({ user }) {
 
           <Typography.Text>
             <Link href="/">
-              <a>Static example with useSWR</a>
+              Static example with useSWR
             </Link>
           </Typography.Text>
         </Space>

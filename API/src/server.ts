@@ -11,12 +11,14 @@ import { GetUser, RefreshToken } from './services/User';
 import dotenv from 'dotenv';
 dotenv.config();
 
+var cors = require('cors')
+
 const app = express();
 const route = Router();
 const PORT = process.env.PORT || "8000";
 
 app.use(express.json());
-
+app.use(cors())
 app.use(route);
 
 app.listen(PORT, () => `Server running on port ${PORT}!`);
