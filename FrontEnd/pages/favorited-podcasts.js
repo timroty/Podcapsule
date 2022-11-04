@@ -28,8 +28,6 @@ export default function FavoritedPodcasts({ user }) {
 export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
-  console.log(user)
-
   if (!user) {
     // If no user, redirect to index.
     return { props: {}, redirect: { destination: '/', permanent: false } }
