@@ -11,7 +11,6 @@ export async function GetFavoritedPodcasts(userId:string): Promise<FavoritedPodc
 }
 
 export async function AddFavoritedPodcast(userId:string, podcastId:number): Promise<void> {
-
     let podcast:Podcast = await GetPodcast(podcastId);
 
     let favoritedPodcast = <FavoritedPodcast>({

@@ -33,7 +33,7 @@ route.get("/", (request: Request, response: Response) => {
     response.json({ message: "Ok" });
 });
 
-route.get("/api/podcast/search", jwtCheck, (request: Request, response: Response) => {
+route.post("/api/podcast/search", jwtCheck, (request: Request, response: Response) => {
   PodcastSearch(request.body.podcastName).then(result => {
       response.json(result).status(200);
     }).catch(error => {
@@ -51,7 +51,7 @@ route.get("/api/user", jwtCheck, (request: Request, response: Response) => {
     });
 });
 
-route.get("/user/favorited-podcasts", jwtCheck, (request: Request, response: Response) => {
+route.get("/api/user/favorited-podcasts", jwtCheck, (request: Request, response: Response) => {
   GetFavoritedPodcasts(getUserId(request.headers.authorization!)).then(result => {
       response.json(result).status(200);
     }).catch(error => {
