@@ -7,6 +7,7 @@ import { getUserId } from './services/Utilities';
 import { AddFavoritedPodcast, GetFavoritedPodcasts, DeleteFavoritedPodcast } from './services/FavoritedPodcasts';
 import { PodcastSearch } from './services/PodcastSearch';
 import { GetUser, RefreshToken } from './services/User';
+import { SavePodcastRssFeedEpisodes } from './services/Rss';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -89,4 +90,16 @@ route.post("/api/refresh-token", (request: Request, response: Response) => {
         console.log(error);
       }
     });
+});
+
+route.get("/api/user/rssUrl", (request: Request, response: Response) => {
+  response.json({ message: "Ok" });
+});
+
+route.get("/api/test", (request: Request, response: Response) => {
+  SavePodcastRssFeedEpisodes((request.query.rss as string), 1).then(result => {
+    response.contentType('application/xml');
+    response.send(result).status(200);
+  });
+  //response.json({ message: "Ok" });
 });

@@ -6,11 +6,23 @@ export type User = {
   };
 
 export type FavoritedPodcast = {
-    id: number;
+    Id: number;
     createDate: Date;
     userId: string;
     podcastId: number;
     rssUrl?: string;
     title?: string;
     imageUrl?: string;
+  };
+
+  export type FavoritedPodcastEpisode = {
+    id: number;
+    createDate: Date;
+    favoritedPodcastId: number;
+    episodeRSSJson: string;
+  };
+
+  export type FavoritedPodcastEpisodeSave = {
+    FavoritedPodcastId: number;
+    EpisodeRSSJson: string;
   };

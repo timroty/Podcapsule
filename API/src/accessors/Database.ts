@@ -1,4 +1,4 @@
-import { FavoritedPodcast, User } from "../types/DatabaseTypes";
+import { FavoritedPodcast, User, FavoritedPodcastEpisodeSave } from "../types/DatabaseTypes";
 
 const { createClient } = require('@supabase/supabase-js');
 
@@ -27,7 +27,7 @@ export async function GetFavoritedPodcasts(Id:string): Promise<FavoritedPodcast[
     );
 
     const { data, error } = await supabase
-        .from('FavoritedPodcasts')
+        .from('FavoritedPodcast')
         .select('Id,CreateDate,PodcastId,Title,ImageUrl')
         .eq('UserId', Id);
 
@@ -36,20 +36,23 @@ export async function GetFavoritedPodcasts(Id:string): Promise<FavoritedPodcast[
     return result;
 }
 
-export async function AddFavoritedPodcast(favoritedPodcast:FavoritedPodcast): Promise<void> {
+export async function AddFavoritedPodcast(favoritedPodcast:FavoritedPodcast): Promise<FavoritedPodcast> {
     const supabase = createClient(
         process.env.SUPABASE_PROJECT_URL,
         process.env.SUPABASE_PROJECT_SECRET
     );
 
-    const { error } = await supabase
-        .from('FavoritedPodcasts')
+    const { data, error } = await supabase
+        .from('FavoritedPodcast')
         .insert({ CreateDate: favoritedPodcast.createDate,
                   UserId: favoritedPodcast.userId,
                   PodcastId: favoritedPodcast.podcastId,
                   RSSUrl: favoritedPodcast.rssUrl,
                   Title: favoritedPodcast.title,
-                  ImageUrl: favoritedPodcast.imageUrl });
+                  ImageUrl: favoritedPodcast.imageUrl })
+        .select();
+
+    return data[0];
 }
 
 export async function DeleteFavoritedPodcast(favoritedPodcastId:number): Promise<void> {
@@ -59,7 +62,30 @@ export async function DeleteFavoritedPodcast(favoritedPodcastId:number): Promise
     );
 
     const { error } = await supabase
-        .from('FavoritedPodcasts')
+        .from('FavoritedPodcast')
         .delete()
         .eq('Id', favoritedPodcastId)
+}
+
+export async function AddFavoritedPodcastEpisodes(favoritedPodcastEpisodes:FavoritedPodcastEpisodeSave[]): Promise<void> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { error } = await supabase
+        .from('FavoritedPodcastEpisode')
+        .insert(favoritedPodcastEpisodes);
+}
+
+export async function DeleteFavoritedPodcastEpisodes(favoritedPodcastId:number): Promise<void> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { error } = await supabase
+        .from('FavoritedPodcastEpisode')
+        .delete()
+        .eq('FavoritedPodcastId', favoritedPodcastId)
 }

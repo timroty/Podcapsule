@@ -78,4 +78,14 @@ export async function GetPodcast(Id:number): Promise<Podcast> {
   return response;
 }
 
+export async function GetRssFeed(rssUrl:string): Promise<string> {
+  var config = {
+    method: 'get',
+    url: rssUrl,
+    headers: { }
+  };
 
+  let response:string = (await axios(config)).data;
+
+  return response;
+}
