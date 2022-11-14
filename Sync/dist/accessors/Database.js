@@ -9,55 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteFavoritedPodcast = exports.AddFavoritedPodcast = exports.GetFavoritedPodcasts = exports.GetUser = void 0;
+exports.GetNextUser = void 0;
 const { createClient } = require('@supabase/supabase-js');
 // User
-function GetUser(Id) {
+function GetNextUser(LastSyncDateMS) {
     return __awaiter(this, void 0, void 0, function* () {
         const supabase = createClient(process.env.SUPABASE_PROJECT_URL, process.env.SUPABASE_PROJECT_SECRET);
         const { data, error } = yield supabase
             .from('User')
             .select('*')
-            .eq('Id', Id);
+            .lte('LastSyncDate', LastSyncDateMS)
+            .is('LastSyncDate', null)
+            .limit(1);
         let result = data;
         return result;
     });
 }
-exports.GetUser = GetUser;
-// Favorited Podcasts
-function GetFavoritedPodcasts(Id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const supabase = createClient(process.env.SUPABASE_PROJECT_URL, process.env.SUPABASE_PROJECT_SECRET);
-        const { data, error } = yield supabase
-            .from('FavoritedPodcasts')
-            .select('Id,CreateDate,PodcastId,Name,ImageUrl')
-            .eq('UserId', Id);
-        let result = data;
-        return result;
-    });
-}
-exports.GetFavoritedPodcasts = GetFavoritedPodcasts;
-function AddFavoritedPodcast(favoritedPodcast) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const supabase = createClient(process.env.SUPABASE_PROJECT_URL, process.env.SUPABASE_PROJECT_SECRET);
-        const { error } = yield supabase
-            .from('FavoritedPodcasts')
-            .insert({ CreateDate: favoritedPodcast.createDate,
-            UserId: favoritedPodcast.userId,
-            PodcastId: favoritedPodcast.podcastId,
-            RSSUrl: favoritedPodcast.rssUrl,
-            Title: favoritedPodcast.title,
-            ImageUrl: favoritedPodcast.imageUrl });
-    });
-}
-exports.AddFavoritedPodcast = AddFavoritedPodcast;
-function DeleteFavoritedPodcast(favoritedPodcastId) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const supabase = createClient(process.env.SUPABASE_PROJECT_URL, process.env.SUPABASE_PROJECT_SECRET);
-        const { error } = yield supabase
-            .from('FavoritedPodcasts')
-            .delete()
-            .eq('Id', favoritedPodcastId);
-    });
-}
-exports.DeleteFavoritedPodcast = DeleteFavoritedPodcast;
+exports.GetNextUser = GetNextUser;
