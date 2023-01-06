@@ -1,0 +1,5 @@
+ CREATE view random_favorited_podcast 
+      AS SELECT * FROM "FavoritedPodcast" ORDER BY random();
+
+        CREATE view random_favorited_podcast_episode 
+      AS SELECT * FROM "FavoritedPodcastEpisode" ORDER BY random();

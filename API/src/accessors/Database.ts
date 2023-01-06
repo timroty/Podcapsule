@@ -49,7 +49,8 @@ export async function AddFavoritedPodcast(favoritedPodcast:FavoritedPodcast): Pr
                   PodcastId: favoritedPodcast.podcastId,
                   RSSUrl: favoritedPodcast.rssUrl,
                   Title: favoritedPodcast.title,
-                  ImageUrl: favoritedPodcast.imageUrl })
+                  ImageUrl: favoritedPodcast.imageUrl, 
+                  ExistsEpisodes: true })
         .select();
 
     return data[0];

@@ -13,6 +13,7 @@ export type FavoritedPodcast = {
     rssUrl?: string;
     title?: string;
     imageUrl?: string;
+    existsEpisodes?: boolean;
   };
 
   export type FavoritedPodcastEpisode = {
