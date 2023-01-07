@@ -12,6 +12,7 @@ export async function GetUser(Id:string): Promise<User> {
     const { data, error } = await supabase
         .from('User')
         .select('*')
+        .single()
         .eq('Id', Id);
 
     let result:User = data;

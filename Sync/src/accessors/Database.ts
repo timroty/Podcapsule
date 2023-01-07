@@ -9,6 +9,8 @@ export async function GetNextUser(LastSyncDateISOString:string): Promise<User> {
         process.env.SUPABASE_PROJECT_SECRET
     );
 
+    // Could make this call more effeicent if you check if the user has
+    // favorited podcasts in the first place
     const { data, error } = await supabase
         .from('User')
         .select('*')
@@ -33,9 +35,9 @@ export async function GetUserRandomFavoritedPodcast(userId:number): Promise<numb
         .match({ UserId: userId, ExistsEpisodes: true })
         .limit(1)
         .single();
-        
-    let result:number = data.Id;
-    
+
+    let result:number = data?.Id;
+
     return result;
 }
 
@@ -67,6 +69,40 @@ export async function UpdateUserRandomFavoritedPodcastEpisodeExist(existsEpisode
         .from('FavoritedPodcast')
         .update({ ExistsEpisodes: existsEpisodes })
         .eq('Id', FavoritedPodcastId);
+}
 
-    console.log(error)
+export async function UpdateUserRSSFeed(userId:number, rssFeed:string): Promise<void> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { error } = await supabase
+        .from('User')
+        .update({ RSSFeedJSON: rssFeed })
+        .eq('Id', userId);
+}
+
+export async function UpdateUserLastSyncDate(userId:number, syncDate:string): Promise<void> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { error } = await supabase
+        .from('User')
+        .update({ LastSyncDate: syncDate })
+        .eq('Id', userId);
+}
+
+export async function RemoveUserRandomFavoritedPodcastEpisode(id:number): Promise<void> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { error } = await supabase
+        .from('FavoritedPodcastEpisode')
+        .delete()
+        .eq('id', id);
 }

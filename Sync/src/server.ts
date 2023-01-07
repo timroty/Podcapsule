@@ -1,53 +1,81 @@
-var convert = require('xml-js');
-
 import { RSSFeedTemplate } from './constants/constants';
 
 import {GetNextUser, 
         GetUserRandomFavoritedPodcast, 
         GetUserRandomFavoritedPodcastEpisode, 
-        UpdateUserRandomFavoritedPodcastEpisodeExist} from './accessors/Database'
+        UpdateUserRandomFavoritedPodcastEpisodeExist,
+        UpdateUserRSSFeed,
+        RemoveUserRandomFavoritedPodcastEpisode,
+        UpdateUserLastSyncDate} from './accessors/Database'
 
 import dotenv from 'dotenv';
+
 dotenv.config(); 
+
 RunSync()
 
 async function RunSync(): Promise<void> {
-    while(true){
-        
-        var cutoffDate = new Date();
-        cutoffDate.setDate(cutoffDate.getDate() - 2);
+  while(true){
+    // REMOVE THIS
+    await sleep(10000);
 
-        let user = await GetNextUser(cutoffDate.toISOString())
+      var currentDate = new Date();
+      var cutoffDate = currentDate;
+      cutoffDate.setDate(cutoffDate.getDate() - 2);
 
-        let favoritedPodcastId = await GetUserRandomFavoritedPodcast(user.Id);
-        console.log(favoritedPodcastId);
+      let user = await GetNextUser(cutoffDate.toISOString());
 
-        let favoritedPodcastEpisode = await GetUserRandomFavoritedPodcastEpisode(favoritedPodcastId);
-        console.log(favoritedPodcastEpisode);
+      if (!user){
+        await sleep(3600000);
+        continue;
+      }
 
-        if (!favoritedPodcastEpisode){
-          await UpdateUserRandomFavoritedPodcastEpisodeExist(false, favoritedPodcastId);
+      let favoritedPodcastId = await GetUserRandomFavoritedPodcast(user.Id);
+
+      if (!favoritedPodcastId){
+        await UpdateUserLastSyncDate(user.Id, currentDate.toISOString()); 
+        continue;
+      }
+
+      let favoritedPodcastEpisode = await GetUserRandomFavoritedPodcastEpisode(favoritedPodcastId);
+
+      if (!favoritedPodcastEpisode){
+        await UpdateUserRandomFavoritedPodcastEpisodeExist(false, favoritedPodcastId);
+      }
+
+      if (!user.rssFeed){
+        user.rssFeed = JSON.stringify(RSSFeedTemplate);
+      }
+
+      let userRSSFeedJson = JSON.parse(user.rssFeed);
+      let favoritedPodcastEpisodeJson = JSON.parse(favoritedPodcastEpisode.EpisodeRSSJson);
+
+      const updatedDate = currentDate.toUTCString();
+
+      favoritedPodcastEpisodeJson.elements.forEach((element:any) => {
+        if (element.name == 'pubDate'){
+          element.elements[0].text = updatedDate;
         }
+      })
 
-        // Next steps
-        // convert json to  xml
-        // add podcast to feed
-        // remove epiosde from list
+      userRSSFeedJson.elements[0].elements[0].elements.forEach((element:any) => {
+        if (element.name == 'pubDate' || element.name == 'lastBuildDate'){
+          element.elements[0].text = updatedDate
+        }
+      })
 
-        await sleep(5000);
-    }
+      userRSSFeedJson.elements[0].elements[0].elements.push(favoritedPodcastEpisodeJson);
+
+      await UpdateUserRSSFeed(user.Id, JSON.stringify(userRSSFeedJson));
+      await RemoveUserRandomFavoritedPodcastEpisode(favoritedPodcastEpisode.id);
+      await UpdateUserLastSyncDate(user.Id, currentDate.toISOString()); 
+
+      console.log("Finished!");
+  }
 }
 
 function sleep(ms:number) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
-  }
-
-
-  
-//GetNextUser
- var result1 = convert.xml2json("", {compact: false, spaces: 2});
- console.log(result1)
-//  var result2 = convert.json2xml(test, {compact: false, spaces: 4});
-// console.log(result2)
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}

@@ -1,8 +1,8 @@
 export type User = {
     Id: number;
-    CreateDate: Date;
-    RssFeed?: string;
-    LastSyncDate: number;
+    createDate: Date;
+    rssFeed?: string;
+    lastSyncDate: number;
   };
 
 export type FavoritedPodcast = {
@@ -18,12 +18,12 @@ export type FavoritedPodcast = {
 
   export type FavoritedPodcastEpisode = {
     id: number;
-    createDate: Date;
-    favoritedPodcastId: number;
-    episodeRSSJson: string;
+    CreateDate: Date;
+    FavoritedPodcastId: number;
+    EpisodeRSSJson: string;
   };
 
   export type FavoritedPodcastEpisodeSave = {
-    FavoritedPodcastId: number;
-    EpisodeRSSJson: string;
+    favoritedPodcastId: number;
+    episodeRSSJson: string;
   };

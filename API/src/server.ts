@@ -6,8 +6,7 @@ import { getUserId } from './services/Utilities';
 
 import { AddFavoritedPodcast, GetFavoritedPodcasts, DeleteFavoritedPodcast } from './services/FavoritedPodcasts';
 import { PodcastSearch } from './services/PodcastSearch';
-import { GetUser, RefreshToken } from './services/User';
-import { SavePodcastRssFeedEpisodes } from './services/Rss';
+import { GetUser, RefreshToken, GetUserRSSFeed } from './services/User';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -34,6 +33,9 @@ route.get("/", (request: Request, response: Response) => {
     response.json({ message: "Ok" });
 });
 
+route.get("/api/environment", (request: Request, response: Response) => {
+  response.json({ message: process.env.ENVIRONMENT });
+});
 route.post("/api/podcast/search", jwtCheck, (request: Request, response: Response) => {
   PodcastSearch(request.body.podcastName).then(result => {
       response.json(result).status(200);
@@ -92,14 +94,12 @@ route.post("/api/refresh-token", (request: Request, response: Response) => {
     });
 });
 
-route.get("/api/user/rssUrl", (request: Request, response: Response) => {
-  response.json({ message: "Ok" });
-});
-
-route.get("/api/test", (request: Request, response: Response) => {
-  SavePodcastRssFeedEpisodes((request.query.rss as string), 1).then(result => {
-    response.contentType('application/xml');
-    response.send(result).status(200);
+route.get("/api/user/rss/:id", (request: Request, response: Response) => {
+  GetUserRSSFeed(request.params.id).then(result => {
+    response.header("Content-Type", "application/xml");
+    response.status(200).send(result);
+  }).catch(error => {
+    response.sendStatus(500);
+    console.log(error);
   });
-  //response.json({ message: "Ok" });
 });
