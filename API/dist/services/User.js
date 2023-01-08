@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RefreshToken = exports.GetUser = void 0;
+exports.RefreshToken = exports.GetUserRSSFeed = exports.GetUser = void 0;
 const Database_1 = require("../accessors/Database");
+var convert = require('xml-js');
 const axios = require('axios');
 function GetUser(userId) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -18,6 +19,18 @@ function GetUser(userId) {
     });
 }
 exports.GetUser = GetUser;
+function GetUserRSSFeed(userId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var user = yield (0, Database_1.GetUser)(userId);
+        if (user === null || user === void 0 ? void 0 : user.RSSFeedJSON) {
+            return convert.json2xml(user.RSSFeedJSON, { compact: false, spaces: 4 });
+        }
+        else {
+            return "";
+        }
+    });
+}
+exports.GetUserRSSFeed = GetUserRSSFeed;
 function RefreshToken(refreshToken) {
     return __awaiter(this, void 0, void 0, function* () {
         var data = JSON.stringify({

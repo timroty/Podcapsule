@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteFavoritedPodcast = exports.AddFavoritedPodcast = exports.GetFavoritedPodcasts = void 0;
 const Podcast_1 = require("../accessors/Podcast");
 const Database_1 = require("../accessors/Database");
+const Rss_1 = require("./Rss");
 function GetFavoritedPodcasts(userId) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield (0, Database_1.GetFavoritedPodcasts)(userId);
@@ -29,13 +30,16 @@ function AddFavoritedPodcast(userId, podcastId) {
             title: podcast.title,
             imageUrl: podcast.imageUrl
         });
-        yield (0, Database_1.AddFavoritedPodcast)(favoritedPodcast);
+        var result = yield (0, Database_1.AddFavoritedPodcast)(favoritedPodcast);
+        if (podcast.rssUrl != null || podcast.rssUrl != undefined)
+            (0, Rss_1.SavePodcastRssFeedEpisodes)(podcast.rssUrl, result.Id);
     });
 }
 exports.AddFavoritedPodcast = AddFavoritedPodcast;
 function DeleteFavoritedPodcast(favoritedPodcastId) {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield (0, Database_1.DeleteFavoritedPodcast)(favoritedPodcastId);
+        yield (0, Database_1.DeleteFavoritedPodcastEpisodes)(favoritedPodcastId);
+        yield (0, Database_1.DeleteFavoritedPodcast)(favoritedPodcastId);
     });
 }
 exports.DeleteFavoritedPodcast = DeleteFavoritedPodcast;

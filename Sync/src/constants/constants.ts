@@ -27,7 +27,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "LINK TO WEBSITE"
+                  "text": "https://podcapsule.vercel.app"
                 }
               ]
             },
@@ -81,7 +81,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "LINK TO IMAGE"
+                      "text": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png"
                     }
                   ]
                 },
@@ -91,7 +91,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Title of your logo"
+                      "text": "PodCapsule Logo"
                     }
                   ]
                 },
@@ -101,7 +101,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "LINK TO WEBSITE"
+                      "text": "https://podcapsule.vercel.app"
                     }
                   ]
                 }
@@ -147,14 +147,14 @@ export const RSSFeedTemplate = {
               "type": "element",
               "name": "itunes:image",
               "attributes": {
-                "href": "LINKTOIMAGE"
+                "href": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png"
               }
             },
             {
               "type": "element",
               "name": "atom:link",
               "attributes": {
-                "href": "INSERT RSS LINK HERE",
+                "href": "",
                 "rel": "self",
                 "type": "application/rss+xml"
               }
@@ -164,7 +164,7 @@ export const RSSFeedTemplate = {
               "name": "atom:link",
               "attributes": {
                 "rel": "hub",
-                "href": "INSERT WEBSITE URL HERE"
+                "href": "https://podcapsule.vercel.app"
               }
             },
             {
@@ -260,7 +260,6 @@ var test = `<?xml version="1.0" encoding="utf-8"?>
   <channel>
   <link>LINK TO WEBSITE</link>
   <language>en-us</language>
-  <copyright>&#xA9;2023</copyright>
   <author>PodCapsule</author>
   <generator>PodCapsule</generator>
   <image>
@@ -286,15 +285,3 @@ var test = `<?xml version="1.0" encoding="utf-8"?>
   <lastBuildDate>Fri, 05 Oct 2018 09:00:00 GMT</lastBuildDate>
   </channel>
   </rss>`
-
-//   var item = `  
-//   <item>
-//   <title>Verbose title of the episode</title>
-//   <description>Verbose description of the episode.</description>
-//   <itunes:summary>Duplicate of above verbose description.</itunes:summary>
-//   <itunes:subtitle>Short description of the episode - 255 character max.</itunes:subtitle>
-//   <enclosure url="https://www.YourSite.com/FILE.EXT" type="audio/mpeg" length="1" />
-//   <guid>https://www.YourSite.com/FILE.EXT</guid>
-//   <itunes:duration>H:MM:SS</itunes:duration>
-//   <pubDate>Fri, 05 Oct 2018 09:00:00 GMT</pubDate>
-// </item>`;

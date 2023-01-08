@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetPodcast = exports.PodcastSearch = void 0;
+exports.GetRssFeed = exports.GetPodcast = exports.PodcastSearch = void 0;
 const axios = require('axios');
 function PodcastSearch(podcastName) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -85,3 +85,15 @@ function GetPodcast(Id) {
     });
 }
 exports.GetPodcast = GetPodcast;
+function GetRssFeed(rssUrl) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var config = {
+            method: 'get',
+            url: rssUrl,
+            headers: {}
+        };
+        let response = (yield axios(config)).data;
+        return response;
+    });
+}
+exports.GetRssFeed = GetRssFeed;

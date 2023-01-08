@@ -10,13 +10,17 @@ const Utilities_1 = require("./services/Utilities");
 const FavoritedPodcasts_1 = require("./services/FavoritedPodcasts");
 const PodcastSearch_1 = require("./services/PodcastSearch");
 const User_1 = require("./services/User");
+var path = require('path');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+var cors = require('cors');
 const app = (0, express_1.default)();
 const route = (0, express_2.Router)();
 const PORT = process.env.PORT || "8000";
 app.use(express_1.default.json());
+app.use(cors());
 app.use(route);
+app.use(express_1.default.static(path.join(__dirname, 'public')));
 app.listen(PORT, () => `Server running on port ${PORT}!`);
 var jwtCheck = (0, express_jwt_1.expressjwt)({
     secret: process.env.SUPABASE_JWT_SECRET,
@@ -26,7 +30,10 @@ var jwtCheck = (0, express_jwt_1.expressjwt)({
 route.get("/", (request, response) => {
     response.json({ message: "Ok" });
 });
-route.get("/api/podcast/search", jwtCheck, (request, response) => {
+route.get("/api/environment", (request, response) => {
+    response.json({ message: process.env.ENVIRONMENT });
+});
+route.post("/api/podcast/search", jwtCheck, (request, response) => {
     (0, PodcastSearch_1.PodcastSearch)(request.body.podcastName).then(result => {
         response.json(result).status(200);
     }).catch(error => {
@@ -42,7 +49,7 @@ route.get("/api/user", jwtCheck, (request, response) => {
         console.log(error);
     });
 });
-route.get("/user/favorited-podcasts", jwtCheck, (request, response) => {
+route.get("/api/user/favorited-podcasts", jwtCheck, (request, response) => {
     (0, FavoritedPodcasts_1.GetFavoritedPodcasts)((0, Utilities_1.getUserId)(request.headers.authorization)).then(result => {
         response.json(result).status(200);
     }).catch(error => {
@@ -77,5 +84,14 @@ route.post("/api/refresh-token", (request, response) => {
             response.sendStatus(500);
             console.log(error);
         }
+    });
+});
+route.get("/api/user/rss/:id", (request, response) => {
+    (0, User_1.GetUserRSSFeed)(request.params.id).then(result => {
+        response.header("Content-Type", "application/xml");
+        response.status(200).send(result);
+    }).catch(error => {
+        response.sendStatus(500);
+        console.log(error);
     });
 });
