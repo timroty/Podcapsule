@@ -10,7 +10,6 @@ const Utilities_1 = require("./services/Utilities");
 const FavoritedPodcasts_1 = require("./services/FavoritedPodcasts");
 const PodcastSearch_1 = require("./services/PodcastSearch");
 const User_1 = require("./services/User");
-var path = require('path');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 var cors = require('cors');
@@ -20,7 +19,6 @@ const PORT = process.env.PORT || "8000";
 app.use(express_1.default.json());
 app.use(cors());
 app.use(route);
-app.use(express_1.default.static(path.join(__dirname, 'public')));
 app.listen(PORT, () => `Server running on port ${PORT}!`);
 var jwtCheck = (0, express_jwt_1.expressjwt)({
     secret: process.env.SUPABASE_JWT_SECRET,

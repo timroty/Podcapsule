@@ -8,12 +8,34 @@ import {GetNextUser,
         RemoveUserRandomFavoritedPodcastEpisode,
         UpdateUserLastSyncDate} from './accessors/Database'
 
+import express from "express";
+import { Router, Request, Response } from "express";
+
 import dotenv from 'dotenv';
 dotenv.config(); 
 
-RunSync()
+var cors = require('cors')
+
+const app = express();
+const route = Router();
+const PORT = process.env.PORT || "9000";
+
+app.use(express.json());
+app.use(cors());
+app.use(route);
+
+app.listen(PORT, () => `Server running on port ${PORT}!`);
+
+let syncEntered = false;
+
+route.get("/", (request: Request, response: Response) => {
+    response.json({ message: "Sync Running: " + syncEntered });
+});
+
+RunSync();
 
 async function RunSync(): Promise<void> {
+  syncEntered = true;
   while(true){
       var cutoffDate = new Date();
       cutoffDate.setDate(cutoffDate.getDate() - parseInt(process.env.CUTOFF_DATE_SUBTRACTION!));

@@ -1,8 +1,9 @@
 {
-  "name": "PodCapsule",
+  "name": "PodCapsuleSync",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sync file for PodCapsule",
+  "main": "dist/server.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
@@ -26,8 +27,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express-jwt": "^7.7.5",
+    "express": "^4.18.2",
     "xml-js": "^1.6.11"
   }
 }
