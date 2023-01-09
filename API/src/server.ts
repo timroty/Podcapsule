@@ -36,6 +36,7 @@ route.get("/", (request: Request, response: Response) => {
 route.get("/api/environment", (request: Request, response: Response) => {
   response.json({ message: process.env.ENVIRONMENT });
 });
+
 route.post("/api/podcast/search", jwtCheck, (request: Request, response: Response) => {
   PodcastSearch(request.body.podcastName).then(result => {
       response.json(result).status(200);

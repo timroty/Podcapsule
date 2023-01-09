@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import { Auth, Card, Typography, Space, Button, Icon } from '@supabase/ui'
 import { supabase } from '../lib/initSupabase'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const fetcher = (url, token) =>
   fetch(url, {
@@ -18,6 +19,8 @@ const Index = () => {
     fetcher
   )
   const [authView, setAuthView] = useState('sign_in')
+
+  const router = useRouter();
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -69,6 +72,7 @@ const Index = () => {
         {authView === 'update_password' && (
           <Auth.UpdatePassword supabaseClient={supabase} />
         )}
+        
         {user && (
           <>
             <Typography.Text>You're signed in</Typography.Text>
@@ -113,6 +117,10 @@ const Index = () => {
         )}
       </Space>
     )
+  }
+
+  if (user){
+    router.push('/favorited-podcasts')
   }
 
   return (

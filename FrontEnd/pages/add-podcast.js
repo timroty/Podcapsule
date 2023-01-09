@@ -23,8 +23,8 @@ export default function FavoritedPodcasts({ user }) {
         const userAccessToken = supabase.auth.session().access_token;
         AddFavoritedPodcasts(userAccessToken, podcast.id).then(() => {
             setPodcastSearchText('');
+            setPodcastSearchResult([]);
         });
-       
     }
 
     const handlePodcastSearch = () => { 

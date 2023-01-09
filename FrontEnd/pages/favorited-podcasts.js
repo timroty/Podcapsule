@@ -11,8 +11,6 @@ import { useRouter } from 'next/router';
 
 export default function FavoritedPodcasts({ user }) {
 
-  const router = useRouter()
-
   let [favoritedPodcasts, setFavoritedPodcasts] = useState([]);
 
   useEffect(() => {
@@ -21,6 +19,8 @@ export default function FavoritedPodcasts({ user }) {
       setFavoritedPodcasts(result)
     })
   }, []);
+
+  const router = useRouter()
 
   const handleDelete = (index, podcast) => {
     const userAccessToken = supabase.auth.session().access_token;
@@ -31,8 +31,14 @@ export default function FavoritedPodcasts({ user }) {
 
   return (
     <div style={{ maxWidth: '500px', margin: '96px auto' }}>
+      <h3>
+        Your unquie RSS Feed
+      </h3>
+      <h4>
+        {process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/user/rss/{user.id}
+      </h4>
       <Button variant="outlined" startIcon={<AddCircleOutlineIcon />} onClick={() => router.push('/add-podcast')}>
-                  Add Podcast
+        Add Podcast
       </Button>
       {favoritedPodcasts.map((podcast, index) => {
         return (
