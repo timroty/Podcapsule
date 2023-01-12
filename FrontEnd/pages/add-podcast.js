@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { useRouter } from 'next/router';
+import ResponsiveAppBar from '../components/global/appbar';
 
 export default function FavoritedPodcasts({ user }) {
 
@@ -35,6 +36,8 @@ export default function FavoritedPodcasts({ user }) {
     }
 
   return (
+    <>
+    <ResponsiveAppBar></ResponsiveAppBar>
     <div style={{ maxWidth: '1000px', margin: '96px auto' }}>
         <Button variant="outlined" onClick={() => router.push('/favorited-podcasts')}>
             Favorited Podcasts
@@ -77,6 +80,7 @@ export default function FavoritedPodcasts({ user }) {
         );
       })}
     </div>
+    </>
   )
 }
 

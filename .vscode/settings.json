@@ -3,5 +3,7 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.showBuildDuringDeployPrompt": false
+    "appService.showBuildDuringDeployPrompt": false,
+    "appService.defaultWebAppToDeploy": "/subscriptions/dbb33276-cf54-4f7d-a638-0276d33ecc40/AppServices/subscriptions/dbb33276-cf54-4f7d-a638-0276d33ecc40/resourceGroups/PodCapsule/providers/Microsoft.Web/sites/PodCapsuleSync",
+    "appService.deploySubpath": "Sync"
 }
