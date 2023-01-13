@@ -119,10 +119,6 @@ const Index = () => {
     )
   }
 
-  if (user){
-    router.push('/favorited-podcasts')
-  }
-
   return (
     <div style={{ maxWidth: '420px', margin: '96px auto' }}>
       <Card>
