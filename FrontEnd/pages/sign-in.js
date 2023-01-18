@@ -5,22 +5,28 @@ import { supabase } from '../lib/initSupabase'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
-const fetcher = (url, token) =>
-  fetch(url, {
-    method: 'GET',
-    headers: new Headers({ 'Content-Type': 'application/json', token }),
-    credentials: 'same-origin',
-  }).then((res) => res.json())
+
 
 const Index = () => {
   const { user, session } = Auth.useUser()
+  const [authView, setAuthView] = useState('sign_in')
+  const router = useRouter();
+
+  const fetcher = (url, token) =>
+    fetch(url, {
+      method: 'GET',
+      headers: new Headers({ 'Content-Type': 'application/json', token }),
+      credentials: 'same-origin',
+    }).then((res) => {
+      const userAccessToken = supabase.auth.session()?.access_token;
+      if (userAccessToken){
+        {router.push('/favorited-podcasts')}
+      }})
+
   const { data, error } = useSWR(
     session ? ['/api/getUser', session.access_token] : null,
     fetcher
   )
-  const [authView, setAuthView] = useState('sign_in')
-
-  const router = useRouter();
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -45,76 +51,24 @@ const Index = () => {
   }, [])
 
   const View = () => {
-    if (!user)
-      return (
-        <Space direction="vertical" size={8}>
-          <div>
-            <img
-              src="https://app.supabase.io/img/supabase-dark.svg"
-              width="96"
-            />
-            <Typography.Title level={3}>
-              Welcome to Supabase Auth
-            </Typography.Title>
-          </div>
-          <Auth
-            supabaseClient={supabase}
-            providers={[]}
-            view={authView}
-            socialLayout="horizontal"
-            socialButtonSize="xlarge"
-          />
-        </Space>
-      )
-
     return (
-      <Space direction="vertical" size={6}>
-        {authView === 'update_password' && (
-          <Auth.UpdatePassword supabaseClient={supabase} />
-        )}
-        
-        {user && (
-          <>
-            <Typography.Text>You're signed in</Typography.Text>
-            <Typography.Text strong>Email: {user.email}</Typography.Text>
-
-            <Button
-              icon={<Icon type="LogOut" />}
-              type="outline"
-              onClick={() => supabase.auth.signOut()}
-            >
-              Log out
-            </Button>
-            {error && (
-              <Typography.Text danger>Failed to fetch user!</Typography.Text>
-            )}
-            {data && !error ? (
-              <>
-                <Typography.Text type="success">
-                  User data retrieved server-side (in API route):
-                </Typography.Text>
-
-                <Typography.Text>
-                  <pre>{JSON.stringify(data, null, 2)}</pre>
-                </Typography.Text>
-              </>
-            ) : (
-              <div>Loading...</div>
-            )}
-
-            <Typography.Text>
-              <Link href="/profile">
-                SSR example with getServerSideProps
-              </Link>
-            </Typography.Text>
-
-            <Typography.Text>
-              <Link href="/favorited-podcasts">
-                SSR example with getServerSideProps
-              </Link>
-            </Typography.Text>
-          </>
-        )}
+      <Space direction="vertical" size={8}>
+        <div>
+          <img
+            src="https://app.supabase.io/img/supabase-dark.svg"
+            width="96"
+          />
+          <Typography.Title level={3}>
+            Welcome to PodCapsule Auth by Supabase
+          </Typography.Title>
+        </div>
+        <Auth
+          supabaseClient={supabase}
+          providers={[]}
+          view={authView}
+          socialLayout="horizontal"
+          socialButtonSize="xlarge"
+        />
       </Space>
     )
   }

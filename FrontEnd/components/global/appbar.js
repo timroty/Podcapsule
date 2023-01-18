@@ -17,7 +17,7 @@ import { supabase } from '../../lib/initSupabase'
 import { useRouter } from 'next/router';
 
 
-const pages = ['Profile', 'Podcasts'];
+const pages = [];
 const pageRoutes = ['Profile', '/favorited-podcasts'];
 
 export default function ResponsiveAppBar() {
