@@ -9,7 +9,8 @@ import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useRouter } from 'next/router';
 import ResponsiveAppBar from '../components/global/appbar';
-import { Container, TextField, Snackbar, MuiAlert, Box } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+import { Container, TextField, Snackbar } from '@mui/material';
 import jwt_decode from "jwt-decode";
 const copy = require('clipboard-copy');
 

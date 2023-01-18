@@ -5,8 +5,6 @@ import { supabase } from '../lib/initSupabase'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
-
-
 const Index = () => {
   const { user, session } = Auth.useUser()
   const [authView, setAuthView] = useState('sign_in')
@@ -52,24 +50,32 @@ const Index = () => {
 
   const View = () => {
     return (
-      <Space direction="vertical" size={8}>
-        <div>
-          <img
-            src="https://app.supabase.io/img/supabase-dark.svg"
-            width="96"
-          />
-          <Typography.Title level={3}>
-            Welcome to PodCapsule Auth by Supabase
-          </Typography.Title>
-        </div>
-        <Auth
-          supabaseClient={supabase}
-          providers={[]}
-          view={authView}
-          socialLayout="horizontal"
-          socialButtonSize="xlarge"
-        />
-      </Space>
+      <>
+        {authView === 'update_password' ?
+          <Space direction="vertical" size={6}>
+            <Auth.UpdatePassword supabaseClient={supabase} />
+          </Space>
+        :
+          <Space direction="vertical" size={8}>
+            <div>
+              <img
+                src="https://app.supabase.io/img/supabase-dark.svg"
+                width="96"
+              />
+              <Typography.Title level={3}>
+                Welcome to PodCapsule Auth by Supabase
+              </Typography.Title>
+            </div>
+            <Auth
+              supabaseClient={supabase}
+              providers={[]}
+              view={authView}
+              socialLayout="horizontal"
+              socialButtonSize="xlarge"
+            />
+          </Space>
+        }
+      </>
     )
   }
 
