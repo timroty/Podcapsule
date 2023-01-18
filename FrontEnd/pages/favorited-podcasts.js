@@ -4,21 +4,14 @@ import { supabase } from '../lib/initSupabase'
 import { GetFavoritedPodcasts, DeleteFavoritedPodcasts } from '../services/accessor'
 import { useState, useEffect } from "react";
 import { Grid, Typography } from '@mui/material';
-import { format } from 'date-fns'
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useRouter } from 'next/router';
 import ResponsiveAppBar from '../components/global/appbar';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
+import { Container, TextField, Snackbar, MuiAlert, Box } from '@mui/material';
 import jwt_decode from "jwt-decode";
 const copy = require('clipboard-copy');
-
 
 export default function FavoritedPodcasts({ user }) {
 
@@ -115,32 +108,30 @@ export default function FavoritedPodcasts({ user }) {
           {favoritedPodcasts.map((podcast, index) => {
             return (
               <>
-              {index != 0 ? <hr></hr> : <div/>}
-                  <Box alignItems='center'>
-                    <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
-                      <Grid item md={2} sm={3} xs={5}>
-                        <img src={podcast.ImageUrl} width='120px' style={{ borderRadius:'5px' }}/>
-                      </Grid>
-                      <Grid item md={8} sm={6} xs={6} align="left">
-                        <Typography variant='subtitle1' style={{ marginTop:'20px' }}>
-                          {podcast.Title}
-                        </Typography>
-                        <Typography variant='subtitle1'>
-                          Date Added: {format(Date.parse(podcast.CreateDate), 'mm/dd/yyyy')}
-                        </Typography>
-                      </Grid>
-                      <Grid item md={2} sm={2} xs={6} style={{ display: "flex", alignItems:"center" }}>
-                        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => handleDelete(index, podcast)}>
-                          Delete
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Box>
+                {index != 0 ? <hr></hr> : <div/>}
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
+                  <Grid item md={2} sm={3} xs={5}>
+                    <img src={podcast.ImageUrl} width='120px' style={{ borderRadius:'5px' }}/>
+                  </Grid>
+                  <Grid item md={8} sm={6} xs={6} align="left">
+                    <Typography variant='subtitle1' style={{ marginTop:'20px' }}>
+                      {podcast.Title}
+                    </Typography>
+                    <Typography variant='subtitle2'>
+                      Date Added: {(new Date(podcast.CreateDate)).toDateString()}
+                    </Typography>
+                  </Grid>
+                  <Grid item md={2} sm={2} xs={6} style={{ display: "flex", alignItems:"center" }}>
+                    <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => handleDelete(index, podcast)}>
+                      Delete
+                    </Button>
+                  </Grid>
+                </Grid>
               </>
             );
           })}
-          </Container>
-      </>
+      </Container>
+    </>
   )
 }
 

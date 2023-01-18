@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import { supabase } from '../lib/initSupabase'
 import { SearchPodcasts, AddFavoritedPodcasts } from '../services/accessor'
-import TextField from '@mui/material/TextField';
-import { Grid } from '@mui/material';
 import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
+import { Container, TextField, Snackbar, MuiAlert, Box, Grid, Typography } from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useRouter } from 'next/router';
 import ResponsiveAppBar from '../components/global/appbar';
 
@@ -17,69 +16,100 @@ export default function FavoritedPodcasts({ user }) {
     let [podcastSearchResult, setPodcastSearchResult] = useState([]);
 
     const handlePodcastSearchTextChange = (e) => { 
-        setPodcastSearchText(e.target.value);
+      setPodcastSearchText(e.target.value);
     }
 
     const handlePodcastAdd = (podcast) => { 
-        const userAccessToken = supabase.auth.session().access_token;
-        AddFavoritedPodcasts(userAccessToken, podcast.id).then(() => {
-            setPodcastSearchText('');
-            setPodcastSearchResult([]);
-        });
+      const userAccessToken = supabase.auth.session().access_token;
+      AddFavoritedPodcasts(userAccessToken, podcast.id).then(() => {
+          setPodcastSearchText('');
+          setPodcastSearchResult([]);
+      });
     }
 
     const handlePodcastSearch = () => { 
-        const userAccessToken = supabase.auth.session().access_token;
-        SearchPodcasts(userAccessToken, podcastSearchText).then((result) => {
-            setPodcastSearchResult(result);
-          });
+      const userAccessToken = supabase.auth.session().access_token;
+      SearchPodcasts(userAccessToken, podcastSearchText).then((result) => {
+          setPodcastSearchResult(result);
+        });
+    }
+
+    const truncateText = (text) => { 
+      if (text.length > 180) 
+        return text.substring(0, 150) + '...';
+      return text;
     }
 
   return (
     <>
-    <ResponsiveAppBar></ResponsiveAppBar>
-    <div style={{ maxWidth: '1000px', margin: '96px auto' }}>
+      <ResponsiveAppBar></ResponsiveAppBar>
+      <Container maxWidth="md">
+        <Typography variant='h1' fontSize='24px' fontWeight='medium' 
+          style={{ marginTop:'20px', marginBottom:'20px' }}>
+          Podcast Search
+        </Typography>
         <Button variant="outlined" onClick={() => router.push('/favorited-podcasts')}>
-            Favorited Podcasts
+          Favorited Podcasts
         </Button>
-
-    <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
-        <Grid item xs={8}>
-            <TextField value={podcastSearchText} onChange={ (e) => handlePodcastSearchTextChange(e)} />
-        </Grid>
-        <Grid item xs={4}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}
+          style={{ marginTop:'20px', marginBottom:'20px' }}>
+          <Grid item sm={10} xs={9} style={{ display: "flex", alignItems:"center" }}>
+            <TextField value={podcastSearchText} label="Search"
+              onChange={ (e) => handlePodcastSearchTextChange(e)} />
+          </Grid>
+          <Grid item sm={2} xs={3} style={{ display: "flex", alignItems:"center" }}>
             <Button variant="outlined" onClick={handlePodcastSearch}>
                 Search
             </Button>
+          </Grid>
         </Grid>
-    </Grid>
-    {podcastSearchResult.map((podcast, index) => {
-        return (
-          <>
-            {index != 0 ? <hr/> : <div></div>}
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
-              <Grid item xs={2}>
-                <img src={podcast.imageUrl} height='120px'/>
-              </Grid>
-              <Grid item xs={6}>
-                <p>{podcast.title}</p>
-                <p>{podcast.description}</p>
-              </Grid>
-              <Grid item xs={2}>
-                <p>Number of Episodes: {podcast.numberOfEpisodes}</p>
-                <p>Rating Average {podcast.ratingAverage}</p>
-                <p>Rating Count {podcast.ratingCount}</p>
-              </Grid>
-              <Grid item xs={2}>
-                <Button variant="outlined" onClick={() => handlePodcastAdd(podcast)}>
-                  Add
-                </Button>
-              </Grid>
-            </Grid>
-          </>
-        );
-      })}
-    </div>
+        {podcastSearchResult.map((podcast, index) => {
+            return (
+              <>
+                {index != 0 ? <hr></hr> : <div/>}
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
+                  <Grid item md={2} sm={3} xs={5} style={{ display: "flex", alignItems:"center" }}>
+                    <img src={podcast.imageUrl} width='120px' style={{ borderRadius:'5px' }}/>
+                  </Grid>
+                  <Grid item md={8} sm={7} xs={6}>
+                    <Typography variant='subtitle1' style={{ marginTop:'20px' }}>
+                      {podcast.title}
+                    </Typography>
+                    <Typography variant='subtitle2' style={{ marginTop:'5px', maxWidth:'95%' }}>
+                      {truncateText(podcast.description)}
+                    </Typography>
+                  </Grid>
+                  <Grid item md={2} sm={2} xs={5} style={{ display: "flex", alignItems:"center" }}>
+                    <Button variant="outlined"
+                          onClick={() => handlePodcastAdd(podcast)}
+                          startIcon={<AddCircleOutlineIcon />} >
+                        Add
+                    </Button>
+                  </Grid>
+                  <Grid container rowSpacing={1} columnSpacing={{ xs: 4, sm: 0, md: 0 }}
+                          style={{ marginTop:'5px'}}>
+                    <Grid item md={2} sm={3} xs={5}> </Grid>
+                    <Grid item sm={2} xs={2} style={{ marginRight:'10px'}}>
+                      <Typography variant='subtitle2'>
+                        Episodes: {podcast.numberOfEpisodes}
+                      </Typography>
+                    </Grid>
+                    <Grid item sm={2} xs={2}>
+                      <Typography variant='subtitle2'>
+                        Rating: {podcast.ratingAverage ? Math.round(podcast.ratingAverage * 10) / 10 : 'N/A'}
+                      </Typography>
+                    </Grid>
+                    <Grid item sm={2} xs={2}>
+                      <Typography variant='subtitle2'>
+                        Rating count: {podcast.ratingCount}
+                      </Typography>
+                    </Grid>
+                    </Grid>
+                </Grid>
+              </>
+            );
+          })}
+      </Container>
     </>
   )
 }

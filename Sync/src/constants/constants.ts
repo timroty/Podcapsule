@@ -91,7 +91,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "PodCapsule Logo"
+                      "text": "PodCapsule"
                     }
                   ]
                 },
@@ -117,7 +117,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Your Name"
+                      "text": "PodCapsule"
                     }
                   ]
                 },
