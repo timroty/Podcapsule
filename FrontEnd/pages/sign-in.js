@@ -62,8 +62,8 @@ const Index = () => {
                 src="https://app.supabase.io/img/supabase-dark.svg"
                 width="96"
               />
-              <Typography.Title level={3}>
-                Welcome to PodCapsule Auth by Supabase
+              <Typography.Title level={3} style={{ fontFamily:'"Roboto","Helvetica","Arial",sans-serif' }}>
+                PodCapsule Authentication by Supabase
               </Typography.Title>
             </div>
             <Auth
@@ -72,8 +72,9 @@ const Index = () => {
               view={authView}
               socialLayout="horizontal"
               socialButtonSize="xlarge"
+              style={{ fontFamily:'"Roboto","Helvetica","Arial",sans-serif' }}
             />
-            <Typography.Text level={3}>
+            <Typography.Text level={3} style={{ fontFamily:'"Roboto","Helvetica","Arial",sans-serif', textAlign:'center' }}>
               Please note that emails from PodCapsule may sometimes be flagged as spam by your email provider.
             </Typography.Text>
           </Space>

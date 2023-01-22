@@ -108,7 +108,7 @@ export default function FavoritedPodcasts({ user }) {
           </Button>
           {favoritedPodcasts.map((podcast, index) => {
             return (
-              <>
+              <div key={index}>
                 {index != 0 ? <hr></hr> : <div/>}
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
                   <Grid item md={2} sm={3} xs={5}>
@@ -128,7 +128,7 @@ export default function FavoritedPodcasts({ user }) {
                     </Button>
                   </Grid>
                 </Grid>
-              </>
+              </div>
             );
           })}
       </Container>

@@ -34,8 +34,6 @@ export async function GetFavoritedPodcasts(authroizationToken) {
 }
 
 export async function AddFavoritedPodcasts(authroizationToken, podcastId) {
-  console.log(podcastId)
-
   let config = {
     method: 'post',
     url: process.env.NEXT_PUBLIC_BACKEND_BASE_URL + '/api/user/favorited-podcasts/add',

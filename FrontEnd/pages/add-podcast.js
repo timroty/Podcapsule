@@ -1,12 +1,14 @@
+import * as React from 'react';
 import Link from 'next/link'
 import { supabase } from '../lib/initSupabase'
 import { SearchPodcasts, AddFavoritedPodcasts } from '../services/accessor'
 import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
-import { Container, TextField, Snackbar, MuiAlert, Box, Grid, Typography } from '@mui/material';
+import { Container, TextField, Snackbar, Box, Grid, Typography } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useRouter } from 'next/router';
 import ResponsiveAppBar from '../components/global/appbar';
+import MuiAlert from '@mui/material/Alert';
 
 export default function FavoritedPodcasts({ user }) {
 
@@ -14,6 +16,8 @@ export default function FavoritedPodcasts({ user }) {
 
     let [podcastSearchText, setPodcastSearchText] = useState('');
     let [podcastSearchResult, setPodcastSearchResult] = useState([]);
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
 
     const handlePodcastSearchTextChange = (e) => { 
       setPodcastSearchText(e.target.value);
@@ -24,6 +28,8 @@ export default function FavoritedPodcasts({ user }) {
       AddFavoritedPodcasts(userAccessToken, podcast.id).then(() => {
           setPodcastSearchText('');
           setPodcastSearchResult([]);
+      }).then((res) => {
+        handleAddClick();
       });
     }
 
@@ -39,6 +45,21 @@ export default function FavoritedPodcasts({ user }) {
         return text.substring(0, 150) + '...';
       return text;
     }
+
+    const handleAddClick = () => {
+      setSnackbarOpen(true);
+    };
+  
+    const handleAddClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setSnackbarOpen(false);
+    };
+
+    const Alert = React.forwardRef(function Alert(props, ref) {
+      return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
 
   return (
     <>
@@ -63,9 +84,14 @@ export default function FavoritedPodcasts({ user }) {
             </Button>
           </Grid>
         </Grid>
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleAddClose}>
+          <Alert onClose={handleAddClose} severity="success" sx={{ width: '100%' }}>
+            Podcast Added!
+          </Alert>
+        </Snackbar>
         {podcastSearchResult.map((podcast, index) => {
             return (
-              <>
+              <div key={index}>
                 {index != 0 ? <hr></hr> : <div/>}
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
                   <Grid item md={2} sm={3} xs={5} style={{ display: "flex", alignItems:"center" }}>
@@ -107,7 +133,7 @@ export default function FavoritedPodcasts({ user }) {
                     </Grid>
                     </Grid>
                 </Grid>
-              </>
+              </div>
             );
           })}
       </Container>
