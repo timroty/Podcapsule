@@ -59,6 +59,23 @@ export async function GetUserRandomFavoritedPodcastEpisode(favoritedPodcastId:nu
     return result;
 }
 
+export async function GetPodcastTitle(favoritedPodcastId:number): Promise<string> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { data, error } = await supabase
+        .from('FavoritedPodcast')
+        .select('Title')
+        .eq('Id', favoritedPodcastId)
+        .single();
+
+    let result:string = data.Title;
+
+    return result;
+}
+
 export async function UpdateUserRandomFavoritedPodcastEpisodeExist(existsEpisodes:boolean, FavoritedPodcastId:number): Promise<void> {
     const supabase = createClient(
         process.env.SUPABASE_PROJECT_URL,

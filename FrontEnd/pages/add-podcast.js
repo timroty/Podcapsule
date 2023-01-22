@@ -48,7 +48,7 @@ export default function FavoritedPodcasts({ user }) {
           style={{ marginTop:'20px', marginBottom:'20px' }}>
           Podcast Search
         </Typography>
-        <Button variant="outlined" onClick={() => router.push('/favorited-podcasts')}>
+        <Button variant="outlined" style={{color: '#01357b', borderColor: '#01357b'}} onClick={() => router.push('/favorited-podcasts')}>
           Favorited Podcasts
         </Button>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}
@@ -58,7 +58,7 @@ export default function FavoritedPodcasts({ user }) {
               onChange={ (e) => handlePodcastSearchTextChange(e)} />
           </Grid>
           <Grid item sm={2} xs={3} style={{ display: "flex", alignItems:"center" }}>
-            <Button variant="outlined" onClick={handlePodcastSearch}>
+            <Button variant="outlined" style={{color: '#01357b', borderColor: '#01357b'}} onClick={handlePodcastSearch}>
                 Search
             </Button>
           </Grid>
@@ -82,6 +82,7 @@ export default function FavoritedPodcasts({ user }) {
                   <Grid item md={2} sm={2} xs={5} style={{ display: "flex", alignItems:"center" }}>
                     <Button variant="outlined"
                           onClick={() => handlePodcastAdd(podcast)}
+                          style={{color: '#01357b', borderColor: '#01357b'}}
                           startIcon={<AddCircleOutlineIcon />} >
                         Add
                     </Button>

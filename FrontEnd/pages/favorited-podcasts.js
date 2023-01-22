@@ -84,7 +84,7 @@ export default function FavoritedPodcasts({ user }) {
           <Grid item xs={4} align="left">
             <Button
               variant="contained"
-              color="primary"
+              style={{ background: '#01357b' }}
               onClick={() => {
                 copy(rssFeedUrl);
                 handleCopyClick();
@@ -102,7 +102,7 @@ export default function FavoritedPodcasts({ user }) {
           <Button variant="outlined" 
                   startIcon={<AddCircleOutlineIcon />} 
                   onClick={() => router.push('/add-podcast')}
-                  style= {{ marginBottom: '15px', marginTop: '15px'}}
+                  style= {{ marginBottom: '15px', marginTop: '15px', color: '#01357b', borderColor: '#01357b'}}
                   disabled={favoritedPodcasts.length >= 5}>
             Add Podcast
           </Button>
@@ -123,7 +123,7 @@ export default function FavoritedPodcasts({ user }) {
                     </Typography>
                   </Grid>
                   <Grid item md={2} sm={2} xs={6} style={{ display: "flex", alignItems:"center" }}>
-                    <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => handleDelete(index, podcast)}>
+                    <Button variant="outlined" style={{ color: '#01357b' }} startIcon={<DeleteIcon />} onClick={() => handleDelete(index, podcast)}>
                       Delete
                     </Button>
                   </Grid>

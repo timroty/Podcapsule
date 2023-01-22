@@ -127,7 +127,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "your@email.com"
+                      "text": "podcapsuleapp@gmail.com"
                     }
                   ]
                 }
@@ -268,8 +268,8 @@ var test = `<?xml version="1.0" encoding="utf-8"?>
      <link>LINK TO WEBSITE</link>
   </image>
   <itunes:owner>
-     <itunes:name>Your Name</itunes:name>
-     <itunes:email>your@email.com</itunes:email>
+     <itunes:name>PodCapsule</itunes:name>
+     <itunes:email>podcapsuleapp@gmail.com</itunes:email>
   </itunes:owner>
   <itunes:explicit>no</itunes:explicit>
   <itunes:image href="LINKTOIMAGE"/>

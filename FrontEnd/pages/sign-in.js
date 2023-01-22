@@ -73,6 +73,9 @@ const Index = () => {
               socialLayout="horizontal"
               socialButtonSize="xlarge"
             />
+            <Typography.Text level={3}>
+              Please note that emails from PodCapsule may sometimes be flagged as spam by your email provider.
+            </Typography.Text>
           </Space>
         }
       </>

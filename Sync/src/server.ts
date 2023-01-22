@@ -6,7 +6,8 @@ import {GetNextUser,
         UpdateUserRandomFavoritedPodcastEpisodeExist,
         UpdateUserRSSFeed,
         RemoveUserRandomFavoritedPodcastEpisode,
-        UpdateUserLastSyncDate} from './accessors/Database'
+        UpdateUserLastSyncDate,
+        GetPodcastTitle} from './accessors/Database'
 
 import express from "express";
 import { Router, Request, Response } from "express";
@@ -61,13 +62,15 @@ async function RunSync(): Promise<void> {
         continue;
       }
 
+      let podcastTitle = await GetPodcastTitle(favoritedPodcastId);
+
       let firstTimeFeed = false;
-      if (!user.rssFeed){
-        user.rssFeed = JSON.stringify(RSSFeedTemplate);
+      if (!user.RSSFeedJSON){
+        user.RSSFeedJSON = JSON.stringify(RSSFeedTemplate);
         firstTimeFeed = true;
       }
 
-      let userRSSFeedJson = JSON.parse(user.rssFeed);
+      let userRSSFeedJson = JSON.parse(user.RSSFeedJSON);
       let favoritedPodcastEpisodeJson = JSON.parse(favoritedPodcastEpisode.EpisodeRSSJson);
 
       if (firstTimeFeed){
@@ -83,6 +86,9 @@ async function RunSync(): Promise<void> {
       favoritedPodcastEpisodeJson.elements.forEach((element:any) => {
         if (element.name == 'pubDate'){
           element.elements[0].text = updatedDate;
+        }
+        if (element.name == 'title' || element.name =='itunes:title'){
+          element.elements[0].text = podcastTitle + ' - ' + element.elements[0].text;
         }
       })
 
