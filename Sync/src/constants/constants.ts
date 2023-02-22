@@ -246,6 +246,171 @@ export const RSSFeedTemplate = {
                   "text": "Fri, 05 Oct 2018 09:00:00 GMT"
                 }
               ]
+            },
+            {
+              "type": "element",
+              "name": "item",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "guid",
+                  "attributes": {
+                    "isPermaLink": "false"
+                  },
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "140dabd0-9cb9-42ef-936b-9f60a847da29"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "title",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Welcome to PodCapsule!"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "description",
+                  "elements": [
+                    {
+                      "type": "cdata",
+                      "cdata": "<p>Welcome to PodCapsule!</p>\n"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "pubDate",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Fri, 05 Oct 2018 09:00:00 GMT"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "author",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "podcapsuleapp@gmail.com"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "link",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "https://podcapsule.vercel.app/"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "content:encoded",
+                  "elements": [
+                    {
+                      "type": "cdata",
+                      "cdata": "<p>Welcome to PodCapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed. </p>\n"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "enclosure",
+                  "attributes": {
+                    "length": "369060",
+                    "type": "audio/mpeg",
+                    "url": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/podcapsule.mp3"
+                  }
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:title",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Welcome to PodCapsule!"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:author",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "PodCapsule"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:image",
+                  "attributes": {
+                    "href": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png"
+                  }
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:duration",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "00:00:12"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:summary",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Welcome to PodCapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed."
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:subtitle",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "Welcome to PodCapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed."
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:explicit",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "no"
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "itunes:episodeType",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "trailer"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
