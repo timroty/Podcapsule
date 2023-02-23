@@ -5,11 +5,6 @@ import { useState, useEffect } from "react";
 
 export default function Profile({ user }) {
 
-  useEffect(() => {
-    //console.log(supabase.auth.user() )
-    //console.log(supabase.auth.session().access_token)
-  });
-
   return (
     <div style={{ maxWidth: '420px', margin: '96px auto' }}>
       <Card>
@@ -18,10 +13,6 @@ export default function Profile({ user }) {
           <Typography.Text strong>Email: {user.email}</Typography.Text>
           <Typography.Text type="success">
             User data retrieved server-side (from Cookie in getServerSideProps):
-          </Typography.Text>
-
-          <Typography.Text>
-            <pre>{JSON.stringify(user, null, 2)}</pre>
           </Typography.Text>
 
           <Typography.Text>

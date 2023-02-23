@@ -20,6 +20,24 @@ export async function GetUser(Id:string): Promise<User> {
     return result;
 }
 
+export async function IsUserRssNull(Id:string): Promise<boolean> {
+    const supabase = createClient(
+        process.env.SUPABASE_PROJECT_URL,
+        process.env.SUPABASE_PROJECT_SECRET
+    );
+
+    const { data, error } = await supabase
+        .from('User')
+        .select('Id')
+        .single()
+        .is('RSSFeedJSON', null)
+        .eq('Id', Id);
+
+    let result:string = data;
+
+    return Boolean(result);
+}
+
 // Favorited Podcasts
 export async function GetFavoritedPodcasts(Id:string): Promise<FavoritedPodcast[]> {
     const supabase = createClient(

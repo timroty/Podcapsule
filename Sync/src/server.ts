@@ -35,7 +35,7 @@ route.get("/", (request: Request, response: Response) => {
     response.json({ message: "Sync Running: " + syncEntered });
 });
 
-route.post("/user", (request: Request, response: Response) => {
+route.post("/api/sync", (request: Request, response: Response) => {
   SyncUser(request.body.userId).then(result => {
       response.json(result).status(200);
     }).catch(error => {
