@@ -406,7 +406,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "trailer"
+                      "text": "full"
                     }
                   ]
                 }
