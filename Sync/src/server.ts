@@ -60,7 +60,7 @@ async function RunSync(): Promise<void> {
         continue;
       }
 
-      AddPodcastToFeed(user);
+      await AddPodcastToFeed(user);
   }
 }
 
@@ -70,7 +70,7 @@ async function SyncUser(userId:string): Promise<boolean>{
   if (!user)
     return false;
 
-  AddPodcastToFeed(user);
+  await AddPodcastToFeed(user);
   return true;
 }
 
@@ -92,6 +92,7 @@ async function AddPodcastToFeed(user:User): Promise<void> {
   let podcastTitle = await GetPodcastTitle(favoritedPodcastId);
 
   let firstTimeFeed = false;
+
   if (!user.RSSFeedJSON){
     user.RSSFeedJSON = JSON.stringify(RSSFeedTemplate);
     firstTimeFeed = true;
