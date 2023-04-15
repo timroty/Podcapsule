@@ -64,41 +64,48 @@ export default function FavoritedPodcasts({ user }) {
         <Typography variant='h1' fontSize='24px' fontWeight='medium' style={{ marginTop:'20px' }}>
           Favorited Podcasts
         </Typography>
-        <Typography variant='subtitle1' style={{ marginTop:'20px' }}>
-          RSS Feed Url
-        </Typography>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} justify="center">
-          <Grid item xs={8} align="center">
-            <TextField
-              hiddenLabel
-              fullWidth
-              id="standard-read-only-input"
-              defaultValue = {rssFeedUrl}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="filled"
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={4} align="left">
-            <Button
-              variant="contained"
-              style={{ background: '#01357b' }}
-              onClick={() => {
-                copy(rssFeedUrl);
-                handleCopyClick();
-              }}
-              >
-              Copy
-            </Button>
-          </Grid>
-        </Grid>
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCopyClose}>
-          <Alert onClose={handleCopyClose} severity="success" sx={{ width: '100%' }}>
-            Copied!
-          </Alert>
-        </Snackbar>
+        {favoritedPodcasts.length > 0 ? (
+          <>
+            <Typography variant='subtitle1' style={{ marginTop:'20px' }}>
+              RSS Feed Url
+            </Typography>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} justify="center">
+              <Grid item xs={8} align="center">
+                <TextField
+                  hiddenLabel
+                  fullWidth
+                  id="standard-read-only-input"
+                  defaultValue = {rssFeedUrl}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  variant="filled"
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={4} align="left">
+                  <Button
+                    variant="contained"
+                    style={{ background: '#01357b' }}
+                    onClick={() => {
+                      copy(rssFeedUrl);
+                      handleCopyClick();
+                    }}
+                    >
+                    Copy
+                  </Button> 
+              </Grid>
+            </Grid>
+            <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCopyClose}>
+              <Alert onClose={handleCopyClose} severity="success" sx={{ width: '100%' }}>
+                Copied!
+              </Alert>
+            </Snackbar>
+          </>
+          ) : ( 
+          <>
+          </>
+          )}
           <Button variant="outlined" 
                   startIcon={<AddCircleOutlineIcon />} 
                   onClick={() => router.push('/add-podcast')}
@@ -140,6 +147,7 @@ export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
   if (!user) {
+    supabase.auth.signOut();
     // If no user, redirect to index.
     return { props: {}, redirect: { destination: '/', permanent: false } }
   }

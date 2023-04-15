@@ -43,28 +43,52 @@ const Index = () => {
       }
     )
 
+    // Ugly, but the Supabase auth view not allowing override
+    const mainEl = document.querySelector('main');
+    if (mainEl)
+      mainEl.classList.remove('dark');
+
     return () => {
       authListener.unsubscribe()
     }
   }, [])
 
   const View = () => {
+    const cardStyle = {
+      maxWidth: '420px',
+      margin: '96px auto',
+      padding: '24px',
+      backgroundColor: '#FFFFFF',
+      borderRadius: '10px',
+      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
+    };
+
+    const imgStyle = {
+      width: '112px',
+    };
+  
+    const textContainerStyle = {
+      textAlign: 'center',
+      margin: '0 auto',
+    };
+  
+    const textStyle = {
+      fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+      fontSize: '14px',
+      color: 'rgba(75,85,99,0.80)',
+      textAlign: 'center',
+    };
+  
     return (
       <>
-        {authView === 'update_password' ?
-          <Space direction="vertical" size={6}>
+        {authView === 'update_password' ? (
+          <div style={cardStyle}>
             <Auth.UpdatePassword supabaseClient={supabase} />
-          </Space>
-        :
-          <Space direction="vertical" size={8}>
-            <div>
-              <img
-                src="https://app.supabase.io/img/supabase-dark.svg"
-                width="96"
-              />
-              <Typography.Title level={3} style={{ fontFamily:'"Roboto","Helvetica","Arial",sans-serif' }}>
-                PodCapsule Authentication by Supabase
-              </Typography.Title>
+          </div>
+        ) : (
+          <div style={cardStyle}>
+            <div style={textContainerStyle}>
+              <img src="https://app.supabase.io/img/supabase-light.svg" style={imgStyle} />
             </div>
             <Auth
               supabaseClient={supabase}
@@ -74,22 +98,16 @@ const Index = () => {
               socialButtonSize="xlarge"
               style={{ fontFamily:'"Roboto","Helvetica","Arial",sans-serif' }}
             />
-            <Typography.Text level={3} style={{ fontFamily:'"Roboto","Helvetica","Arial",sans-serif', textAlign:'center' }}>
-              Please note that emails from PodCapsule may sometimes be flagged as spam by your email provider.
-            </Typography.Text>
-          </Space>
-        }
+            <p style={textStyle}>
+              Please note that emails from PodCapsule may occasionally be flagged as spam by your email provider.
+            </p>
+          </div>
+        )}
       </>
-    )
-  }
-
-  return (
-    <div style={{ maxWidth: '420px', margin: '96px auto' }}>
-      <Card>
-        <View />
-      </Card>
-    </div>
-  )
+    );
+  };
+  
+  return <div>{<View />}</div>;
 }
 
 export default Index

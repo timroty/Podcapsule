@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Link from 'next/link'
 import { supabase } from '../lib/initSupabase'
 import { SearchPodcasts, AddFavoritedPodcasts } from '../services/accessor'
 import { useState, useEffect } from "react";
@@ -10,7 +9,7 @@ import { useRouter } from 'next/router';
 import ResponsiveAppBar from '../components/global/appbar';
 import MuiAlert from '@mui/material/Alert';
 
-export default function FavoritedPodcasts({ user }) {
+export default function AddPodcasts({ user }) {
 
     const router = useRouter()
 
@@ -145,6 +144,7 @@ export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
   if (!user) {
+    supabase.auth.signOut();
     // If no user, redirect to index.
     return { props: {}, redirect: { destination: '/', permanent: false } }
   }

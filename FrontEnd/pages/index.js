@@ -6,14 +6,18 @@ import { Grid, Typography } from '@mui/material';
 const Home = () => {
   return (
     <>
-      <Container maxWidth="md"  style={{ textAlign: "center"}}>
+      <Container maxWidth="md" style={{ textAlign: "center"}}>
         <Grid container rowSpacing={1} 
-                        style={{ textAlign: "center", 
+              style={{ textAlign: "center", 
                         display: "flex", 
                         alignItems:"center", 
                         marginTop:'20px',
-                        marginBottom:'20px'}} 
-                        columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
+                        marginBottom:'20px',
+                        backgroundColor: '#f7f7f7',
+                        padding: '50px 20px',
+                        borderRadius: '10px'
+                        }} 
+              columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
             <Grid item md={4} sm={6} xs={12} style={{ textAlign: "center", display: "flex", alignItems:"center", display:'block'}}>
               <img src='https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png' 
                   width='250px' 
@@ -29,47 +33,47 @@ const Home = () => {
             </Grid>
         </Grid>
         <Link href="/sign-in">
-          <Button variant="outlined" style={{color: '#01357b', borderColor: '#01357b'}}>
+          <Button variant="outlined" style={{color: '#fff', backgroundColor: '#01357b', borderRadius: '50px', padding: '10px 30px', marginTop: '40px'}}>
               Sign In
           </Button>
         </Link>
         <div style={{ marginTop:'100px', textAlign:"left" }}>
-          <Typography variant='h5' style={{ marginTop:'5px', color: '#01357b' }}>
+          <Typography variant='h5' style={{ marginTop:'5px', color: '#01357b', fontWeight: 'bold' }}>
             What Is PodCapsule?
           </Typography>
           <Typography variant='body1' style={{ marginTop:'5px', color: '#01357b' }}>
-           PodCapsule allows you to discover episodes from your favorite podcasts that you may have missed!
-           Each day, PodCapsule adds a new episode from one of your favorited podcasts onto a custom RSS feed. 
-           Now, you'll have the oppurtunity to queue and listen to episodes that were posted prior to when you
-           started listening to a show or listen again to great episodes.
+             Discover new episodes from your favorite podcasts with PodCapsule! Each day, PodCapsule adds a new episode from one of your favorited podcasts to a custom RSS feed. Catch up on episodes you missed or revisit the best ones from the past. Let PodCapsule make sure you never fall behind!
           </Typography>
         </div>
         <div style={{ marginTop:'40px', textAlign:"left" }}>
-          <Typography variant='h5' style={{ marginTop:'5px', color: '#01357b' }}>
+          <Typography variant='h5' style={{ marginTop:'5px', color: '#01357b', fontWeight: 'bold' }}>
             Getting Started
           </Typography>
           <Typography variant='body1' style={{ marginTop:'5px', color: '#01357b' }}>
-           To start using PodCapsule, first create an account. Note, emails from PodCapsule
-           may be flagged as spam by your email provider. 
+            To start using PodCapsule:
           </Typography>
           <Typography variant='body1' style={{marginTop:'5px', color: '#01357b' }}>
-           Next, favorite a couple podcasts you enjoy listening to. Your PodCapsule feed won't
-           be populated until you favorite at least one podcast.
+            1. Sign up for a free account on the sign in page.
           </Typography>
           <Typography variant='body1' style={{marginTop:'5px', color: '#01357b' }}>
-           Finally, copy the RSS link for your PodCapsule feed and add it to your podcast player
-           of choice.  ㅤ
-           <a target="_blank" href="https://medium.com/@joshmuccio/how-to-manually-add-a-rss-feed-to-your-podcast-app-on-desktop-ios-android-478d197a3770">This Medium article </a> 
-           explains the process of adding shows by an RSS feed URL on different popular podcast players. 
-           Unfortunately, Spotify does not support adding shows by URLs meaning PodCapsule is incompatible to be used on Spotify.
+            2. Favorite a couple podcasts by searching and clicking on the add button next to their name.
           </Typography>
           <Typography variant='body1' style={{marginTop:'5px', color: '#01357b' }}>
-           Now wait! Each day you'll have a new PodCapsule episode reccomended on your player without you having to do a thing!
-           Whenever you are looking to change it up, log back into podcapsule and update your favorited podcasts.
+            3. After favoriting your podcasts, copy your custom RSS link for your PodCapsule feed. 
+          </Typography>
+          <Typography variant='body1' style={{marginTop:'5px', color: '#01357b' }}>
+            4. Open your favorite podcast player and find the option to add a new podcast by RSS feed URL. 
+               If you need help, follow this <a target="_blank" href="https://medium.com/@joshmuccio/how-to-manually-add-a-rss-feed-to-your-podcast-app-on-desktop-ios-android-478d197a3770">Medium article</a>. 
+          </Typography>
+          <Typography variant='body1' style={{marginTop:'5px', color: '#01357b' }}>
+            5. Paste in the PodCapsule feed link and voila! You'll start receiving a new PodCapsule episode in your player every day.
+          </Typography>
+          <Typography variant='body1' style={{marginTop:'5px', color: '#01357b' }}>
+            Note: PodCapsule is not compatible with Spotify since Spotify does not support adding shows by URLs.
           </Typography>
         </div>
         <div style={{ marginTop:'40px', textAlign:"left" }}>
-          <Typography variant='h5' style={{ marginTop:'5px', color: '#01357b' }}>
+          <Typography variant='h5' style={{ marginTop:'5px', color: '#01357b', fontWeight: 'bold' }}>
             Contact Us
           </Typography>
           <Typography variant='body1' style={{ marginTop:'5px', color: '#01357b' }}>
