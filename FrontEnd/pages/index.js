@@ -19,7 +19,7 @@ const Home = () => {
                         }} 
               columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
             <Grid item md={4} sm={6} xs={12} style={{ textAlign: "center", display: "flex", alignItems:"center", display:'block'}}>
-              <img src='https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png' 
+              <img src='/Podcapsule.png' 
                   width='250px' 
                   style={{ borderRadius:'5px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}/>
             </Grid>
