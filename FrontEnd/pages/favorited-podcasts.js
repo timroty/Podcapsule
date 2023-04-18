@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Link from 'next/link'
 import { supabase } from '../lib/initSupabase'
 import { GetFavoritedPodcasts, DeleteFavoritedPodcasts } from '../services/accessor'
 import { useState, useEffect } from "react";
@@ -49,6 +48,14 @@ export default function FavoritedPodcasts({ user }) {
       return;
     }
     setSnackbarOpen(false);
+  };
+
+  const handleAddPodcast = () => {
+    if (favoritedPodcasts.length < 5) {
+      router.push('/add-podcast')
+    } else {
+      alert('Maximum 5 podcasts allowed on free plan.');
+    }
   };
 
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -108,9 +115,8 @@ export default function FavoritedPodcasts({ user }) {
           )}
           <Button variant="outlined" 
                   startIcon={<AddCircleOutlineIcon />} 
-                  onClick={() => router.push('/add-podcast')}
-                  style= {{ marginBottom: '15px', marginTop: '15px', color: '#01357b', borderColor: '#01357b'}}
-                  disabled={favoritedPodcasts.length >= 5}>
+                  onClick={() => handleAddPodcast()}
+                  style= {{ marginBottom: '15px', marginTop: '15px', color: '#01357b', borderColor: '#01357b'}}>
             Add Podcast
           </Button>
           {favoritedPodcasts.map((podcast, index) => {
@@ -160,7 +166,7 @@ export async function getServerSideProps({ req }) {
   if ((Date.now() + 500) >= decodedJwt.exp * 1000){
       const refreshResult = await supabase.auth.api.refreshAccessToken(refreshToken);
       if (refreshResult.data){
-        var result = supabase.auth.setAuth(refreshResult.data.access_token)
+        supabase.auth.setAuth(refreshResult.data.access_token)
       } else {
         supabase.auth.signOut();
         return { props: {}, redirect: { destination: '/', permanent: false } };

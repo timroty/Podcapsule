@@ -33,6 +33,8 @@ export default function AddPodcasts({ user }) {
     }
 
     const handlePodcastSearch = () => { 
+      console.log('yay')
+      console.log(podcastSearchText)
       const userAccessToken = supabase.auth.session().access_token;
       SearchPodcasts(userAccessToken, podcastSearchText).then((result) => {
           setPodcastSearchResult(result);
@@ -75,7 +77,8 @@ export default function AddPodcasts({ user }) {
           style={{ marginTop:'20px', marginBottom:'20px' }}>
           <Grid item sm={10} xs={9} style={{ display: "flex", alignItems:"center" }}>
             <TextField value={podcastSearchText} label="Search"
-              onChange={ (e) => handlePodcastSearchTextChange(e)} />
+              onChange={ (e) => handlePodcastSearchTextChange(e)}
+              onKeyUp={ (e) => { if (e.key === 'Enter') {handlePodcastSearch()} } } />
           </Grid>
           <Grid item sm={2} xs={3} style={{ display: "flex", alignItems:"center" }}>
             <Button variant="outlined" style={{color: '#01357b', borderColor: '#01357b'}} onClick={handlePodcastSearch}>

@@ -1,30 +1,15 @@
-import Link from 'next/link'
-import useSWR from 'swr'
 import { Auth, Card, Typography, Space, Button, Icon } from '@supabase/ui'
 import { supabase } from '../lib/initSupabase'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const Index = () => {
-  const { user, session } = Auth.useUser()
   const [authView, setAuthView] = useState('sign_in')
   const router = useRouter();
 
-  const fetcher = (url, token) =>
-    fetch(url, {
-      method: 'GET',
-      headers: new Headers({ 'Content-Type': 'application/json', token }),
-      credentials: 'same-origin',
-    }).then((res) => {
-      const userAccessToken = supabase.auth.session()?.access_token;
-      if (userAccessToken){
-        {router.push('/favorited-podcasts')}
-      }})
-
-  const { data, error } = useSWR(
-    session ? ['/api/getUser', session.access_token] : null,
-    fetcher
-  )
+  const userAccessToken = supabase.auth.session()?.access_token;
+    if (userAccessToken){
+      {router.push('/favorited-podcasts')}}
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -32,6 +17,8 @@ const Index = () => {
         if (event === 'PASSWORD_RECOVERY') setAuthView('update_password')
         if (event === 'USER_UPDATED')
           setTimeout(() => setAuthView('sign_in'), 1000)
+        if (event === 'SIGNED_IN')
+          router.push('/favorited-podcasts')
         // Send session to /api/auth route to set the auth cookie.
         // NOTE: this is only needed if you're doing SSR (getServerSideProps)!
         fetch('/api/auth', {
