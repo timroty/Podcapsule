@@ -10,7 +10,7 @@ import ResponsiveAppBar from '../components/global/appbar'
 import MuiAlert from '@mui/material/Alert'
 import styles from '../styles/module/add-podcast.module.css'
 
-export default function AddPodcasts({ user }) {
+export default function AddPodcasts ({ user }) {
   const router = useRouter()
 
   const [podcastSearchText, setPodcastSearchText] = useState('')
@@ -55,7 +55,7 @@ export default function AddPodcasts({ user }) {
     setSnackbarOpen(false)
   }
 
-  const Alert = React.forwardRef(function Alert(props, ref) {
+  const Alert = React.forwardRef(function Alert (props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
   })
 
@@ -172,7 +172,7 @@ export default function AddPodcasts({ user }) {
   )
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps ({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
   if (!user) {

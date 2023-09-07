@@ -1,23 +1,17 @@
 import * as React from 'react'
 import { supabase } from '../lib/initSupabase'
-import { GetFavoritedPodcasts, DeleteFavoritedPodcasts } from '../services/accessor'
-import { useState, useEffect } from 'react'
-import { Grid, Typography, Container, TextField, Snackbar } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Button from '@mui/material/Button'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import { useEffect } from 'react'
+import { Grid, Typography, Container, TextField } from '@mui/material'
 import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
-import MuiAlert from '@mui/material/Alert'
-import jwtDecode from 'jwt-decode'
 import styles from '../styles/module/profile.module.css'
 
-export default function Profile({ user }) {
+export default function Profile ({ user }) {
+  const router = useRouter()
 
   useEffect(() => {
     const userAccessToken = supabase.auth.session()?.access_token
-    if (userAccessToken) {
-    } else {
+    if (!userAccessToken) {
       supabase.auth.signOut()
       router.push('/')
     }
@@ -54,7 +48,7 @@ export default function Profile({ user }) {
   )
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps ({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
   if (!user) {

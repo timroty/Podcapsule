@@ -47,7 +47,7 @@ const Index = () => {
             <div className={styles.card}>
               <Auth.UpdatePassword supabaseClient={supabase} />
             </div>
-          )
+            )
           : (
             <div className={styles.card}>
               <div className={styles['text-container']}>
@@ -65,7 +65,7 @@ const Index = () => {
                 Please note that emails from PodCapsule may occasionally be flagged as spam by your email provider.
               </p>
             </div>
-          )}
+            )}
       </>
     )
   }
