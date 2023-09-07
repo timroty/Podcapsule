@@ -1,26 +1,19 @@
-/* favoritedPodcast.css */
-
 /* Container Styles */
 .container {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-/* Heading Styles */
+/* Typography Styles */
 .heading {
   font-size: 24px;
   font-weight: medium;
   margin-top: 20px;
-}
-
-/* Subtitle Styles */
-.subtitle {
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* Button Styles */
-.add-button {
-  margin-bottom: 15px;
-  margin-top: 15px;
+.button {
   color: #01357b;
   border-color: #01357b;
 }
@@ -40,4 +33,21 @@
 /* Snackbar Styles */
 .snackbar {
   width: 100%;
+}
+
+/* Additional Styles */
+.hr-line {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+/* Subtitle Styles */
+.subtitle1 {
+  margin-top: 20px;
+}
+
+.subtitle2 {
+  margin-top: 5px;
+  max-width: 95%;
 }

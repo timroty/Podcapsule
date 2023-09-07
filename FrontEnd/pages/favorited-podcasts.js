@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
 import MuiAlert from '@mui/material/Alert'
 import jwtDecode from 'jwt-decode'
-import '../styles/favoritedPodcast.css'
+import styles from '../styles/module/favorited-podcast.module.css'
 const copy = require('clipboard-copy')
 
 export default function FavoritedPodcasts ({ user }) {
@@ -66,82 +66,83 @@ export default function FavoritedPodcasts ({ user }) {
   return (
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
-      <Container maxWidth="md" className="container">
-        <Typography variant="h1" className="heading">
+      <Container maxWidth="md" className={styles.container}>
+        <Typography variant="h1" className={styles.heading}>
           Favorited Podcasts
         </Typography>
         {favoritedPodcasts.length > 0
           ? (
-          <>
-            <Typography variant="subtitle1" className="subtitle">
-              RSS Feed Url
-            </Typography>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 1, md: 1 }}
-              justify="center"
-            >
-              <Grid item xs={8} align="center">
-                <TextField
-                  hiddenLabel
-                  fullWidth
-                  id="standard-read-only-input"
-                  defaultValue={rssFeedUrl}
-                  InputProps={{
-                    readOnly: true
-                  }}
-                  variant="filled"
-                  size="small"
-                />
+            <>
+              <Typography variant="subtitle1" className={styles.subtitle}>
+                RSS Feed Url
+              </Typography>
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+                justify="center"
+              >
+                <Grid item xs={8} align="center">
+                  {/* Use styles.hiddenLabel as needed */}
+                  <TextField
+                    hiddenLabel
+                    fullWidth
+                    id="standard-read-only-input"
+                    defaultValue={rssFeedUrl}
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    variant="filled"
+                    size="small"
+                  />
+                </Grid>
+                <Grid item xs={4} align="left">
+                  <Button
+                    variant="contained"
+                    className={styles['add-button']}
+                    onClick={() => {
+                      copy(rssFeedUrl)
+                      handleCopyClick()
+                    }}
+                  >
+                    Copy
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={4} align="left">
-                <Button
-                  variant="contained"
-                  className="add-button"
-                  onClick={() => {
-                    copy(rssFeedUrl)
-                    handleCopyClick()
-                  }}
-                >
-                  Copy
-                </Button>
-              </Grid>
-            </Grid>
-            <Snackbar
-              open={snackbarOpen}
-              autoHideDuration={6000}
-              onClose={handleCopyClose}
-              className="snackbar"
-            >
-              <Alert onClose={handleCopyClose} severity="success" sx={{ width: '100%' }}>
-                Copied!
-              </Alert>
-            </Snackbar>
-          </>
+              <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleCopyClose}
+                className={styles.snackbar}
+              >
+                <Alert onClose={handleCopyClose} severity="success" sx={{ width: '100%' }}>
+                  Copied!
+                </Alert>
+              </Snackbar>
+            </>
             )
           : (
-          <></>
+              <></>
             )}
         <Button
           variant="outlined"
           startIcon={<AddCircleOutlineIcon />}
           onClick={() => handleAddPodcast()}
-          className="add-button"
+          className={styles['add-button']}
         >
           Add Podcast
         </Button>
         {favoritedPodcasts.map((podcast, index) => {
           return (
             <div key={index}>
-              {index !== 0 ? <hr className="hr-line" /> : <div />}
+              {index !== 0 ? <hr/> : <div />}
               <Grid
                 container
                 rowSpacing={1}
                 columnSpacing={{ xs: 0, sm: 0, md: 0 }}
               >
                 <Grid item md={2} sm={3} xs={5}>
-                  <img src={podcast.ImageUrl} alt="" className="image" />
+                  <img src={podcast.ImageUrl} alt="" className={styles.image} />
                 </Grid>
                 <Grid item md={8} sm={6} xs={6} align="left">
                   <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
@@ -151,7 +152,7 @@ export default function FavoritedPodcasts ({ user }) {
                     Date Added: {new Date(podcast.CreateDate).toDateString()}
                   </Typography>
                 </Grid>
-                <Grid item md={2} sm={2} xs={6} className="grid-item">
+                <Grid item md={2} sm={2} xs={6} className={styles['grid-item']}> {/* Use bracket notation for hyphenated class names */}
                   <Button
                     variant="outlined"
                     style={{ color: '#01357b' }}

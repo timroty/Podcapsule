@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Auth } from '@supabase/ui'
 import { supabase } from '../lib/initSupabase'
 import { useRouter } from 'next/router'
-import '../styles/signIn.css'
+import styles from '../styles/module/sign-in.module.css'
 
 const Index = () => {
   const [authView, setAuthView] = useState('sign_in')
@@ -44,27 +44,27 @@ const Index = () => {
       <>
         {authView === 'update_password'
           ? (
-          <div className="card">
-            <Auth.UpdatePassword supabaseClient={supabase} />
-          </div>
+            <div className={styles.card}>
+              <Auth.UpdatePassword supabaseClient={supabase} />
+            </div>
             )
           : (
-          <div className="card">
-            <div className="text-container">
-              <img src="https://app.supabase.io/img/supabase-light.svg" alt="Supabase Logo" className="logo" />
+            <div className={styles.card}>
+              <div className={styles['text-container']}>
+                <img src="https://app.supabase.io/img/supabase-light.svg" alt="Supabase Logo" className={styles.logo} />
+              </div>
+              <Auth
+                supabaseClient={supabase}
+                providers={[]}
+                view={authView}
+                socialLayout="horizontal"
+                socialButtonSize="xlarge"
+                style={{ fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }}
+              />
+              <p className={styles.text}>
+                Please note that emails from PodCapsule may occasionally be flagged as spam by your email provider.
+              </p>
             </div>
-            <Auth
-              supabaseClient={supabase}
-              providers={[]}
-              view={authView}
-              socialLayout="horizontal"
-              socialButtonSize="xlarge"
-              style={{ fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }}
-            />
-            <p className="text">
-              Please note that emails from PodCapsule may occasionally be flagged as spam by your email provider.
-            </p>
-          </div>
             )}
       </>
     )

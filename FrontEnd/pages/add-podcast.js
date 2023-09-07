@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
 import MuiAlert from '@mui/material/Alert'
-import '../styles/addPodcast.css' // Import the CSS file
+import styles from '../styles/module/add-podcast.module.css'
 
 export default function AddPodcasts ({ user }) {
   const router = useRouter()
@@ -62,13 +62,13 @@ export default function AddPodcasts ({ user }) {
   return (
       <>
         <ResponsiveAppBar></ResponsiveAppBar>
-        <Container maxWidth="md" className="container">
-          <Typography variant="h1" className="heading">
+        <Container maxWidth="md" className={styles.container}>
+          <Typography variant="h1" className={styles.heading}>
             Podcast Search
           </Typography>
           <Button
             variant="outlined"
-            className="button"
+            className={styles.button}
             onClick={() => router.push('/favorited-podcasts')}
           >
             Favorited Podcasts
@@ -77,9 +77,9 @@ export default function AddPodcasts ({ user }) {
             container
             rowSpacing={1}
             columnSpacing={{ xs: 0, sm: 0, md: 0 }}
-            className="container"
+            className={styles.containe}
           >
-            <Grid item sm={10} xs={9} className="grid-item">
+            <Grid item sm={10} xs={9} className={styles['grid-item']}>
               <TextField
                 value={podcastSearchText}
                 label="Search"
@@ -91,10 +91,10 @@ export default function AddPodcasts ({ user }) {
                 }}
               />
             </Grid>
-            <Grid item sm={2} xs={3} className="grid-item">
+            <Grid item sm={2} xs={3} className={styles['grid-item']}>
               <Button
                 variant="outlined"
-                className="button"
+                className={styles.button}
                 onClick={handlePodcastSearch}
               >
                 Search
@@ -105,7 +105,7 @@ export default function AddPodcasts ({ user }) {
             open={snackbarOpen}
             autoHideDuration={6000}
             onClose={handleAddClose}
-            className="snackbar"
+            className={styles.snackbar}
           >
             <Alert onClose={handleAddClose} severity="success" sx={{ width: '100%' }}>
               Podcast Added!
@@ -114,28 +114,28 @@ export default function AddPodcasts ({ user }) {
           {podcastSearchResult.map((podcast, index) => {
             return (
               <div key={index}>
-                {index !== 0 ? <hr className="hr-line" /> : <div />}
+                {index !== 0 ? <hr className={styles['hr-line']} /> : <div />}
                 <Grid
                   container
                   rowSpacing={1}
                   columnSpacing={{ xs: 0, sm: 0, md: 0 }}
                 >
-                  <Grid item md={2} sm={3} xs={5} className="grid-item">
-                    <img src={podcast.imageUrl} alt="" className="image" />
+                  <Grid item md={2} sm={3} xs={5} className={styles['grid-item']}>
+                    <img src={podcast.imageUrl} alt="" className={styles.image} />
                   </Grid>
                   <Grid item md={8} sm={7} xs={6}>
-                    <Typography variant="subtitle1" className="subtitle1">
+                    <Typography variant="subtitle1" className={styles.subtitle1}>
                       {podcast.title}
                     </Typography>
-                    <Typography variant="subtitle2" className="subtitle2">
+                    <Typography variant="subtitle2" className={styles.subtitle2}>
                       {truncateText(podcast.description)}
                     </Typography>
                   </Grid>
-                  <Grid item md={2} sm={2} xs={5} className="grid-item">
+                  <Grid item md={2} sm={2} xs={5} className={styles['grid-item']}>
                     <Button
                       variant="outlined"
                       onClick={() => handlePodcastAdd(podcast)}
-                      className="button"
+                      className={styles.button}
                       startIcon={<AddCircleOutlineIcon />}
                     >
                       Add
