@@ -66,8 +66,8 @@ export default function FavoritedPodcasts ({ user }) {
   return (
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
-      <Container maxWidth="md" className={styles.container}>
-        <Typography variant="h1" className={styles.heading}>
+      <Container maxWidth="md">
+        <Typography variant="h1" fontSize='24px' fontWeight='medium' className={styles.heading}>
           Favorited Podcasts
         </Typography>
         {favoritedPodcasts.length > 0
@@ -83,7 +83,6 @@ export default function FavoritedPodcasts ({ user }) {
                 justify="center"
               >
                 <Grid item xs={8} align="center">
-                  {/* Use styles.hiddenLabel as needed */}
                   <TextField
                     hiddenLabel
                     fullWidth
@@ -99,7 +98,7 @@ export default function FavoritedPodcasts ({ user }) {
                 <Grid item xs={4} align="left">
                   <Button
                     variant="contained"
-                    className={styles['add-button']}
+                    className={styles['accent-color']}
                     onClick={() => {
                       copy(rssFeedUrl)
                       handleCopyClick()

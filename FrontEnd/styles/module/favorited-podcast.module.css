@@ -5,14 +5,16 @@
 
 /* Heading Styles */
 .heading {
-  font-size: 24px;
-  font-weight: medium;
   margin-top: 20px;
 }
 
 /* Subtitle Styles */
 .subtitle {
   margin-top: 20px;
+}
+
+.accent-color{
+  background: #01357b;
 }
 
 /* Button Styles */
