@@ -1,0 +1,43 @@
+/* favoritedPodcast.css */
+
+/* Container Styles */
+.container {
+  margin-top: 20px;
+}
+
+/* Heading Styles */
+.heading {
+  font-size: 24px;
+  font-weight: medium;
+  margin-top: 20px;
+}
+
+/* Subtitle Styles */
+.subtitle {
+  margin-top: 20px;
+}
+
+/* Button Styles */
+.add-button {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  color: #01357b;
+  border-color: #01357b;
+}
+
+/* Grid Styles */
+.grid-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Image Styles */
+.image {
+  width: 120px;
+  border-radius: 5px;
+}
+
+/* Snackbar Styles */
+.snackbar {
+  width: 100%;
+}

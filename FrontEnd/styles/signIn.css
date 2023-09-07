@@ -1,0 +1,30 @@
+/* signIn.css */
+
+/* Card Styles */
+.card {
+  max-width: 420px;
+  margin: 96px auto;
+  padding: 24px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Image Styles */
+.logo {
+  width: 112px;
+}
+
+/* Text Container Styles */
+.text-container {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Text Styles */
+.text {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
+  color: rgba(75, 85, 99, 0.80);
+  text-align: center;
+}
