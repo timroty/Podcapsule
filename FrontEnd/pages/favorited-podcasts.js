@@ -9,7 +9,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
 import MuiAlert from '@mui/material/Alert'
-import jwt_decode from 'jwt-decode'
+import jwtDecode from 'jwt-decode'
 import '../styles/favoritedPodcast.css'
 const copy = require('clipboard-copy')
 
@@ -27,7 +27,7 @@ export default function FavoritedPodcasts ({ user }) {
       })
     } else {
       supabase.auth.signOut()
-      { router.push('/') }
+      router.push('/')
     }
   }, [])
 
@@ -179,10 +179,11 @@ export async function getServerSideProps ({ req }) {
     return { props: {}, redirect: { destination: '/', permanent: false } }
   }
 
+  // First page user goes to, sign out if bad token
   const refreshToken = req.cookies['sb-refresh-token']
   const accessToken = req.cookies['sb-access-token']
 
-  const decodedJwt = jwt_decode(accessToken)
+  const decodedJwt = jwtDecode(accessToken)
 
   if ((Date.now() + 500) >= decodedJwt.exp * 1000) {
     const refreshResult = await supabase.auth.api.refreshAccessToken(refreshToken)

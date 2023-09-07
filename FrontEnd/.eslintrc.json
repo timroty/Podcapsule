@@ -15,5 +15,11 @@
         "react"
     ],
     "rules": {
+        "react/prop-types": "off"
+    },
+    "settings": {
+        "react": {
+            "version": "detect" // Automatically detect the installed React version
+        }
     }
 }

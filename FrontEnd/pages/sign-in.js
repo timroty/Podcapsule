@@ -10,7 +10,7 @@ const Index = () => {
 
   const userAccessToken = supabase.auth.session()?.access_token
   if (userAccessToken) {
-    { router.push('/favorited-podcasts') }
+    router.push('/favorited-podcasts')
   }
 
   useEffect(() => {
