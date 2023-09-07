@@ -13,7 +13,7 @@ import jwtDecode from 'jwt-decode'
 import styles from '../styles/module/favorited-podcast.module.css'
 const copy = require('clipboard-copy')
 
-export default function FavoritedPodcasts ({ user }) {
+export default function FavoritedPodcasts({ user }) {
   const [favoritedPodcasts, setFavoritedPodcasts] = useState([])
   const [snackbarOpen, setSnackbarOpen] = useState(false)
 
@@ -57,7 +57,7 @@ export default function FavoritedPodcasts ({ user }) {
     }
   }
 
-  const Alert = React.forwardRef(function Alert (props, ref) {
+  const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
   })
 
@@ -119,10 +119,10 @@ export default function FavoritedPodcasts ({ user }) {
                 </Alert>
               </Snackbar>
             </>
-            )
+          )
           : (
-              <></>
-            )}
+            <></>
+          )}
         <Button
           variant="outlined"
           startIcon={<AddCircleOutlineIcon />}
@@ -134,7 +134,7 @@ export default function FavoritedPodcasts ({ user }) {
         {favoritedPodcasts.map((podcast, index) => {
           return (
             <div key={index}>
-              {index !== 0 ? <hr/> : <div />}
+              {index !== 0 ? <hr /> : <div />}
               <Grid
                 container
                 rowSpacing={1}
@@ -151,7 +151,7 @@ export default function FavoritedPodcasts ({ user }) {
                     Date Added: {new Date(podcast.CreateDate).toDateString()}
                   </Typography>
                 </Grid>
-                <Grid item md={2} sm={2} xs={6} className={styles['grid-item']}> {/* Use bracket notation for hyphenated class names */}
+                <Grid item md={2} sm={2} xs={6} className={styles['grid-item']}>
                   <Button
                     variant="outlined"
                     style={{ color: '#01357b' }}
@@ -170,7 +170,7 @@ export default function FavoritedPodcasts ({ user }) {
   )
 }
 
-export async function getServerSideProps ({ req }) {
+export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)
 
   if (!user) {

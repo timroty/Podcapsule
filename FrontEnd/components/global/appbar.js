@@ -12,52 +12,52 @@ import { useRouter } from 'next/router'
 const pages = []
 const pageRoutes = ['Profile', '/favorited-podcasts']
 
-export default function ResponsiveAppBar () {
+export default function ResponsiveAppBar() {
   const router = useRouter()
 
   return (
-      <AppBar position="static" style={{ background: '#01357b' }}>
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
+    <AppBar position="static" style={{ background: '#01357b' }}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
           <Box sx={{ flexGrow: 0 }}>
-              <Typography
-                  variant="h6"
-                  noWrap
-                  sx={{
-                    mr: 2,
-                    display: { xs: 'flex', md: 'flex' },
-                    fontWeight: 700,
-                    color: 'inherit'
-                  }}
-              >
-                  PodCapsule
-              </Typography>
-            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'flex' },
+                fontWeight: 500,
+                color: 'inherit'
+              }}
+            >
+              PodCapsule
+            </Typography>
+          </Box>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page, index) => (
-                <Link href={pageRoutes[index]} key={index} style = {{ textDecoration: 'none' }}>
-                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>
-                    {page}
-                  </Button>
-                </Link>
-              ))}
-            </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page, index) => (
+              <Link href={pageRoutes[index]} key={index} style={{ textDecoration: 'none' }}>
+                <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {page}
+                </Button>
+              </Link>
+            ))}
+          </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
-              <Button
-                  type="outline"
-                  onClick={() => {
-                    supabase.auth.signOut()
-                    router.push('/')
-                  }}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                  Log out
-                  </Button>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
+          <Box sx={{ flexGrow: 0 }}>
+            <Button
+              type="outline"
+              onClick={() => {
+                supabase.auth.signOut()
+                router.push('/')
+              }}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Log out
+            </Button>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   )
 }

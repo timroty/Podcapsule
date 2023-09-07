@@ -13,7 +13,7 @@ const Home = () => {
             <img src="/Podcapsule.png" width="250px" className={styles.logo} alt="Podcapsule Logo" />
           </Grid>
           <Grid item md={8} sm={6} xs={12}>
-            <Typography variant="h1" className={styles.heading}>
+            <Typography variant="h1" fontSize='48px' fontWeight='medium' className={styles.heading}>
               PodCapsule
             </Typography>
             <Typography variant="subtitle1" className={styles.subtitle}>

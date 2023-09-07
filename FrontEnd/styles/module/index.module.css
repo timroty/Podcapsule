@@ -1,11 +1,7 @@
-/* index.css */
-
-/* Container Styles */
 .container {
   text-align: center;
 }
 
-/* Grid Styles */
 .grid {
   text-align: center;
   display: flex;
@@ -17,50 +13,45 @@
   border-radius: 10px;
 }
 
-/* Logo Styles */
 .logo {
   width: 250px;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* Heading Styles */
 .heading {
-  font-size: 48px;
-  font-weight: medium;
   margin-top: 20px;
   color: #01357b;
 }
 
-/* Subtitle Styles */
 .subtitle {
   margin-top: 5px;
   color: #01357b;
 }
 
-/* Button Styles */
 .button {
-  color: #fff;
+  color: #fff; 
   background-color: #01357b;
-  border-radius: 50px;
-  padding: 10px 30px;
-  margin-top: 40px;
+  border-radius: '50px';
+  padding: '10px 30px';
+  margin-top: '40px'
 }
 
-/* Text Container Styles */
+.button:hover {
+  color: #01357b; 
+  background-color: #fff;
+}
+
 .text-container {
-  margin-top: 100px;
+  margin-top: 40px;
   text-align: left;
 }
 
-/* Text Styles */
 .text {
   margin-top: 5px;
   color: #01357b;
-  font-weight: bold;
 }
 
-/* Link Styles */
-.link {
+.primary {
   color: #01357b;
 }
