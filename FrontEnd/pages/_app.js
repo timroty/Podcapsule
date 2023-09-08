@@ -25,11 +25,11 @@ export default function MyApp ({ Component, pageProps }) {
           `
         }}
       />
-      <main className={'dark'}>
-      <Auth.UserContextProvider supabaseClient={supabase}>
-        <Component {...pageProps} />
-      </Auth.UserContextProvider>
-    </main>
+      <main>
+        <Auth.UserContextProvider supabaseClient={supabase}>
+          <Component {...pageProps} />
+        </Auth.UserContextProvider>
+      </main>
     </>
   )
 }

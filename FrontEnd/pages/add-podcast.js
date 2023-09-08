@@ -123,12 +123,16 @@ export default function AddPodcasts ({ user }) {
                   <img src={podcast.imageUrl} alt="" className={styles.image} />
                 </Grid>
                 <Grid item md={8} sm={7} xs={6}>
-                  <Typography variant="subtitle1" className={styles.subtitle1}>
-                    {podcast.title}
-                  </Typography>
-                  <Typography variant="subtitle2" className={styles.subtitle2}>
-                    {truncateText(podcast.description)}
-                  </Typography>
+                  <div className={styles.subtitle1}>
+                    <Typography variant="subtitle1">
+                      {podcast.title}
+                    </Typography>
+                  </div>
+                  <div className={styles.subtitle2}>
+                    <Typography variant="subtitle2">
+                      {truncateText(podcast.description)}
+                    </Typography>
+                  </div>
                 </Grid>
                 <Grid item md={2} sm={2} xs={5} className={styles['grid-item']}>
                   <Button

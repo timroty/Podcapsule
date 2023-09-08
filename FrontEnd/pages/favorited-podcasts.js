@@ -67,15 +67,19 @@ export default function FavoritedPodcasts ({ user }) {
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
       <Container maxWidth="md">
-        <Typography variant="h1" fontSize='24px' fontWeight='medium' className={styles.heading}>
-          Favorited Podcasts
-        </Typography>
+        <div className={styles.heading}>
+          <Typography variant="h1" fontSize='24px' fontWeight='medium' >
+            Favorited Podcasts
+          </Typography>
+        </div>
         {favoritedPodcasts.length > 0
           ? (
             <>
-              <Typography variant="subtitle1" className={styles.subtitle}>
-                RSS Feed Url
-              </Typography>
+              <div className={styles.subtitle}>
+                <Typography variant="subtitle1">
+                  RSS Feed Url
+                </Typography>
+              </div>
               <Grid
                 container
                 rowSpacing={1}
@@ -123,14 +127,16 @@ export default function FavoritedPodcasts ({ user }) {
           : (
             <></>
             )}
-        <Button
-          variant="outlined"
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={() => handleAddPodcast()}
-          className={styles['add-button']}
-        >
-          Add Podcast
-        </Button>
+        <div className={styles['add-button']}>
+          <Button
+            variant="outlined"
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={() => handleAddPodcast()}
+            sx={{ color: '#01357b', borderColor: '#01357b' }}
+          >
+            Add Podcast
+          </Button>
+        </div>
         {favoritedPodcasts.map((podcast, index) => {
           return (
             <div key={index}>
