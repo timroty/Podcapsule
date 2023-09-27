@@ -2,13 +2,12 @@ import * as React from 'react'
 import { supabase } from '../lib/initSupabase'
 import { SearchPodcasts, AddFavoritedPodcasts } from '../services/accessor'
 import { useState } from 'react'
-import Button from '@mui/material/Button'
-import { Container, TextField, Snackbar, Grid, Typography } from '@mui/material'
+import { TextField, Snackbar, Grid } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
 import MuiAlert from '@mui/material/Alert'
-import styles from '../styles/module/add-podcast.module.css'
+import { Heading, Divider, AddButton, CenteredGrid, PodcastTitle, PodcastImage, PodcastDescription, PodcastDetails, ContainerSpace, StyledButton, SpacedGrid } from '../styles/pages/add-podcast.styles'
 
 export default function AddPodcasts ({ user }) {
   const router = useRouter()
@@ -40,7 +39,7 @@ export default function AddPodcasts ({ user }) {
   }
 
   const truncateText = (text) => {
-    if (text.length > 180) { return text.substring(0, 150) + '...' }
+    if (text.length > 185) { return text.substring(0, 185) + '...' }
     return text
   }
 
@@ -62,24 +61,24 @@ export default function AddPodcasts ({ user }) {
   return (
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
-      <Container maxWidth="md" className={styles.container}>
-        <Typography variant="h1" fontSize='24px' fontWeight='medium' className={styles.heading}>
+      <ContainerSpace maxWidth="md">
+        <Heading>
           Podcast Search
-        </Typography>
-        <Button
+        </Heading>
+        <Divider/>
+        <AddButton
           variant="outlined"
-          className={styles.button}
           onClick={() => router.push('/favorited-podcasts')}
+          sx={{ textTransform: 'capitalize' }}
         >
           Favorited Podcasts
-        </Button>
-        <Grid
+        </AddButton>
+        <SpacedGrid
           container
           rowSpacing={1}
           columnSpacing={{ xs: 0, sm: 0, md: 0 }}
-          className={styles.container}
         >
-          <Grid item sm={10} xs={9} className={styles['grid-item']}>
+          <CenteredGrid item sm={10} xs={9}>
             <TextField
               value={podcastSearchText}
               label="Search"
@@ -90,17 +89,17 @@ export default function AddPodcasts ({ user }) {
                 }
               }}
             />
-          </Grid>
-          <Grid item sm={2} xs={3} className={styles['grid-item']}>
-            <Button
+          </CenteredGrid>
+          <CenteredGrid item sm={2} xs={3}>
+            <StyledButton
               variant="outlined"
-              className={styles.button}
               onClick={handlePodcastSearch}
+              sx={{ textTransform: 'capitalize' }}
             >
               Search
-            </Button>
-          </Grid>
-        </Grid>
+            </StyledButton>
+          </CenteredGrid>
+        </SpacedGrid>
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={6000}
@@ -113,65 +112,62 @@ export default function AddPodcasts ({ user }) {
         {podcastSearchResult.map((podcast, index) => {
           return (
             <div key={index}>
-              {index !== 0 ? <hr className={styles['hr-line']} /> : <div />}
-              <Grid
+              {index !== 0 ? <Divider /> : <div />}
+              <CenteredGrid
                 container
                 rowSpacing={1}
                 columnSpacing={{ xs: 0, sm: 0, md: 0 }}
+                style={{ minHeight: '140px' }}
               >
-                <Grid item md={2} sm={3} xs={5} className={styles['grid-item']}>
-                  <img src={podcast.imageUrl} alt="" className={styles.image} />
-                </Grid>
-                <Grid item md={8} sm={7} xs={6}>
-                  <div className={styles.subtitle1}>
-                    <Typography variant="subtitle1">
+                <CenteredGrid item md={2} sm={3} xs={4}>
+                  <PodcastImage src={podcast.imageUrl} alt="Podcast Cover Image" />
+                </CenteredGrid>
+                <CenteredGrid item md={8} sm={7} xs={6}>
+                  <div>
+                    <PodcastTitle>
                       {podcast.title}
-                    </Typography>
-                  </div>
-                  <div className={styles.subtitle2}>
-                    <Typography variant="subtitle2">
+                    </PodcastTitle>
+                    <PodcastDescription>
                       {truncateText(podcast.description)}
-                    </Typography>
+                    </PodcastDescription>
+                    <CenteredGrid
+                      container
+                      rowSpacing={1}
+                      columnSpacing={{ xs: 0, sm: 0, md: 0 }}
+                    >
+                      <Grid item sm={3} xs={2} style={{ marginRight: '30px' }}>
+                        <PodcastDetails>
+                          Episodes: {podcast.numberOfEpisodes}
+                        </PodcastDetails>
+                      </Grid>
+                      <Grid item sm={3} xs={2} style={{ marginRight: '18px' }}>
+                        <PodcastDetails>
+                          Rating: {podcast.ratingAverage ? Math.round(podcast.ratingAverage * 10) / 10 : 'N/A'}
+                        </PodcastDetails>
+                      </Grid>
+                      <Grid item sm={3} xs={2}>
+                        <PodcastDetails>
+                          Ratings: {podcast.ratingCount}
+                        </PodcastDetails>
+                      </Grid>
+                    </CenteredGrid>
                   </div>
-                </Grid>
-                <Grid item md={2} sm={2} xs={5} className={styles['grid-item']}>
-                  <Button
+                </CenteredGrid>
+                <CenteredGrid item md={2} sm={2} xs={2}>
+                  <StyledButton
                     variant="outlined"
                     onClick={() => handlePodcastAdd(podcast)}
-                    className={styles.button}
                     startIcon={<AddCircleOutlineIcon />}
+                    sx={{ textTransform: 'capitalize' }}
                   >
                     Add
-                  </Button>
-                </Grid>
-                <Grid
-                  container
-                  rowSpacing={1}
-                  columnSpacing={{ xs: 4, sm: 0, md: 0 }}
-                  style={{ marginTop: '5px' }}
-                >
-                  <Grid item md={2} sm={3} xs={5}></Grid>
-                  <Grid item sm={2} xs={2} style={{ marginRight: '10px' }}>
-                    <Typography variant="subtitle2">
-                      Episodes: {podcast.numberOfEpisodes}
-                    </Typography>
-                  </Grid>
-                  <Grid item sm={2} xs={2}>
-                    <Typography variant="subtitle2">
-                      Rating: {podcast.ratingAverage ? Math.round(podcast.ratingAverage * 10) / 10 : 'N/A'}
-                    </Typography>
-                  </Grid>
-                  <Grid item sm={2} xs={2}>
-                    <Typography variant="subtitle2">
-                      Rating count: {podcast.ratingCount}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
+                  </StyledButton>
+                </CenteredGrid>
+              </CenteredGrid>
             </div>
           )
         })}
-      </Container>
+      </ContainerSpace>
     </>
   )
 }

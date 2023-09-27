@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Auth } from '@supabase/ui'
 import { supabase } from '../lib/initSupabase'
 import { useRouter } from 'next/router'
-import styles from '../styles/module/sign-in.module.css'
+import { Card, TextContainer, Logo, SubTitle } from '../styles/pages/sign-in.styles'
 
 const Index = () => {
   const [authView, setAuthView] = useState('sign_in')
@@ -44,15 +44,18 @@ const Index = () => {
       <>
         {authView === 'update_password'
           ? (
-            <div className={styles.card}>
+            <Card>
               <Auth.UpdatePassword supabaseClient={supabase} />
-            </div>
+            </Card>
             )
           : (
-            <div className={styles.card}>
-              <div className={styles['text-container']}>
-                <img src="https://app.supabase.io/img/supabase-light.svg" alt="Supabase Logo" className={styles.logo} />
-              </div>
+            <Card>
+              <TextContainer>
+                <SubTitle>
+                  Authentication powered by
+                </SubTitle>
+                <Logo src="https://app.supabase.io/img/supabase-light.svg" alt="Supabase Logo"/>
+              </TextContainer>
               <Auth
                 supabaseClient={supabase}
                 providers={[]}
@@ -61,10 +64,10 @@ const Index = () => {
                 socialButtonSize="xlarge"
                 style={{ fontFamily: '"Roboto","Helvetica","Arial",sans-serif' }}
               />
-              <p className={styles.text}>
+              <SubTitle>
                 Please note that emails from PodCapsule may occasionally be flagged as spam by your email provider.
-              </p>
-            </div>
+              </SubTitle>
+            </Card>
             )}
       </>
     )

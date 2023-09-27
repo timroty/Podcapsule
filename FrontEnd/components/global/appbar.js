@@ -8,8 +8,8 @@ import Link from 'next/link'
 import { supabase } from '../../lib/initSupabase'
 import { useRouter } from 'next/router'
 
-const pages = ['Profile', 'Podcasts']
-const pageRoutes = ['/profile', '/favorited-podcasts']
+const pages = ['Account', 'Podcasts']
+const pageRoutes = ['/account', '/favorited-podcasts']
 
 export default function ResponsiveAppBar () {
   const router = useRouter()
@@ -22,10 +22,10 @@ export default function ResponsiveAppBar () {
             <img src="/Podcapsule-no-bg.png" width="50px" alt="Podcapsule Logo" />
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
             {pages.map((page, index) => (
               <Link href={pageRoutes[index]} key={index} style={{ textDecoration: 'none' }}>
-                <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: '5px' }}>
+                <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: '5px', textTransform: 'capitalize' }}>
                   {page}
                 </Button>
               </Link>
@@ -39,7 +39,7 @@ export default function ResponsiveAppBar () {
                 supabase.auth.signOut()
                 router.push('/')
               }}
-              sx={{ my: 2, color: 'white', display: 'block' }}
+              sx={{ my: 2, color: 'white', display: 'block', textTransform: 'capitalize' }}
             >
               Log out
             </Button>

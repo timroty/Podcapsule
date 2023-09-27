@@ -2,7 +2,7 @@ import * as React from 'react'
 import { supabase } from '../lib/initSupabase'
 import { GetFavoritedPodcasts, DeleteFavoritedPodcasts } from '../services/accessor'
 import { useState, useEffect } from 'react'
-import { Grid, Typography, Container, TextField, Snackbar } from '@mui/material'
+import { Grid, Container, TextField, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
 import MuiAlert from '@mui/material/Alert'
 import jwtDecode from 'jwt-decode'
-import styles from '../styles/module/favorited-podcast.module.css'
+import { Heading, SubHeading, CopyButton, Divider, CopySnackbar, PodcastTitle, PodcastDateAdded, CenteredGrid, AddButton, PodcastImage } from '../styles/pages/favorited-podcast.styles'
 const copy = require('clipboard-copy')
 
 export default function FavoritedPodcasts ({ user }) {
@@ -67,19 +67,16 @@ export default function FavoritedPodcasts ({ user }) {
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
       <Container maxWidth="md">
-        <div className={styles.heading}>
-          <Typography variant="h1" fontSize='24px' fontWeight='medium' >
-            Favorited Podcasts
-          </Typography>
-        </div>
+        <Heading>
+          Favorited Podcasts
+        </Heading>
+        <Divider/>
         {favoritedPodcasts.length > 0
           ? (
             <>
-              <div className={styles.subtitle}>
-                <Typography variant="subtitle1">
-                  RSS Feed Url
-                </Typography>
-              </div>
+              <SubHeading>
+                RSS Feed Url
+              </SubHeading>
               <Grid
                 container
                 rowSpacing={1}
@@ -100,73 +97,74 @@ export default function FavoritedPodcasts ({ user }) {
                   />
                 </Grid>
                 <Grid item xs={4} align="left">
-                  <Button
+                  <CopyButton
                     variant="contained"
-                    className={styles['accent-color']}
                     onClick={() => {
                       copy(rssFeedUrl)
                       handleCopyClick()
                     }}
+                    sx={{ textTransform: 'capitalize' }}
                   >
                     Copy
-                  </Button>
+                  </CopyButton>
                 </Grid>
               </Grid>
-              <Snackbar
+              <CopySnackbar
                 open={snackbarOpen}
                 autoHideDuration={6000}
                 onClose={handleCopyClose}
-                className={styles.snackbar}
               >
-                <Alert onClose={handleCopyClose} severity="success" sx={{ width: '100%' }}>
-                  Copied!
+                <Alert onClose={handleCopyClose} severity="success">
+                  Copied
                 </Alert>
-              </Snackbar>
+              </CopySnackbar>
             </>
             )
           : (
             <></>
             )}
-        <div className={styles['add-button']}>
+        <AddButton>
           <Button
             variant="outlined"
             startIcon={<AddCircleOutlineIcon />}
             onClick={() => handleAddPodcast()}
-            sx={{ color: '#01357b', borderColor: '#01357b' }}
+            sx={{ color: '#01357b', borderColor: '#01357b', textTransform: 'capitalize' }}
           >
-            Add Podcast
+            Add podcast
           </Button>
-        </div>
+        </AddButton>
         {favoritedPodcasts.map((podcast, index) => {
           return (
             <div key={index}>
-              {index !== 0 ? <hr /> : <div />}
+              {index !== 0 ? <Divider /> : <div />}
               <Grid
                 container
                 rowSpacing={1}
                 columnSpacing={{ xs: 0, sm: 0, md: 0 }}
+                style={{ height: '140px' }}
               >
-                <Grid item md={2} sm={3} xs={5}>
-                  <img src={podcast.ImageUrl} alt="" className={styles.image} />
-                </Grid>
-                <Grid item md={8} sm={6} xs={6} align="left">
-                  <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
-                    {podcast.Title}
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    Date Added: {new Date(podcast.CreateDate).toDateString()}
-                  </Typography>
-                </Grid>
-                <Grid item md={2} sm={2} xs={6} className={styles['grid-item']}>
-                  <Button
+                <CenteredGrid item md={2} sm={3} xs={4}>
+                  <PodcastImage src={podcast.ImageUrl} alt="Podcast Cover Image" />
+                </CenteredGrid>
+                <CenteredGrid item md={9} sm={8} xs={7}>
+                  <div>
+                    <PodcastTitle>
+                      {podcast.Title}
+                    </PodcastTitle>
+                    <PodcastDateAdded>
+                      Date Added: {new Date(podcast.CreateDate).toDateString()}
+                    </PodcastDateAdded>
+                  </div>
+                </CenteredGrid>
+                <CenteredGrid item md={1} sm={1} xs={1}>
+                  <IconButton
                     variant="outlined"
                     style={{ color: '#01357b' }}
-                    startIcon={<DeleteIcon />}
                     onClick={() => handleDelete(index, podcast)}
                   >
-                    Delete
-                  </Button>
-                </Grid>
+                    <DeleteIcon />
+                  </IconButton>
+                </CenteredGrid>
               </Grid>
             </div>
           )

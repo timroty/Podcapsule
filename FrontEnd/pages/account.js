@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { supabase } from '../lib/initSupabase'
 import { useEffect } from 'react'
-import { Grid, Typography, Container, TextField } from '@mui/material'
+import { Grid, Container, TextField } from '@mui/material'
 import { useRouter } from 'next/router'
 import ResponsiveAppBar from '../components/global/appbar'
-import styles from '../styles/module/profile.module.css'
+import { Heading, SubHeading, Text, Divider } from '../styles/pages/account.styles'
 
 export default function Profile ({ user }) {
   const router = useRouter()
@@ -21,12 +21,13 @@ export default function Profile ({ user }) {
     <>
       <ResponsiveAppBar></ResponsiveAppBar>
       <Container maxWidth="md">
-        <Typography variant="h1" fontSize='24px' fontWeight='medium' className={styles.heading}>
-          Profile
-        </Typography>
-        <Typography variant="subtitle1" className={styles.subtitle}>
+        <Heading>
+          Account
+        </Heading>
+        <Divider/>
+        <SubHeading>
           Email
-        </Typography>
+        </SubHeading>
         <Grid item xs={8} align="center">
           <TextField
             hiddenLabel
@@ -40,9 +41,9 @@ export default function Profile ({ user }) {
             size="small"
           />
         </Grid>
-        <Typography variant="subtitle1" className={styles.subtitle}>
+        <Text>
           Member since: {new Date(user.created_at).toDateString()}
-        </Typography>
+        </Text>
       </Container>
     </>
   )
