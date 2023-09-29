@@ -1,31 +1,52 @@
 import React from 'react'
 import Link from 'next/link'
-import Button from '@mui/material/Button'
-import { Container, Grid, Typography } from '@mui/material'
-import styles from '../styles/module/index.module.css'
+import { Grid } from '@mui/material'
+import {
+  Background,
+  HeadingContainer,
+  Logo,
+  HeadingTextContainer,
+  HeadingText,
+  SubheadingText,
+  ActionButtons,
+  LogInButton,
+  SignUpButton
+} from '../styles/pages/index.styles'
 
 const Home = () => {
   return (
     <>
-      <Container maxWidth="md" className={styles.container}>
-        <Grid container rowSpacing={1} className={styles.grid} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
-          <Grid item md={4} sm={6} xs={12}>
-            <img src="/Podcapsule.png" width="250px" className={styles.logo} alt="Podcapsule Logo" />
+      <Background>
+        <HeadingContainer maxWidth="lg">
+          <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 0, md: 0 }}>
+            <Grid item md={4} sm={12} xs={12}>
+              <Logo src="/Podcapsule.png" alt="Podcapsule Logo" />
+            </Grid>
+            <HeadingTextContainer item md={8} sm={12} xs={12}>
+              <HeadingText variant="h1">
+                PodCapsule
+              </HeadingText>
+              <SubheadingText variant="subtitle1">
+                Your podcast RSS feed time capsule
+              </SubheadingText>
+            </HeadingTextContainer>
           </Grid>
-          <Grid item md={8} sm={6} xs={12}>
-            <Typography variant="h1" fontSize='48px' fontWeight='medium' className={styles.heading}>
-              PodCapsule
-            </Typography>
-            <Typography variant="subtitle1" className={styles.subtitle}>
-              Your podcast RSS feed time capsule
-            </Typography>
-          </Grid>
-        </Grid>
-        <Link href="/sign-in">
-          <Button variant="outlined" className={styles.button}>
-            Sign In
-          </Button>
-        </Link>
+          <ActionButtons>
+            <Link href="/sign-in#auth-sign-up">
+              <SignUpButton variant="outlined" sx={{ textTransform: 'capitalize' }}>
+                Sign Up
+              </SignUpButton>
+            </Link>
+            <Link href="/sign-in">
+              <LogInButton variant="outlined" sx={{ textTransform: 'capitalize' }}>
+                Sign In
+              </LogInButton>
+            </Link>
+          </ActionButtons>
+        </HeadingContainer>
+      </Background>
+
+      {/* <Container maxWidth="md" className={styles.container}>
         <div className={styles['text-container']}>
           <Typography variant="h5" className={styles.text}>
             What Is PodCapsule?
@@ -68,7 +89,7 @@ const Home = () => {
             For support or inquiries, contact us at: <a className={styles.link} href="mailto:podcapsuleapp@gmail.com">podcapsuleapp@gmail.com</a>
           </Typography>
         </div>
-      </Container>
+      </Container> */}
     </>
   )
 }
