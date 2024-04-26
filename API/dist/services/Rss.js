@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SavePodcastRssFeedEpisodes = void 0;
 const Podcast_1 = require("../accessors/Podcast");
 const Database_1 = require("../accessors/Database");
-var convert = require('xml-js');
+var convert = require("xml-js");
 function SavePodcastRssFeedEpisodes(rssUrl, favoritedPodcastId) {
     return __awaiter(this, void 0, void 0, function* () {
         let podcastRssFeed = yield (0, Podcast_1.GetRssFeed)(rssUrl);
@@ -23,10 +23,10 @@ function SavePodcastRssFeedEpisodes(rssUrl, favoritedPodcastId) {
         });
         var favoritedPodcastEpisodes = [];
         itemElements.forEach((episodeJson) => {
-            favoritedPodcastEpisodes.push(({
+            favoritedPodcastEpisodes.push({
                 FavoritedPodcastId: favoritedPodcastId,
-                EpisodeRSSJson: JSON.stringify(episodeJson)
-            }));
+                EpisodeRSSJson: JSON.stringify(episodeJson),
+            });
         });
         yield (0, Database_1.AddFavoritedPodcastEpisodes)(favoritedPodcastEpisodes);
     });

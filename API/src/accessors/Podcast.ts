@@ -1,8 +1,10 @@
 import { Podcast, PodcastSearchResult } from "../types/PodcastTypes";
 
-const axios = require('axios')
+const axios = require("axios");
 
-export async function PodcastSearch(podcastName:string): Promise<PodcastSearchResult[]> {
+export async function PodcastSearch(
+  podcastName: string,
+): Promise<PodcastSearchResult[]> {
   let data = JSON.stringify({
     query: `query {
       podcasts(searchTerm: "${podcastName}", first: 10, sort: {
@@ -25,25 +27,26 @@ export async function PodcastSearch(podcastName:string): Promise<PodcastSearchRe
           }
       }
   }`,
-    variables: {}
+    variables: {},
   });
-  
+
   let config = {
-    method: 'post',
-    url: 'https://api.podchaser.com/graphql',
-    headers: { 
-      'Authorization': `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`, 
-      'Content-Type': 'application/json'
+    method: "post",
+    url: "https://api.podchaser.com/graphql",
+    headers: {
+      Authorization: `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`,
+      "Content-Type": "application/json",
     },
-    data : data
+    data: data,
   };
-  
-  let response:PodcastSearchResult[] = (await axios(config)).data.data.podcasts.data;
-  
+
+  let response: PodcastSearchResult[] = (await axios(config)).data.data.podcasts
+    .data;
+
   return response;
 }
 
-export async function GetPodcast(Id:number): Promise<Podcast> {
+export async function GetPodcast(Id: number): Promise<Podcast> {
   let data = JSON.stringify({
     query: `query {
       podcast(identifier: {
@@ -60,32 +63,32 @@ export async function GetPodcast(Id:number): Promise<Podcast> {
             rssUrl
       }
   }`,
-    variables: {}
+    variables: {},
   });
-  
+
   let config = {
-    method: 'post',
-    url: 'https://api.podchaser.com/graphql',
-    headers: { 
-      'Authorization': `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`, 
-      'Content-Type': 'application/json'
+    method: "post",
+    url: "https://api.podchaser.com/graphql",
+    headers: {
+      Authorization: `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`,
+      "Content-Type": "application/json",
     },
-    data : data
+    data: data,
   };
 
-  let response:Podcast = (await axios(config)).data.data.podcast;
+  let response: Podcast = (await axios(config)).data.data.podcast;
 
   return response;
 }
 
-export async function GetRssFeed(rssUrl:string): Promise<string> {
+export async function GetRssFeed(rssUrl: string): Promise<string> {
   var config = {
-    method: 'get',
+    method: "get",
     url: rssUrl,
-    headers: { }
+    headers: {},
   };
 
-  let response:string = (await axios(config)).data;
+  let response: string = (await axios(config)).data;
 
   return response;
 }

@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteFavoritedPodcast = exports.AddFavoritedPodcast = exports.GetFavoritedPodcasts = void 0;
 const Podcast_1 = require("../accessors/Podcast");
 const Database_1 = require("../accessors/Database");
+const Sync_1 = require("../accessors/Sync");
 const Rss_1 = require("./Rss");
 function GetFavoritedPodcasts(userId) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22,17 +23,20 @@ exports.GetFavoritedPodcasts = GetFavoritedPodcasts;
 function AddFavoritedPodcast(userId, podcastId) {
     return __awaiter(this, void 0, void 0, function* () {
         let podcast = yield (0, Podcast_1.GetPodcast)(podcastId);
-        let favoritedPodcast = ({
+        let favoritedPodcast = {
             createDate: new Date(),
             userId: userId,
             podcastId: podcastId,
             rssUrl: podcast.rssUrl,
             title: podcast.title,
-            imageUrl: podcast.imageUrl
-        });
-        var result = yield (0, Database_1.AddFavoritedPodcast)(favoritedPodcast);
+            imageUrl: podcast.imageUrl,
+        };
+        let result = yield (0, Database_1.AddFavoritedPodcast)(favoritedPodcast);
         if (podcast.rssUrl != null || podcast.rssUrl != undefined)
             (0, Rss_1.SavePodcastRssFeedEpisodes)(podcast.rssUrl, result.Id);
+        let isUserRssNull = yield (0, Database_1.IsUserRssNull)(userId);
+        if (isUserRssNull)
+            (0, Sync_1.ForceSyncRSSFeed)(userId);
     });
 }
 exports.AddFavoritedPodcast = AddFavoritedPodcast;

@@ -1,7 +1,6 @@
-API/.env
-API/node_modules/*
-API/package-lock.json
-Sync/.env
-Sync/node_modules/*
-Sync/package-lock.json
+# dependencies
+/node_modules
 
+# env files
+API/.env
+Sync/.env

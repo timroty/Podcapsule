@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetRssFeed = exports.GetPodcast = exports.PodcastSearch = void 0;
-const axios = require('axios');
+const axios = require("axios");
 function PodcastSearch(podcastName) {
     return __awaiter(this, void 0, void 0, function* () {
         let data = JSON.stringify({
@@ -35,18 +35,19 @@ function PodcastSearch(podcastName) {
           }
       }
   }`,
-            variables: {}
+            variables: {},
         });
         let config = {
-            method: 'post',
-            url: 'https://api.podchaser.com/graphql',
+            method: "post",
+            url: "https://api.podchaser.com/graphql",
             headers: {
-                'Authorization': `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`,
-                'Content-Type': 'application/json'
+                Authorization: `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`,
+                "Content-Type": "application/json",
             },
-            data: data
+            data: data,
         };
-        let response = (yield axios(config)).data.data.podcasts.data;
+        let response = (yield axios(config)).data.data.podcasts
+            .data;
         return response;
     });
 }
@@ -69,16 +70,16 @@ function GetPodcast(Id) {
             rssUrl
       }
   }`,
-            variables: {}
+            variables: {},
         });
         let config = {
-            method: 'post',
-            url: 'https://api.podchaser.com/graphql',
+            method: "post",
+            url: "https://api.podchaser.com/graphql",
             headers: {
-                'Authorization': `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`,
-                'Content-Type': 'application/json'
+                Authorization: `Bearer ${process.env.POD_CHASER_BEARER_TOKEN}`,
+                "Content-Type": "application/json",
             },
-            data: data
+            data: data,
         };
         let response = (yield axios(config)).data.data.podcast;
         return response;
@@ -88,9 +89,9 @@ exports.GetPodcast = GetPodcast;
 function GetRssFeed(rssUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         var config = {
-            method: 'get',
+            method: "get",
             url: rssUrl,
-            headers: {}
+            headers: {},
         };
         let response = (yield axios(config)).data;
         return response;

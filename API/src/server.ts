@@ -2,105 +2,37 @@ import express from "express";
 import { Router, Request, Response } from "express";
 import { expressjwt } from "express-jwt";
 
-import { getUserId } from './services/Utilities';
+import UserRouter from "./routes/User";
+import PodcastRouter from "./routes/Podcast";
 
-import { AddFavoritedPodcast, GetFavoritedPodcasts, DeleteFavoritedPodcast } from './services/FavoritedPodcasts';
-import { PodcastSearch } from './services/PodcastSearch';
-import { GetUser, RefreshToken, GetUserRSSFeed } from './services/User';
-
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
-var cors = require('cors')
+var cors = require("cors");
 
 const app = express();
-const route = Router();
+const apiRouter = Router();
 const PORT = process.env.PORT || "8000";
 
-app.use(express.json());
-app.use(cors());
-app.use(route);
-
-app.listen(PORT, () => `Server running on port ${PORT}!`);
-
-var jwtCheck = expressjwt({
+export const jwtCheck = expressjwt({
   secret: process.env.SUPABASE_JWT_SECRET!,
   audience: "authenticated",
   algorithms: ["HS256"],
 });
 
-route.get("/", (request: Request, response: Response) => {
-    response.json({ message: "Ok" });
+app.use(express.json());
+app.use(cors());
+app.listen(PORT, () => `Server running on port ${PORT}!`);
+
+apiRouter.get("/", (request: Request, response: Response) => {
+  response.json({ message: "Ok" });
 });
 
-route.get("/api/environment", (request: Request, response: Response) => {
+apiRouter.use("/users", UserRouter);
+apiRouter.use("/podcast", PodcastRouter);
+
+apiRouter.get("/environment", (request: Request, response: Response) => {
   response.json({ message: process.env.ENVIRONMENT });
 });
 
-route.post("/api/podcast/search", jwtCheck, (request: Request, response: Response) => {
-  PodcastSearch(request.body.podcastName).then(result => {
-      response.json(result).status(200);
-    }).catch(error => {
-      response.sendStatus(500);
-      console.log(error);
-    });
-});
-
-route.get("/api/user", jwtCheck, (request: Request, response: Response) => {
-  GetUser(getUserId(request.headers.authorization!)).then(result => {
-      response.json(result).status(200);
-    }).catch(error => {
-      response.sendStatus(500);
-      console.log(error);
-    });
-});
-
-route.get("/api/user/favorited-podcasts", jwtCheck, (request: Request, response: Response) => {
-  GetFavoritedPodcasts(getUserId(request.headers.authorization!)).then(result => {
-      response.json(result).status(200);
-    }).catch(error => {
-      response.sendStatus(500);
-      console.log(error);
-    });
-});
-
-route.post("/api/user/favorited-podcasts/add", jwtCheck, (request: Request, response: Response) => {
-  AddFavoritedPodcast(getUserId(request.headers.authorization!), request.body.podcastId).then(result => {
-      response.json(result).status(200);
-    }).catch(error => {
-      response.sendStatus(500);
-      console.log(error);
-    });
-});
-
-route.post("/api/user/favorited-podcasts/delete", jwtCheck, (request: Request, response: Response) => {
-  DeleteFavoritedPodcast(request.body.favoritedPodcastId).then(result => {
-      response.json(result).status(200);
-    }).catch(error => {
-      response.sendStatus(500);
-      console.log(error);
-    });
-});
-
-route.post("/api/refresh-token", (request: Request, response: Response) => {
-  RefreshToken(request.body.refresh_token).then(result => {
-      response.json(result).status(200);
-    }).catch(error => {
-      if (error.response.data.error == "invalid_grant"){
-        response.json({ "error": error.response.data.error, "error_description": error.response.data.error_description}).status(500)
-      } else {
-        response.sendStatus(500);
-        console.log(error);
-      }
-    });
-});
-
-route.get("/api/user/rss/:id", (request: Request, response: Response) => {
-  GetUserRSSFeed(request.params.id).then(result => {
-    response.header("Content-Type", "application/xml");
-    response.status(200).send(result);
-  }).catch(error => {
-    response.sendStatus(500);
-    console.log(error);
-  });
-});
+app.use("/api", apiRouter);
