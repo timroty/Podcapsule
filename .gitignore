@@ -4,3 +4,6 @@
 # env files
 API/.env
 Sync/.env
+
+# build files
+API/build
