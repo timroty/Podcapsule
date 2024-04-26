@@ -1,7 +1,7 @@
 import { GetUser as GetUserDB } from "../accessors/Database";
 import { User } from "../types/DatabaseTypes";
 
-var convert = require("xml-js");
+const convert = require("xml-js");
 const axios = require("axios");
 
 export async function GetUser(userId: string): Promise<User> {
@@ -9,7 +9,7 @@ export async function GetUser(userId: string): Promise<User> {
 }
 
 export async function GetUserRSSFeed(userId: string): Promise<string> {
-  var user = await GetUserDB(userId);
+  const user = await GetUserDB(userId);
   if (user?.RSSFeedJSON) {
     return convert.json2xml(user.RSSFeedJSON, { compact: false, spaces: 4 });
   } else {
@@ -18,11 +18,11 @@ export async function GetUserRSSFeed(userId: string): Promise<string> {
 }
 
 export async function RefreshToken(refreshToken: string) {
-  var data = JSON.stringify({
+  const data = JSON.stringify({
     refresh_token: refreshToken,
   });
 
-  let config = {
+  const config = {
     method: "post",
     url:
       process.env.SUPABASE_PROJECT_URL +

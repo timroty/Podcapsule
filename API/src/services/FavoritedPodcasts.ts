@@ -24,9 +24,9 @@ export async function AddFavoritedPodcast(
   podcastId: number,
 ): Promise<void> {
   // TODO: Check if the podcastId already exists for the user
-  let podcast: Podcast = await GetPodcast(podcastId);
+  const podcast: Podcast = await GetPodcast(podcastId);
 
-  let favoritedPodcast = <FavoritedPodcast>{
+  const favoritedPodcast = <FavoritedPodcast>{
     createDate: new Date(),
     userId: userId,
     podcastId: podcastId,
@@ -35,12 +35,13 @@ export async function AddFavoritedPodcast(
     imageUrl: podcast.imageUrl,
   };
 
-  let result: FavoritedPodcast = await AddFavoritedPodcastDB(favoritedPodcast);
+  const result: FavoritedPodcast =
+    await AddFavoritedPodcastDB(favoritedPodcast);
 
   if (podcast.rssUrl != null || podcast.rssUrl != undefined)
     SavePodcastRssFeedEpisodes(podcast.rssUrl, result.Id);
 
-  let isUserRssNull = await IsUserRssNull(userId);
+  const isUserRssNull = await IsUserRssNull(userId);
 
   if (isUserRssNull) ForceSyncRSSFeed(userId);
 }

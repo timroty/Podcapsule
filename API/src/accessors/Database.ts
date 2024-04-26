@@ -19,7 +19,7 @@ export async function GetUser(Id: string): Promise<User> {
     .single()
     .eq("Id", Id);
 
-  let result: User = data;
+  const result: User = data;
 
   return result;
 }
@@ -37,7 +37,7 @@ export async function IsUserRssNull(Id: string): Promise<boolean> {
     .is("RSSFeedJSON", null)
     .eq("Id", Id);
 
-  let result: string = data;
+  const result: string = data;
 
   return Boolean(result);
 }
@@ -56,7 +56,7 @@ export async function GetFavoritedPodcasts(
     .select("Id,CreateDate,PodcastId,Title,ImageUrl")
     .eq("UserId", Id);
 
-  let result: FavoritedPodcast[] = data;
+  const result: FavoritedPodcast[] = data;
 
   return result;
 }

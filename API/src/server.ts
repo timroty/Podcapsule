@@ -8,7 +8,7 @@ import PodcastRouter from "./routes/Podcast";
 import dotenv from "dotenv";
 dotenv.config();
 
-var cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 const apiRouter = Router();

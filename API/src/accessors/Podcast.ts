@@ -5,7 +5,7 @@ const axios = require("axios");
 export async function PodcastSearch(
   podcastName: string,
 ): Promise<PodcastSearchResult[]> {
-  let data = JSON.stringify({
+  const data = JSON.stringify({
     query: `query {
       podcasts(searchTerm: "${podcastName}", first: 10, sort: {
           sortBy: RELEVANCE,
@@ -30,7 +30,7 @@ export async function PodcastSearch(
     variables: {},
   });
 
-  let config = {
+  const config = {
     method: "post",
     url: "https://api.podchaser.com/graphql",
     headers: {
@@ -40,14 +40,14 @@ export async function PodcastSearch(
     data: data,
   };
 
-  let response: PodcastSearchResult[] = (await axios(config)).data.data.podcasts
-    .data;
+  const response: PodcastSearchResult[] = (await axios(config)).data.data
+    .podcasts.data;
 
   return response;
 }
 
 export async function GetPodcast(Id: number): Promise<Podcast> {
-  let data = JSON.stringify({
+  const data = JSON.stringify({
     query: `query {
       podcast(identifier: {
           id: "${Id}",
@@ -66,7 +66,7 @@ export async function GetPodcast(Id: number): Promise<Podcast> {
     variables: {},
   });
 
-  let config = {
+  const config = {
     method: "post",
     url: "https://api.podchaser.com/graphql",
     headers: {
@@ -76,19 +76,19 @@ export async function GetPodcast(Id: number): Promise<Podcast> {
     data: data,
   };
 
-  let response: Podcast = (await axios(config)).data.data.podcast;
+  const response: Podcast = (await axios(config)).data.data.podcast;
 
   return response;
 }
 
 export async function GetRssFeed(rssUrl: string): Promise<string> {
-  var config = {
+  const config = {
     method: "get",
     url: rssUrl,
     headers: {},
   };
 
-  let response: string = (await axios(config)).data;
+  const response: string = (await axios(config)).data;
 
   return response;
 }
