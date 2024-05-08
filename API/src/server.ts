@@ -5,20 +5,15 @@ import { expressjwt } from "express-jwt";
 import UserRouter from "./routes/User";
 import PodcastRouter from "./routes/Podcast";
 
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();çç
+require("dotenv").config();
 
 const cors = require("cors");
 
 const app = express();
 const apiRouter = Router();
 const PORT = process.env.PORT || "8000";
-
-export const jwtCheck = expressjwt({
-  secret: process.env.SUPABASE_JWT_SECRET!,
-  audience: "authenticated",
-  algorithms: ["HS256"],
-});
 
 app.use(express.json());
 app.use(cors());
@@ -28,11 +23,14 @@ apiRouter.get("/", (request: Request, response: Response) => {
   response.json({ message: "Ok" });
 });
 
-apiRouter.use("/users", UserRouter);
+app.use("/api", apiRouter);
+
+apiRouter.use("/user", UserRouter);
 apiRouter.use("/podcast", PodcastRouter);
 
 apiRouter.get("/environment", (request: Request, response: Response) => {
-  response.json({ message: process.env.ENVIRONMENT });
+  response.json({
+    message: process.env.ENVIRONMENT,
+    test: process.env.SUPABASE_JWT_SECRET,
+  });
 });
-
-app.use("/api", apiRouter);

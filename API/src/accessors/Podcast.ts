@@ -1,10 +1,8 @@
-import { Podcast, PodcastSearchResult } from "../types/PodcastTypes";
+import { Podcast, SearchResult } from "./types/Podcast";
 
-const axios = require("axios");
+const axios = require("axios").default;
 
-export async function PodcastSearch(
-  podcastName: string,
-): Promise<PodcastSearchResult[]> {
+export async function Search(podcastName: string): Promise<SearchResult[]> {
   const data = JSON.stringify({
     query: `query {
       podcasts(searchTerm: "${podcastName}", first: 10, sort: {
@@ -40,27 +38,27 @@ export async function PodcastSearch(
     data: data,
   };
 
-  const response: PodcastSearchResult[] = (await axios(config)).data.data
-    .podcasts.data;
+  const response: SearchResult[] = (await axios(config)).data.data.podcasts
+    .data;
 
   return response;
 }
 
-export async function GetPodcast(Id: number): Promise<Podcast> {
+export async function GetById(Id: number): Promise<Podcast> {
   const data = JSON.stringify({
     query: `query {
       podcast(identifier: {
           id: "${Id}",
           type: PODCHASER
       }) {
-            id,
-            title,
-            description,
-            imageUrl,
-            numberOfEpisodes,
-            ratingAverage,
-            ratingCount,
-            rssUrl
+          id,
+          title,
+          description,
+          imageUrl,
+          numberOfEpisodes,
+          ratingAverage,
+          ratingCount,
+          rssUrl
       }
   }`,
     variables: {},

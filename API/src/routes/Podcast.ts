@@ -1,12 +1,21 @@
 import { Router, Request, Response } from "express";
-import { jwtCheck } from "../server";
-import { PodcastSearch } from "../services/PodcastSearch";
+//import { jwtCheck } from "../server";
 
 const router = Router();
 
-// TODO: Make this a query param
-router.post("/search", jwtCheck, (request: Request, response: Response) => {
-  PodcastSearch(request.body.podcastName)
+import { expressjwt } from "express-jwt";
+import { Search } from "../services/Podcast";
+
+// router.use(expressjwt({
+//   secret: process.env.SUPABASE_JWT_SECRET ?? "default",
+//   audience: "authenticated",
+//   algorithms: ["HS256"],
+// }));
+
+router.get("/search", (request: Request, response: Response) => {
+  const searchValue = request.query.value as string;
+  console.log(searchValue);
+  Search(searchValue)
     .then((result) => {
       response.json(result).status(200);
     })
