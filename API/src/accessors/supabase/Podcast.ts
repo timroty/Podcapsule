@@ -14,6 +14,8 @@ export async function GetById(Id: number): Promise<Tables<"Podcast"> | null> {
     .eq("id", Id)
     .single();
 
+  if (error) throw error;
+
   return data;
 }
 
@@ -30,6 +32,8 @@ export async function GetByPodcastId(
     .select()
     .eq("podcast_id", Id)
     .single();
+
+  if (error) throw error;
 
   return data;
 }
@@ -50,6 +54,8 @@ export async function Add(podcast: Podcast): Promise<Tables<"Podcast"> | null> {
     })
     .select()
     .single();
+
+  if (error) throw error;
 
   return data;
 }

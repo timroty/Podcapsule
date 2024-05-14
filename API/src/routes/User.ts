@@ -1,7 +1,11 @@
 import { Router, Request, Response } from "express";
 import { GetUser, GetUserRSSFeed, RefreshToken } from "../services/User";
 import { getUserId } from "../services/Utilities";
-import { UpdateUserPodcast, DeleteUserPodcast } from "../services/Podcast";
+import {
+  UpdateUserPodcast,
+  DeleteUserPodcast,
+  GetUserPodcasts,
+} from "../services/Podcast";
 
 import { expressjwt } from "express-jwt";
 
@@ -36,19 +40,19 @@ router.get("/", (request: Request, response: Response) => {
     });
 });
 
-// router.get(
-//   "/favorited-podcasts",
-//   (request: Request, response: Response) => {
-//     GetFavoritedPodcasts(getUserId(request.headers.authorization!))
-//       .then((result) => {
-//         response.json(result).status(200);
-//       })
-//       .catch((error) => {
-//         response.sendStatus(500);
-//         console.log(error);
-//       });
-//   },
-// );
+router.get("/podcasts", (request: Request, response: Response) => {
+  var isActive = request.query.isActive
+    ? JSON.parse(request.query.isActive as string)
+    : true;
+  GetUserPodcasts("96f4ff72-cea2-4198-8e86-2a3e7bb071e8", isActive)
+    .then((result) => {
+      response.json(result).status(200);
+    })
+    .catch((error) => {
+      response.sendStatus(500);
+      console.log(error);
+    });
+});
 
 router.put("/podcast", (request: Request, response: Response) => {
   UpdateUserPodcast(
@@ -65,19 +69,19 @@ router.put("/podcast", (request: Request, response: Response) => {
     });
 });
 
-// router.delete(
-//   "/favorited-podcasts",
-//   (request: Request, response: Response) => {
-//     DeleteFavoritedPodcast(request.body.favoritedPodcastId)
-//       .then((result) => {
-//         response.json(result).status(200);
-//       })
-//       .catch((error) => {
-//         response.sendStatus(500);
-//         console.log(error);
-//       });
-//   },
-// );
+router.delete("/podcast", (request: Request, response: Response) => {
+  DeleteUserPodcast(
+    "96f4ff72-cea2-4198-8e86-2a3e7bb071e8", //getUserId(request.headers.authorization!),
+    request.body.podcastId,
+  )
+    .then((result) => {
+      response.json(result).status(200);
+    })
+    .catch((error) => {
+      response.sendStatus(500);
+      console.log(error);
+    });
+});
 
 // router.post("/refresh-token", (request: Request, response: Response) => {
 //   RefreshToken(request.body.refresh_token)

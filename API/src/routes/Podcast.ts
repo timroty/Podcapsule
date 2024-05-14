@@ -1,5 +1,4 @@
 import { Router, Request, Response } from "express";
-//import { jwtCheck } from "../server";
 
 const router = Router();
 
@@ -14,7 +13,6 @@ import { Search } from "../services/Podcast";
 
 router.get("/search", (request: Request, response: Response) => {
   const searchValue = request.query.value as string;
-  console.log(searchValue);
   Search(searchValue)
     .then((result) => {
       response.json(result).status(200);

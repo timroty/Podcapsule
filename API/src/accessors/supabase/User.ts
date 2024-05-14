@@ -14,5 +14,7 @@ export async function GetUser(Id: string): Promise<Tables<"User"> | null> {
     .eq("Id", Id)
     .single();
 
+  if (error) throw error;
+
   return data;
 }

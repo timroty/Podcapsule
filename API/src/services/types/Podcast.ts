@@ -7,3 +7,10 @@ export type SearchResult = {
   ratingAverage?: number;
   ratingCount?: number;
 };
+
+export type UserPodcast = {
+  is_active: boolean;
+  valid_at: string | null;
+  title: string | null;
+  image_url: string | null;
+};

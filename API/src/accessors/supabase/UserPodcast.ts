@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, QueryData } from "@supabase/supabase-js";
 import { Database, Tables } from "./generated/Types";
 
 export async function Get(
@@ -16,6 +16,8 @@ export async function Get(
     .eq("user_id", UserId)
     .eq("podcast_id", PodcastId)
     .single();
+
+  if (error) throw error;
 
   return data;
 }
@@ -37,6 +39,8 @@ export async function Add(
     valid_at: ValidAt.toLocaleString("en", { timeZone: "America/Chicago" }),
     is_active: IsActive,
   });
+
+  if (error) throw error;
 }
 
 export async function Delete(UserId: string, PodcastId: number): Promise<void> {
@@ -51,7 +55,7 @@ export async function Delete(UserId: string, PodcastId: number): Promise<void> {
     .eq("user_id", UserId)
     .eq("podcast_id", PodcastId);
 
-  return;
+  if (error) throw error;
 }
 
 export async function SetActive(
@@ -71,4 +75,36 @@ export async function SetActive(
     })
     .eq("user_id", UserId)
     .eq("podcast_id", PodcastId);
+
+  if (error) throw error;
+}
+
+export async function GetAllForUser(
+  UserId: string,
+  IsActive: boolean,
+): Promise<GetAllForUser[]> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { data, error } = await supabaseClient
+    .from("UserPodcast")
+    .select(
+      `
+      is_active,
+      valid_at,
+      Podcast (
+        title,
+        image_url
+      )
+    `,
+    )
+    .eq("user_id", UserId)
+    .eq("is_active", IsActive);
+
+  if (error) throw error;
+  const userPodcasts: GetAllForUser[] = data;
+
+  return userPodcasts;
 }

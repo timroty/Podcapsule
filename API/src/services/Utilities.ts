@@ -1,6 +1,16 @@
 import jwt_decode from "jwt-decode";
 
-import { JWT } from "../types/JWTType";
+type JWT = {
+  aud: string;
+  exp: number;
+  sub: string;
+  email: string;
+  phone: string;
+  app_metadata: JSON;
+  user_metadata: JSON;
+  role: string;
+  session_id: string;
+};
 
 export function getUserId(authorization: string): string {
   const authorizationToken = authorization.split(" ")[1];

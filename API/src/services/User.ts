@@ -1,8 +1,6 @@
 import * as user_db from "../accessors/supabase/User";
 import { User } from "./types/User";
 
-import { GetUser as GetUserDB } from "../accessors/Database";
-
 const convert = require("xml-js");
 const axios = require("axios");
 
@@ -25,12 +23,8 @@ export async function GetUser(userId: string): Promise<User | null> {
 }
 
 export async function GetUserRSSFeed(userId: string): Promise<string> {
-  const user = await GetUserDB(userId);
-  if (user?.RSSFeedJSON) {
-    return convert.json2xml(user.RSSFeedJSON, { compact: false, spaces: 4 });
-  } else {
-    return "";
-  }
+  const user = await user_db.GetUser(userId);
+  return convert.json2xml(user?.rss_feed ?? "", { compact: false, spaces: 4 });
 }
 
 export async function RefreshToken(refreshToken: string) {

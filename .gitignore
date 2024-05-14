@@ -6,4 +6,5 @@ API/.env
 Sync/.env
 
 # build files
-API/build
+API/dist
+Sync/node_modules/

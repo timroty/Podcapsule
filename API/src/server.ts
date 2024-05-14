@@ -5,9 +5,8 @@ import { expressjwt } from "express-jwt";
 import UserRouter from "./routes/User";
 import PodcastRouter from "./routes/Podcast";
 
-// import dotenv from 'dotenv';
-// dotenv.config();çç
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const cors = require("cors");
 
@@ -31,6 +30,5 @@ apiRouter.use("/podcast", PodcastRouter);
 apiRouter.get("/environment", (request: Request, response: Response) => {
   response.json({
     message: process.env.ENVIRONMENT,
-    test: process.env.SUPABASE_JWT_SECRET,
   });
 });
