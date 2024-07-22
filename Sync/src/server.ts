@@ -15,8 +15,8 @@ const bree = new Bree({
   defaultExtension: process.env.TS_NODE ? 'ts' : 'js',
   jobs: [
     {
-      name: 'foo-bar',
-      cron: '* * * * *'
+      name: 'UserPodcastSync',
+      cron: '*/20 * * * *'
     }
   ]
 });
