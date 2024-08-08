@@ -160,6 +160,13 @@ export type Database = {
             foreignKeyName: "UserPodcast_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "get_users_to_sync"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "UserPodcast_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "User"
             referencedColumns: ["id"]
           },
@@ -169,27 +176,48 @@ export type Database = {
         Row: {
           created_at: string
           id: number
-          podcast_id: number
+          podcast_episode_id: number
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: number
-          podcast_id: number
+          podcast_episode_id: number
           user_id: string
         }
         Update: {
           created_at?: string
           id?: number
-          podcast_id?: number
+          podcast_episode_id?: number
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "UserPodcastEpisode_podcast_id_fkey"
-            columns: ["podcast_id"]
+            foreignKeyName: "UserPodcastEpisode_podcast_episode_id_fkey"
+            columns: ["podcast_episode_id"]
             isOneToOne: false
-            referencedRelation: "Podcast"
+            referencedRelation: "get_podcast_episode_to_sync"
+            referencedColumns: ["podcast_episode_id"]
+          },
+          {
+            foreignKeyName: "UserPodcastEpisode_podcast_episode_id_fkey"
+            columns: ["podcast_episode_id"]
+            isOneToOne: false
+            referencedRelation: "PodcastEpisode"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "UserPodcastEpisode_podcast_episode_id_fkey"
+            columns: ["podcast_episode_id"]
+            isOneToOne: false
+            referencedRelation: "sync_podcast_for_user"
+            referencedColumns: ["podcast_episode_id"]
+          },
+          {
+            foreignKeyName: "UserPodcastEpisode_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "get_users_to_sync"
             referencedColumns: ["id"]
           },
           {
@@ -222,6 +250,13 @@ export type Database = {
             foreignKeyName: "UserPodcastSyncQueue_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "get_users_to_sync"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "UserPodcastSyncQueue_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "User"
             referencedColumns: ["id"]
           },
@@ -229,7 +264,64 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      get_podcast_episode_to_sync: {
+        Row: {
+          podcast_episode_id: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "UserPodcast_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "User"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "UserPodcast_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "get_users_to_sync"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      get_users_to_sync: {
+        Row: {
+          id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "User_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sync_podcast_for_user: {
+        Row: {
+          podcast_episode_id: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "UserPodcast_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "User"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "UserPodcast_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "get_users_to_sync"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

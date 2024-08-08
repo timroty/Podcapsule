@@ -1,5 +1,22 @@
 import { createClient } from "@supabase/supabase-js";
-import { Database } from "./generated/types";
+import { Database, Tables } from "./generated/Types";
+
+export async function GetUser(Id: string): Promise<Tables<"User"> | null> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { data, error } = await supabaseClient
+    .from("User")
+    .select()
+    .eq("Id", Id)
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}
 
 export async function GetUsersToSync(limit: number): Promise<string[] | null> {
   const supabaseClient = createClient<Database>(
@@ -29,5 +46,65 @@ export async function QueueUsersToSync(userIds: string[]): Promise<void> {
   .from('UserPodcastSyncQueue')
   .insert(items);
 
+  if (error) throw error;
+}
+
+export async function RetrieveTopUserFromSyncQueue(): Promise<string | null> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { data, error } = await supabaseClient
+  .from('UserPodcastSyncQueue')
+  .select("*")
+  .limit(1);
+
+  if (error) throw error;
+
+  if (!data) return null;
+
+  return data[0].user_id;
+}
+
+export async function UpdateRSSFeed(userId:string, rssFeed:string): Promise<void> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { error } = await supabaseClient
+    .from('User')
+    .update({ rss_feed: rssFeed })
+    .eq('Id', userId);
+
+  if (error) throw error;
+}
+
+export async function UpdateLastSyncDate(userId:string, syncDate:string): Promise<void> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { error } = await supabaseClient
+    .from('User')
+    .update({ last_sync: syncDate })
+    .eq('Id', userId);
+
+  if (error) throw error;
+}
+
+export async function RemoveFromSyncQueue(id:string): Promise<void> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { error } = await supabaseClient
+      .from('UserPodcastSyncQueue')
+      .delete()
+      .eq('user_id', id);
+  
   if (error) throw error;
 }

@@ -7,7 +7,7 @@ FROM
   JOIN "UserPodcast" up ON u.id = up.user_id
 WHERE
   up.is_active = TRUE
-  AND u.last_sync < CURRENT_TIMESTAMP - INTERVAL '1 day'
+  AND (u.last_sync IS NULL OR u.last_sync < CURRENT_TIMESTAMP - INTERVAL '1 day')
   AND u.id NOT IN (
     SELECT 
       user_id
