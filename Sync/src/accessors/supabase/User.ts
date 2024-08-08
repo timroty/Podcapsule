@@ -42,7 +42,7 @@ export async function QueueUsersToSync(userIds: string[]): Promise<void> {
 
   const items = userIds.map(userId => ({ user_id: userId }));
 
-  const { data, error } = await supabaseClient
+  const { error } = await supabaseClient
   .from('UserPodcastSyncQueue')
   .insert(items);
 
@@ -62,7 +62,7 @@ export async function RetrieveTopUserFromSyncQueue(): Promise<string | null> {
 
   if (error) throw error;
 
-  if (!data) return null;
+  if (!data || data.length === 0) return null;
 
   return data[0].user_id;
 }
@@ -90,7 +90,7 @@ export async function UpdateLastSyncDate(userId:string, syncDate:string): Promis
   const { error } = await supabaseClient
     .from('User')
     .update({ last_sync: syncDate })
-    .eq('Id', userId);
+    .eq('id', userId);
 
   if (error) throw error;
 }

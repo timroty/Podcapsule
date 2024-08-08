@@ -21,6 +21,14 @@ const bree = new Bree({
     {
       name: 'UserPodcastSync',
       cron: '*/20 * * * *'
+    },
+    {
+      name: 'PodcastSyncQueue',
+      cron: '0 0 * * *'
+    },
+    {
+      name: 'PodcastSync',
+      cron: '*/20 * * * *'
     }
   ]
 });

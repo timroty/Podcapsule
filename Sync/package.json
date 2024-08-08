@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.0.0",
+    "axios": "^1.7.3",
     "bree": "^9.2.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

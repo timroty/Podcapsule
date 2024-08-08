@@ -3,7 +3,7 @@ import * as podcast_db from "../accessors/supabase/Podcast";
 import * as podcast_episode_db from "../accessors/supabase/PodcastEpisode";
 import { RSSFeedTemplate } from "../constants/constants";
 
-
+// Add a podcast to a user's feed
 async function UserPodcastSync(): Promise<void> {
   const userIdToSync = await user_db.RetrieveTopUserFromSyncQueue();
 
