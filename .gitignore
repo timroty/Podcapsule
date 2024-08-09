@@ -7,4 +7,4 @@ Sync/.env
 
 # build files
 API/dist
-Sync/node_modules/
+Sync/dist

@@ -4,7 +4,7 @@ import * as user_db from "../accessors/supabase/User";
 async function UserPodcastSyncQueue(): Promise<void> {
   const usersToSync = await user_db.GetUsersToSync(20);
 
-  if (!usersToSync) {
+  if (!usersToSync || usersToSync.length === 0) {
     return;
   }
 
