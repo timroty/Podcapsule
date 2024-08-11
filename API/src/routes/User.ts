@@ -7,8 +7,6 @@ import {
   GetUserPodcasts,
 } from "../services/Podcast";
 
-import { expressjwt } from "express-jwt";
-
 const router = Router();
 
 router.get("/rss/:id", (request: Request, response: Response) => {
@@ -23,14 +21,8 @@ router.get("/rss/:id", (request: Request, response: Response) => {
     });
 });
 
-// router.use(expressjwt({
-//   secret: process.env.SUPABASE_JWT_SECRET ?? "default",
-//   audience: "authenticated",
-//   algorithms: ["HS256"],
-// }));
-
 router.get("/", (request: Request, response: Response) => {
-  GetUser(getUserId(request.headers.authorization!))
+  GetUser(getUserId(request.headers.authorization ?? ""))
     .then((result) => {
       response.json(result).status(200);
     })
@@ -41,10 +33,9 @@ router.get("/", (request: Request, response: Response) => {
 });
 
 router.get("/podcasts", (request: Request, response: Response) => {
-  var isActive = request.query.isActive
-    ? JSON.parse(request.query.isActive as string)
-    : true;
-  GetUserPodcasts("96f4ff72-cea2-4198-8e86-2a3e7bb071e8", isActive)
+  var isActive = JSON.parse((request?.query?.isActive ?? "true") as string);
+
+  GetUserPodcasts(getUserId(request.headers.authorization ?? ""), isActive)
     .then((result) => {
       response.json(result).status(200);
     })
@@ -82,25 +73,5 @@ router.delete("/podcast", (request: Request, response: Response) => {
       console.log(error);
     });
 });
-
-// router.post("/refresh-token", (request: Request, response: Response) => {
-//   RefreshToken(request.body.refresh_token)
-//     .then((result) => {
-//       response.json(result).status(200);
-//     })
-//     .catch((error) => {
-//       if (error.response.data.error == "invalid_grant") {
-//         response
-//           .json({
-//             error: error.response.data.error,
-//             error_description: error.response.data.error_description,
-//           })
-//           .status(500);
-//       } else {
-//         response.sendStatus(500);
-//         console.log(error);
-//       }
-//     });
-// });
 
 export default router;

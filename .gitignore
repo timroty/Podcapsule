@@ -4,6 +4,7 @@
 # env files
 API/.env
 Sync/.env
+Frontend/.env
 
 # build files
 API/dist
