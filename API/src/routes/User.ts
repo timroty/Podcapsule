@@ -35,7 +35,7 @@ router.get("/", (request: Request, response: Response) => {
 router.get("/podcasts", (request: Request, response: Response) => {
   var isActive = JSON.parse((request?.query?.isActive ?? "true") as string);
 
-  GetUserPodcasts(getUserId(request.headers.authorization ?? ""), isActive)
+  GetUserPodcasts(getUserId(request.headers.authorization!), isActive)
     .then((result) => {
       response.json(result).status(200);
     })
@@ -61,10 +61,7 @@ router.put("/podcast", (request: Request, response: Response) => {
 });
 
 router.delete("/podcast", (request: Request, response: Response) => {
-  DeleteUserPodcast(
-    "96f4ff72-cea2-4198-8e86-2a3e7bb071e8", //getUserId(request.headers.authorization!),
-    request.body.podcastId,
-  )
+  DeleteUserPodcast(request.body.podcastId)
     .then((result) => {
       response.json(result).status(200);
     })

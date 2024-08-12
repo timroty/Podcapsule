@@ -10,11 +10,35 @@ export async function GetUserPodcasts(authroizationToken: string) {
     }
   }
 
-  try{
+  try {
     return (await axios(config)).data
   }
   catch(error)
   {
     return [];
+  }  
+}
+
+export async function DeleteUserPodcast(authroizationToken: string, podcastId: number) {
+  const config = {
+    method: 'delete',
+    url: process.env.NEXT_PUBLIC_BACKEND_BASE_URL + '/api/user/podcast',
+    headers: {
+      Authorization: `Bearer ${authroizationToken}`,
+      'Content-Type': 'application/json'
+    },
+    data: {
+      podcastId: podcastId
+    }
+  }
+
+  try {
+    await axios(config);
+
+    return true;
+  }
+  catch(error)
+  {
+    return false;
   }  
 }

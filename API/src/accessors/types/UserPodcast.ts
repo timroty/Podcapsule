@@ -1,4 +1,5 @@
 type GetAllForUser = {
+  id: number;
   is_active: boolean;
   valid_at: string | null;
   Podcast: {

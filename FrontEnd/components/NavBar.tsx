@@ -50,7 +50,7 @@ export default function Navbar() {
         <NavbarItem>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu >
+      <NavbarMenu className="lg:pl-10 xl:pl-72">
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             {index === menuItems.length - 1 ? (

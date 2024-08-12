@@ -13,7 +13,7 @@ export async function Get(
   const { data, error } = await supabaseClient
     .from("UserPodcast")
     .select()
-    .eq("user_id", UserId)
+    .eq("id", UserId)
     .eq("podcast_id", PodcastId)
     .single();
 
@@ -43,7 +43,7 @@ export async function Add(
   if (error) throw error;
 }
 
-export async function Delete(UserId: string, PodcastId: number): Promise<void> {
+export async function Delete(UserPodcastId: number): Promise<void> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
@@ -52,15 +52,13 @@ export async function Delete(UserId: string, PodcastId: number): Promise<void> {
   const { error } = await supabaseClient
     .from("UserPodcast")
     .delete()
-    .eq("user_id", UserId)
-    .eq("podcast_id", PodcastId);
+    .eq("id", UserPodcastId);
 
   if (error) throw error;
 }
 
 export async function SetActive(
-  UserId: string,
-  PodcastId: number,
+  UserPodcastId: number,
   IsActive: boolean,
 ): Promise<void> {
   const supabaseClient = createClient<Database>(
@@ -73,8 +71,7 @@ export async function SetActive(
     .update({
       is_active: IsActive,
     })
-    .eq("user_id", UserId)
-    .eq("podcast_id", PodcastId);
+    .eq("id", UserPodcastId);
 
   if (error) throw error;
 }
@@ -92,6 +89,7 @@ export async function GetAllForUser(
     .from("UserPodcast")
     .select(
       `
+      id,
       is_active,
       valid_at,
       Podcast (

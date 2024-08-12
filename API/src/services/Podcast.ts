@@ -32,6 +32,7 @@ export async function GetUserPodcasts(
 
   const mappedResult: UserPodcast[] = userPodcasts.map((userPodcast) => {
     var mapped: UserPodcast = {
+      id: userPodcast.id,
       title: userPodcast.Podcast?.title ?? null,
       is_active: userPodcast.is_active,
       valid_at: userPodcast.valid_at,
@@ -78,22 +79,13 @@ export async function UpdateUserPodcast(
       await user_podcast_db.Add(UserId, podcastId as number, new Date(), true);
     } else if (userPodcastResult.is_active != IsActive) {
       // If podcast active status does not match incoming param, update
-      await user_podcast_db.SetActive(UserId, podcastId as number, IsActive);
+      await user_podcast_db.SetActive(userPodcastResult.id, IsActive);
     }
   }
 }
 
-export async function DeleteUserPodcast(
-  userId: string,
-  podcastId: number,
+export async function DeleteUserPodcast (
+  userPodcastId: number
 ): Promise<void> {
-  const userPodcastResult = await user_podcast_db.Get(
-    userId,
-    podcastId as number,
-  );
-  if (!userPodcastResult) {
-    return;
-  }
-
-  await user_podcast_db.Delete(userId, podcastId as number);
+  await user_podcast_db.Delete(userPodcastId);
 }

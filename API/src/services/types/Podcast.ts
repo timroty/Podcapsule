@@ -9,6 +9,7 @@ export type SearchResult = {
 };
 
 export type UserPodcast = {
+  id: number;
   is_active: boolean;
   valid_at: string | null;
   title: string | null;
