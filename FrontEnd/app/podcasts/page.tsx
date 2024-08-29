@@ -11,17 +11,18 @@ export default async function PodcastsPage() {
 
   const {
     data: { user },
-  } = (await supabase.auth.getUser());
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return redirect("/login");
   }
 
-  const rssFeedUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL + '/api/user/rss/' + user.id
+  const rssFeedUrl =
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/user/rss/" + user.id;
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="container max-w-screen-lg">
         <PageHeading>Podcasts</PageHeading>
         <h2 className="text-lg mt-4">RSS feed URL:</h2>

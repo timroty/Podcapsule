@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
-import { 
-  Navbar as NavBarNextUi, 
-  NavbarBrand, 
-  NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle, 
+import {
+  Navbar as NavBarNextUi,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
   NavbarMenu,
-  NavbarMenuItem, 
-  Link
-    } from "@nextui-org/react";
+  NavbarMenuItem,
+  Link,
+} from "@nextui-org/react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import Image from 'next/image'
+import Image from "next/image";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -42,13 +42,17 @@ export default function Navbar() {
       </NavbarContent>
       <NavbarContent justify="center">
         <NavbarBrand>
-          <Image src={`/logo-light.png`} alt={"Podcapsule logo"} width="22" height="22" />
+          <Image
+            src={`/logo-light.png`}
+            alt={"Podcapsule logo"}
+            width="22"
+            height="22"
+          />
           <p className="font-bold text-inherit ml-4">Podcapsule</p>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end" as="div">
-        <NavbarItem>
-        </NavbarItem>
+        <NavbarItem></NavbarItem>
       </NavbarContent>
       <NavbarMenu className="lg:pl-10 xl:pl-72">
         {menuItems.map((item, index) => (

@@ -4,246 +4,246 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export type Database = {
   public: {
     Tables: {
       Podcast: {
         Row: {
-          created_at: string
-          id: number
-          image_url: string | null
-          last_sync: string
-          podcast_id: number
-          rss_url: string | null
-          title: string | null
-        }
+          created_at: string;
+          id: number;
+          image_url: string | null;
+          last_sync: string;
+          podcast_id: number;
+          rss_url: string | null;
+          title: string | null;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          image_url?: string | null
-          last_sync?: string
-          podcast_id: number
-          rss_url?: string | null
-          title?: string | null
-        }
+          created_at?: string;
+          id?: number;
+          image_url?: string | null;
+          last_sync?: string;
+          podcast_id: number;
+          rss_url?: string | null;
+          title?: string | null;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          image_url?: string | null
-          last_sync?: string
-          podcast_id?: number
-          rss_url?: string | null
-          title?: string | null
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          id?: number;
+          image_url?: string | null;
+          last_sync?: string;
+          podcast_id?: number;
+          rss_url?: string | null;
+          title?: string | null;
+        };
+        Relationships: [];
+      };
       PodcastEpisode: {
         Row: {
-          created_at: string
-          id: number
-          podcast_id: number
-          rss_data: Json | null
-        }
+          created_at: string;
+          id: number;
+          podcast_id: number;
+          rss_data: Json | null;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          podcast_id: number
-          rss_data?: Json | null
-        }
+          created_at?: string;
+          id?: number;
+          podcast_id: number;
+          rss_data?: Json | null;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          podcast_id?: number
-          rss_data?: Json | null
-        }
+          created_at?: string;
+          id?: number;
+          podcast_id?: number;
+          rss_data?: Json | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "PodcastEpisode_podcast_id_fkey"
-            columns: ["podcast_id"]
-            isOneToOne: false
-            referencedRelation: "Podcast"
-            referencedColumns: ["id"]
+            foreignKeyName: "PodcastEpisode_podcast_id_fkey";
+            columns: ["podcast_id"];
+            isOneToOne: false;
+            referencedRelation: "Podcast";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       PodcastSyncQueue: {
         Row: {
-          created_at: string
-          id: number
-          podcast_id: number
-        }
+          created_at: string;
+          id: number;
+          podcast_id: number;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          podcast_id: number
-        }
+          created_at?: string;
+          id?: number;
+          podcast_id: number;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          podcast_id?: number
-        }
+          created_at?: string;
+          id?: number;
+          podcast_id?: number;
+        };
         Relationships: [
           {
-            foreignKeyName: "PodcastSyncQueue_podcast_id_fkey"
-            columns: ["podcast_id"]
-            isOneToOne: false
-            referencedRelation: "Podcast"
-            referencedColumns: ["id"]
+            foreignKeyName: "PodcastSyncQueue_podcast_id_fkey";
+            columns: ["podcast_id"];
+            isOneToOne: false;
+            referencedRelation: "Podcast";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       User: {
         Row: {
-          created_at: string | null
-          id: string
-          last_sync: string
-          rss_feed: string | null
-        }
+          created_at: string | null;
+          id: string;
+          last_sync: string;
+          rss_feed: string | null;
+        };
         Insert: {
-          created_at?: string | null
-          id: string
-          last_sync: string
-          rss_feed?: string | null
-        }
+          created_at?: string | null;
+          id: string;
+          last_sync: string;
+          rss_feed?: string | null;
+        };
         Update: {
-          created_at?: string | null
-          id?: string
-          last_sync?: string
-          rss_feed?: string | null
-        }
+          created_at?: string | null;
+          id?: string;
+          last_sync?: string;
+          rss_feed?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "User_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: "User_id_fkey";
+            columns: ["id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       UserPodcast: {
         Row: {
-          created_at: string
-          id: number
-          is_active: boolean
-          podcast_id: number | null
-          user_id: string
-          valid_at: string | null
-        }
+          created_at: string;
+          id: number;
+          is_active: boolean;
+          podcast_id: number | null;
+          user_id: string;
+          valid_at: string | null;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          is_active: boolean
-          podcast_id?: number | null
-          user_id: string
-          valid_at?: string | null
-        }
+          created_at?: string;
+          id?: number;
+          is_active: boolean;
+          podcast_id?: number | null;
+          user_id: string;
+          valid_at?: string | null;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          is_active?: boolean
-          podcast_id?: number | null
-          user_id?: string
-          valid_at?: string | null
-        }
+          created_at?: string;
+          id?: number;
+          is_active?: boolean;
+          podcast_id?: number | null;
+          user_id?: string;
+          valid_at?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "UserPodcast_podcast_id_fkey"
-            columns: ["podcast_id"]
-            isOneToOne: false
-            referencedRelation: "Podcast"
-            referencedColumns: ["id"]
+            foreignKeyName: "UserPodcast_podcast_id_fkey";
+            columns: ["podcast_id"];
+            isOneToOne: false;
+            referencedRelation: "Podcast";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "UserPodcast_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "User"
-            referencedColumns: ["id"]
+            foreignKeyName: "UserPodcast_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "User";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       UserPodcastEpisode: {
         Row: {
-          created_at: string
-          id: number
-          podcast_id: number
-          user_id: string
-        }
+          created_at: string;
+          id: number;
+          podcast_id: number;
+          user_id: string;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          podcast_id: number
-          user_id: string
-        }
+          created_at?: string;
+          id?: number;
+          podcast_id: number;
+          user_id: string;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          podcast_id?: number
-          user_id?: string
-        }
+          created_at?: string;
+          id?: number;
+          podcast_id?: number;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "UserPodcastEpisode_podcast_id_fkey"
-            columns: ["podcast_id"]
-            isOneToOne: false
-            referencedRelation: "Podcast"
-            referencedColumns: ["id"]
+            foreignKeyName: "UserPodcastEpisode_podcast_id_fkey";
+            columns: ["podcast_id"];
+            isOneToOne: false;
+            referencedRelation: "Podcast";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "UserPodcastEpisode_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "User"
-            referencedColumns: ["id"]
+            foreignKeyName: "UserPodcastEpisode_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "User";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       UserPodcastSyncQueue: {
         Row: {
-          created_at: string
-          id: number
-          user_id: string | null
-        }
+          created_at: string;
+          id: number;
+          user_id: string | null;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          user_id?: string | null
-        }
+          created_at?: string;
+          id?: number;
+          user_id?: string | null;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          user_id?: string | null
-        }
+          created_at?: string;
+          id?: number;
+          user_id?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "UserPodcastSyncQueue_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "User"
-            referencedColumns: ["id"]
+            foreignKeyName: "UserPodcastSyncQueue_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "User";
+            referencedColumns: ["id"];
           },
-        ]
-      }
-    }
+        ];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -256,7 +256,7 @@ export type Tables<
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
@@ -264,11 +264,11 @@ export type Tables<
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
+        Row: infer R;
       }
       ? R
       : never
-    : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -279,17 +279,17 @@ export type TablesInsert<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
+        Insert: infer I;
       }
       ? I
       : never
-    : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -300,17 +300,17 @@ export type TablesUpdate<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
+        Update: infer U;
       }
       ? U
       : never
-    : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -323,4 +323,4 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
+    : never;

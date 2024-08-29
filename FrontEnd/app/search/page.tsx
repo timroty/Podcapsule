@@ -8,7 +8,7 @@ export default async function ProfilePage() {
 
   const {
     data: { user },
-  } = (await supabase.auth.getUser());
+  } = await supabase.auth.getUser();
 
   if (!user) {
     return redirect("/login");
@@ -16,7 +16,7 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="container max-w-screen-lg">
         <PageHeading>Search</PageHeading>
       </div>

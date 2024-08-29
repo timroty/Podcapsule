@@ -29,7 +29,7 @@ app.use(
     secret: process.env.SUPABASE_JWT_SECRET ?? "",
     audience: "authenticated",
     algorithms: ["HS256"],
-  }).unless({ path: ["api/user/rss/:id", "/environment"] })
+  }).unless({ path: ["api/user/rss/:id", "/environment"] }),
 );
 
 apiRouter.use("/user", UserRouter);

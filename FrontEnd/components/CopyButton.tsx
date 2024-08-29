@@ -5,7 +5,7 @@ const handleCopy = (copyValue: string) => {
 };
 
 export default function CopyButton({ copyValue }: { copyValue: string }) {
-  return(
+  return (
     <button
       className="px-4 py-2 bg-[#01357b] text-white rounded hover:bg-white hover:text-[#01357b] border border-[#01357b] transition-colors duration-300"
       onClick={() => handleCopy(copyValue)}

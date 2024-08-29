@@ -77,15 +77,14 @@ export async function UpdateUserPodcast(
     );
     if (!userPodcastResult) {
       await user_podcast_db.Add(UserId, podcastId as number, new Date(), true);
-    } else if (userPodcastResult.is_active != IsActive) {
+    } 
+    else if (userPodcastResult.is_active != IsActive) {
       // If podcast active status does not match incoming param, update
       await user_podcast_db.SetActive(userPodcastResult.id, IsActive);
     }
   }
 }
 
-export async function DeleteUserPodcast (
-  userPodcastId: number
-): Promise<void> {
+export async function DeleteUserPodcast(userPodcastId: number): Promise<void> {
   await user_podcast_db.Delete(userPodcastId);
 }
