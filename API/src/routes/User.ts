@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { GetUser, GetUserRSSFeed, RefreshToken } from "../services/User";
+import { GetUser, GetUserRSSFeed } from "../services/User";
 import { getUserId } from "../services/Utilities";
 import {
   UpdateUserPodcast,
@@ -47,7 +47,7 @@ router.get("/podcasts", (request: Request, response: Response) => {
 
 router.put("/podcast", (request: Request, response: Response) => {
   UpdateUserPodcast(
-    "96f4ff72-cea2-4198-8e86-2a3e7bb071e8", //getUserId(request.headers.authorization!),
+    getUserId(request.headers.authorization!),
     request.body.podcastId,
     request.body.isActive ?? true,
   )

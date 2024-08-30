@@ -41,3 +41,28 @@ export async function DeleteUserPodcast(
     return false;
   }
 }
+
+export async function AddUserPodcast(
+  authroizationToken: string,
+  podcastId: number,
+) {
+  const config = {
+    method: "put",
+    url: process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/user/podcast",
+    headers: {
+      Authorization: `Bearer ${authroizationToken}`,
+      "Content-Type": "application/json",
+    },
+    data: {
+      podcastId: podcastId,
+    },
+  };
+
+  try {
+    await axios(config);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

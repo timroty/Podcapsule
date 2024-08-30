@@ -24,12 +24,12 @@ apiRouter.get("/", (request: Request, response: Response) => {
 
 app.use("/api", apiRouter);
 
-app.use(
+apiRouter.use(
   expressjwt({
     secret: process.env.SUPABASE_JWT_SECRET ?? "",
     audience: "authenticated",
     algorithms: ["HS256"],
-  }).unless({ path: ["api/user/rss/:id", "api/environment"] }),
+  }), //.unless({ path: ["api/user/rss/:id", "api/environment"] }),
 );
 
 apiRouter.use("/user", UserRouter);

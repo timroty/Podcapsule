@@ -1,70 +1,79 @@
 "use client";
 
 import { SearchPodcasts } from "@/api/podcast";
-import { DeleteUserPodcast, GetUserPodcasts } from "@/api/user";
+import { AddUserPodcast } from "@/api/user";
 import { createClient } from "@/utils/supabase/client";
-import { useState, useEffect, useCallback } from "react";
-import { MdDelete } from "react-icons/md";
+import { useState, useCallback } from "react";
 
 export function SearchComponent() {
-  const [podcastSearchText, setPodcastSearchText] = useState('')
-  const [podcastSearchResult, setPodcastSearchResult] = useState([])
+  const [podcastSearchText, setPodcastSearchText] = useState("");
+  const [podcastSearchResult, setPodcastSearchResult] = useState([]);
 
   const supabase = createClient();
 
   const handlePodcastSearchTextChange = (e: any) => {
-    setPodcastSearchText(e.target.value)
-  }
+    setPodcastSearchText(e.target.value);
+  };
 
-  const handlePodcastAdd = useCallback(async (podcast: any) => {
-    let access_token =
-      (await supabase.auth.getSession()).data.session?.access_token ?? "";
-    
-    setPodcastSearchText('')
-    setPodcastSearchResult([])
+  const handlePodcastAdd = useCallback(
+    async (podcast: any) => {
+      let access_token =
+        (await supabase.auth.getSession()).data.session?.access_token ?? "";
 
+      let result = await AddUserPodcast(access_token, podcast.id);
 
-  }, [supabase]);
+      if (result) {
+        setPodcastSearchText("");
+        setPodcastSearchResult([]);
+      }
+    },
+    [supabase],
+  );
 
-  const handlePodcastSearch = useCallback(async (searchText: string) => {
-    let access_token =
-      (await supabase.auth.getSession()).data.session?.access_token ?? "";
-    let search_result = await SearchPodcasts(access_token, searchText);
+  const handlePodcastSearch = useCallback(
+    async (searchText: string) => {
+      let access_token =
+        (await supabase.auth.getSession()).data.session?.access_token ?? "";
+      let search_result = await SearchPodcasts(access_token, searchText);
 
-    setPodcastSearchResult(search_result)
-  }, [supabase]);
+      setPodcastSearchResult(search_result);
+    },
+    [supabase],
+  );
 
   const truncateText = (text: String) => {
-    if (text.length > 185) { return text.substring(0, 185) + '...' }
-    return text
-  }
+    if (text.length > 185) {
+      return text.substring(0, 185) + "...";
+    }
+    return text;
+  };
 
   return (
     <>
-    <div className="flex items-center space-x-4 mt-5">
-      <div className="flex flex-col w-full">
-        <input
-          type="text"
-          placeholder="Search a podcast name ..."
-          className="block w-full px-4 py-2 text-white bg-gray-800 border border-gray-600 rounded"
-          onChange={(e) => handlePodcastSearchTextChange(e)}
-          onKeyUp={(e) => {
-            if (e.key === 'Enter') {
-              handlePodcastSearch(podcastSearchText)
-            }
-          }}
-        />
+      <div className="flex items-center space-x-4 mt-5">
+        <div className="flex flex-col w-full">
+          <input
+            type="text"
+            placeholder="e.g. Freakonomics Radio"
+            className="block w-full px-4 py-2 text-white bg-gray-800 border border-gray-600 rounded"
+            onChange={(e) => handlePodcastSearchTextChange(e)}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                handlePodcastSearch(podcastSearchText);
+              }
+            }}
+          />
+        </div>
+        <button
+          className="px-4 py-2 bg-[#01357b] text-white rounded hover:bg-white hover:text-[#01357b] border border-[#01357b] transition-colors duration-300"
+          onClick={() => handlePodcastSearch(podcastSearchText)}
+        >
+          Search
+        </button>
       </div>
-      <button
-        className="px-4 py-2 bg-[#01357b] text-white rounded hover:bg-white hover:text-[#01357b] border border-[#01357b] transition-colors duration-300"
-        onClick={() => handlePodcastSearch(podcastSearchText)}
-      >
-        Search
-      </button>
-      </div>
-        {podcastSearchResult.map((podcast: any, index: Number) => {
-          return (
-            <div>
+      {podcastSearchResult.map((podcast: any, index: Number) => {
+        return (
+          <div>
             {index !== 0 ? (
               <hr className="border-t border-[#D3D8DE]" />
             ) : (
@@ -93,7 +102,10 @@ export function SearchComponent() {
                   </div>
                   <div className="col-span-3 sm:col-span-3 mr-[18px]">
                     <p className="text-xs font-normal text-white">
-                      Rating: {podcast.ratingAverage ? Math.round(podcast.ratingAverage * 10) / 10 : 'N/A'}
+                      Rating:{" "}
+                      {podcast.ratingAverage
+                        ? Math.round(podcast.ratingAverage * 10) / 10
+                        : "N/A"}
                     </p>
                   </div>
                   <div className="col-span-3 sm:col-span-3">
@@ -108,14 +120,13 @@ export function SearchComponent() {
                   onClick={() => handlePodcastAdd(podcast)}
                   className="bg-white text-[#01357B] border border-[#01357B] px-4 py-2 rounded flex items-center capitalize"
                 >
-                  {/* <AddCircleOutline className="mr-2" size={16} /> */}
                   Add
                 </button>
               </div>
             </div>
           </div>
-          )
-        })}
+        );
+      })}
     </>
   );
 }

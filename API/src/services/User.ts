@@ -26,23 +26,3 @@ export async function GetUserRSSFeed(userId: string): Promise<string> {
   const user = await user_db.GetUser(userId);
   return convert.json2xml(user?.rss_feed ?? "", { compact: false, spaces: 4 });
 }
-
-export async function RefreshToken(refreshToken: string) {
-  const data = JSON.stringify({
-    refresh_token: refreshToken,
-  });
-
-  const config = {
-    method: "post",
-    url:
-      process.env.SUPABASE_PROJECT_URL +
-      "/auth/v1/token?grant_type=refresh_token",
-    headers: {
-      apikey: process.env.SUPABASE_PROJECT_SECRET,
-      "Content-Type": "application/json",
-    },
-    data: data,
-  };
-
-  return (await axios(config)).data;
-}

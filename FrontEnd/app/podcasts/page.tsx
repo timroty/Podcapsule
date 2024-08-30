@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Navbar from "@/components/NavBar";
 import PageHeading from "@/components/PageHeading";
 import { PodcastList } from "./podcast-list";
-import CopyButton from "@/components/CopyButton";
+import CopyButton from "@/components/buttons/CopyButton";
 import Link from "next/link";
 
 export default async function PodcastsPage() {

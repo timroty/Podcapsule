@@ -31,11 +31,13 @@ export async function GetByPodcastId(
     .from("Podcast")
     .select()
     .eq("podcast_id", Id)
-    .single();
+    .limit(1);
 
   if (error) throw error;
 
-  return data;
+  if (!data || data.length === 0) return null;
+
+  return data[0];
 }
 
 export async function Add(podcast: Podcast): Promise<Tables<"Podcast"> | null> {

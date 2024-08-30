@@ -25,7 +25,7 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    return redirect("/podcasts");
   };
 
   const signUp = async (formData: FormData) => {
@@ -81,7 +81,7 @@ export default function Login({
         <input
           className="rounded-md px-4 py-2 bg-inherit border mb-6"
           name="email"
-          placeholder="you@example.com"
+          placeholder="tim@example.com"
           required
         />
         <label className="text-md" htmlFor="password">
