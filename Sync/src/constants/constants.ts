@@ -1,3 +1,6 @@
+const feed_image = "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png";
+const feed_description = "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. With Podcapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!";
+
 export const RSSFeedTemplate = {
   "declaration": {
     "attributes": {
@@ -81,7 +84,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png"
+                      "text": feed_image
                     }
                   ]
                 },
@@ -147,7 +150,7 @@ export const RSSFeedTemplate = {
               "type": "element",
               "name": "itunes:image",
               "attributes": {
-                "href": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png"
+                "href": feed_image
               }
             },
             {
@@ -203,7 +206,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed with our unique recommendation system. With PodCapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!"
+                  "text": feed_description
                 }
               ]
             },
@@ -213,7 +216,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed with our unique recommendation system. With PodCapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!"
+                  "text": feed_description
                 }
               ]
             },
@@ -223,7 +226,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed with our unique recommendation system. With PodCapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!"
+                  "text": feed_description
                 }
               ]
             },
@@ -280,7 +283,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "cdata",
-                      "cdata": "<p>Welcome to PodCapsule!</p>\n"
+                      "cdata": "<p>Welcome to Podcapsule!</p>\n"
                     }
                   ]
                 },
@@ -357,7 +360,7 @@ export const RSSFeedTemplate = {
                   "type": "element",
                   "name": "itunes:image",
                   "attributes": {
-                    "href": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png"
+                    "href": feed_image
                   }
                 },
                 {
@@ -418,35 +421,3 @@ export const RSSFeedTemplate = {
     }
   ]
 }
-
-
-var test = `<?xml version="1.0" encoding="utf-8"?>
-  <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
-  <channel>
-  <link>LINK TO WEBSITE</link>
-  <language>en-us</language>
-  <author>PodCapsule</author>
-  <generator>PodCapsule</generator>
-  <image>
-     <url>LINK TO IMAGE</url>
-     <title>Title of your logo</title>
-     <link>LINK TO WEBSITE</link>
-  </image>
-  <itunes:owner>
-     <itunes:name>PodCapsule</itunes:name>
-     <itunes:email>podcapsuleapp@gmail.com</itunes:email>
-  </itunes:owner>
-  <itunes:explicit>no</itunes:explicit>
-  <itunes:image href="LINKTOIMAGE"/>
-  <atom:link href="INSERT RSS LINK HERE" rel="self" type="application/rss+xml"/>
-   <atom:link rel="hub" href="INSERT WEBSITE URL HERE"/>
-  <pubDate>Fri, 05 Oct 2018 09:00:00 GMT</pubDate>
-  <title>PodCapsule</title>
-  <itunes:author>PodCapsule</itunes:author>
-  <description>Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed with our unique recommendation system. With PodCapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!</description>
-  <itunes:summary>Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed with our unique recommendation system. With PodCapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!</itunes:summary>
-  <itunes:subtitle>Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed with our unique recommendation system. With PodCapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!</itunes:subtitle>
-  <itunes:type>episodic</itunes:type>
-  <lastBuildDate>Fri, 05 Oct 2018 09:00:00 GMT</lastBuildDate>
-  </channel>
-  </rss>`
