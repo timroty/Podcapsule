@@ -14,7 +14,7 @@ export function PodcastList() {
       (await supabase.auth.getSession()).data.session?.access_token ?? "";
     let podcasts = (await GetUserPodcasts(access_token)) ?? [];
     setPodcasts(podcasts);
-  }, supabase);
+  }, [supabase]);
 
   useEffect(() => {
     fetchPodcasts();
@@ -43,7 +43,7 @@ export function PodcastList() {
 
   return (
     <>
-      {podcasts.map((podcast: any, index: Number) => {
+      {podcasts.map((podcast: any, index) => {
         return (
           <div key={index}>
             {index !== 0 ? (
