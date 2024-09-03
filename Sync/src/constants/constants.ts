@@ -1,6 +1,8 @@
 const feed_image = "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png";
 const feed_description = "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. With Podcapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!";
 
+const episode_one_url = "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/podcapsule.mp3";
+
 export const RSSFeedTemplate = {
   "declaration": {
     "attributes": {
@@ -333,7 +335,7 @@ export const RSSFeedTemplate = {
                   "attributes": {
                     "length": "369060",
                     "type": "audio/mpeg",
-                    "url": "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/podcapsule.mp3"
+                    "url": episode_one_url
                   }
                 },
                 {
@@ -352,7 +354,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "PodCapsule"
+                      "text": "Podcapsule"
                     }
                   ]
                 },
@@ -379,7 +381,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Welcome to PodCapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed."
+                      "text": "Welcome to Podcapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed."
                     }
                   ]
                 },
