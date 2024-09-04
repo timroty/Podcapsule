@@ -42,7 +42,7 @@ async function UserPodcastSync(): Promise<void> {
     // Update first episode pubDate
     tempRSSFeed.elements[0].elements[0].elements.forEach((element:any) => {
       if (element.name == 'item'){
-        // elements[3] is hardccoded pubDate 
+        // elements[3] is hard-coded pubDate 
         element.elements[3].elements[0].text = updatedDate;
       }
     });

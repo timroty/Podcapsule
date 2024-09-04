@@ -1,7 +1,17 @@
+const title = "Podcapsule";
+const url = "https://podcapsule.vercel.app";
+const email = "podcapsuleapp@gmail.com"
+
 const feed_image = "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/Podcapsule.png";
-const feed_description = "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. With Podcapsule, you can easily track podcasts you love and go back in time to be recommended old but great episodes!";
+const feed_description = "Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. With Podcapsule, you can easily track podcasts you love and uncover hidden gems you might have otherwise overlooked!";
 
 const episode_one_url = "https://mefobhismocgsttbgjwe.supabase.co/storage/v1/object/public/podcapsule-bucket/podcapsule.mp3";
+const episode_one_title = "Welcome to Podcapsule!";
+const episode_one_summary = "Podcapsule intro episode.";
+const episode_one_subtitle = "Podcapsule intro episode.";
+const episode_one_pubdate = "Fri, 05 Oct 2022 09:00:00 GMT";
+const episode_one_duration = "00:00:12";
+const episode_one_filesize = "369060";
 
 export const RSSFeedTemplate = {
   "declaration": {
@@ -32,7 +42,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "https://podcapsule.vercel.app"
+                  "text": url
                 }
               ]
             },
@@ -62,7 +72,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "PodCapsule"
+                  "text": title
                 }
               ]
             },
@@ -72,7 +82,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "PodCapsule"
+                  "text": title
                 }
               ]
             },
@@ -96,7 +106,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "PodCapsule"
+                      "text": title
                     }
                   ]
                 },
@@ -106,7 +116,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "https://podcapsule.vercel.app"
+                      "text": url
                     }
                   ]
                 }
@@ -122,7 +132,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "PodCapsule"
+                      "text": title
                     }
                   ]
                 },
@@ -132,7 +142,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "podcapsuleapp@gmail.com"
+                      "text": email
                     }
                   ]
                 }
@@ -169,7 +179,7 @@ export const RSSFeedTemplate = {
               "name": "atom:link",
               "attributes": {
                 "rel": "hub",
-                "href": "https://podcapsule.vercel.app"
+                "href": url
               }
             },
             {
@@ -178,7 +188,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "Fri, 05 Oct 2018 09:00:00 GMT"
+                  "text": episode_one_pubdate
                 }
               ]
             },
@@ -188,7 +198,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "PodCapsule"
+                  "text": title
                 }
               ]
             },
@@ -198,7 +208,7 @@ export const RSSFeedTemplate = {
               "elements": [
                 {
                   "type": "text",
-                  "text": "PodCapsule"
+                  "text": title
                 }
               ]
             },
@@ -252,6 +262,7 @@ export const RSSFeedTemplate = {
                 }
               ]
             },
+            // Episode 1
             {
               "type": "element",
               "name": "item",
@@ -275,7 +286,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Welcome to PodCapsule!"
+                      "text": episode_one_title
                     }
                   ]
                 },
@@ -285,7 +296,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "cdata",
-                      "cdata": "<p>Welcome to Podcapsule!</p>\n"
+                      "cdata": `<p>${episode_one_summary}</p>\n`
                     }
                   ]
                 },
@@ -295,7 +306,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Fri, 05 Oct 2018 09:00:00 GMT"
+                      "text": episode_one_pubdate
                     }
                   ]
                 },
@@ -305,7 +316,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "podcapsuleapp@gmail.com"
+                      "text": email
                     }
                   ]
                 },
@@ -315,17 +326,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "https://podcapsule.vercel.app/"
-                    }
-                  ]
-                },
-                {
-                  "type": "element",
-                  "name": "content:encoded",
-                  "elements": [
-                    {
-                      "type": "cdata",
-                      "cdata": "<p>Welcome to PodCapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed. </p>\n"
+                      "text": url
                     }
                   ]
                 },
@@ -333,7 +334,7 @@ export const RSSFeedTemplate = {
                   "type": "element",
                   "name": "enclosure",
                   "attributes": {
-                    "length": "369060",
+                    "length": episode_one_filesize,
                     "type": "audio/mpeg",
                     "url": episode_one_url
                   }
@@ -344,7 +345,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Welcome to PodCapsule!"
+                      "text": episode_one_title
                     }
                   ]
                 },
@@ -354,7 +355,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Podcapsule"
+                      "text": title
                     }
                   ]
                 },
@@ -371,7 +372,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "00:00:12"
+                      "text": episode_one_duration
                     }
                   ]
                 },
@@ -381,7 +382,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Welcome to Podcapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed."
+                      "text": episode_one_summary
                     }
                   ]
                 },
@@ -391,7 +392,7 @@ export const RSSFeedTemplate = {
                   "elements": [
                     {
                       "type": "text",
-                      "text": "Welcome to PodCapsule! Discover new episodes from your favorite podcasts, or rediscover old ones you may have missed. Each day, PodCapsule will recommend you a new episode from podcasts you favorite and place them on your feed."
+                      "text": episode_one_subtitle
                     }
                   ]
                 },
