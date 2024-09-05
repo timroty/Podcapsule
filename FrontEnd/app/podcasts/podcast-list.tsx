@@ -14,7 +14,7 @@ export function PodcastList() {
       (await supabase.auth.getSession()).data.session?.access_token ?? "";
     let podcasts = (await GetUserPodcasts(access_token)) ?? [];
     setPodcasts(podcasts);
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     fetchPodcasts();

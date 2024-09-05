@@ -76,7 +76,7 @@ export async function UpdateRSSFeed(userId:string, rssFeed:string): Promise<void
   const { error } = await supabaseClient
     .from('User')
     .update({ rss_feed: rssFeed })
-    .eq('Id', userId);
+    .eq('id', userId);
 
   if (error) throw error;
 }

@@ -18,3 +18,17 @@ export async function GetUser(Id: string): Promise<Tables<"User"> | null> {
 
   return data;
 }
+
+export async function UpdateRSSFeed(userId:string, rssFeed:string): Promise<void> {
+  const supabaseClient = createClient<Database>(
+    process.env.SUPABASE_PROJECT_URL ?? "",
+    process.env.SUPABASE_PROJECT_SECRET ?? "",
+  );
+
+  const { error } = await supabaseClient
+    .from('User')
+    .update({ rss_feed: rssFeed })
+    .eq('id', userId);
+
+  if (error) throw error;
+}
