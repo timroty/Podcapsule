@@ -1,7 +1,7 @@
 import * as user_db from "../accessors/supabase/User";
 import * as podcast_db from "../accessors/supabase/Podcast";
 import * as podcast_episode_db from "../accessors/supabase/PodcastEpisode";
-import { Template } from "../constants/RSSFeedTemplate";
+import { Template as RSSFeedTemplate } from "../constants/RSSFeedTemplate";
 
 // Add a podcast to a user's feed
 async function UserPodcastSync(): Promise<void> {
@@ -30,7 +30,7 @@ async function UserPodcastSync(): Promise<void> {
   }
 
   if (!user.last_sync) {
-    let tempRSSFeed = Template;
+    let tempRSSFeed = RSSFeedTemplate;
 
     // Update user custom RSS feed link
     tempRSSFeed.elements[0].elements[0].elements.forEach((element:any) => {

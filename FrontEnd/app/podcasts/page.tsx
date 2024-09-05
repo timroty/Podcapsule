@@ -42,7 +42,7 @@ export default async function PodcastsPage() {
         <div className="flex justify-center">
           <Link
             href="/search"
-            className="w-16 py-2 px-3 mt-2 align-middle justify-center  flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+            className="w-16 py-2 px-3 mt-2 align-middle justify-center mb-4 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
           >
             Add
           </Link>

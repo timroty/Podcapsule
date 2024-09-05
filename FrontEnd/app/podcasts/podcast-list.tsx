@@ -9,12 +9,12 @@ export function PodcastList() {
   const [podcasts, setPodcasts] = useState([]);
   const supabase = createClient();
 
-  const fetchPodcasts = async () => {
+  const fetchPodcasts = useCallback(async () => {
     let access_token =
       (await supabase.auth.getSession()).data.session?.access_token ?? "";
     let podcasts = (await GetUserPodcasts(access_token)) ?? [];
     setPodcasts(podcasts);
-  };
+  }, []);
 
   useEffect(() => {
     fetchPodcasts();
