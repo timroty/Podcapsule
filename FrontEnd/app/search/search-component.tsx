@@ -90,7 +90,8 @@ export function SearchComponent() {
       </div>
       {addedPodcastCount >= free_plan_podcast_count && (
         <p className="text-center text-sm text-gray-500 mt-2">
-          You have reached the limit of {free_plan_podcast_count} podcasts on the free plan.
+          You have reached the limit of {free_plan_podcast_count} podcasts on
+          the free plan.
         </p>
       )}
       {podcastSearchResult.map((podcast: any, index: Number) => {
@@ -149,7 +150,7 @@ export function SearchComponent() {
           </div>
         );
       })}
-      <div className="mb-8"/>
+      <div className="mb-8" />
     </>
   );
 }

@@ -92,7 +92,8 @@ export function PodcastList() {
           </Link>
         ) : (
           <p className="text-center mt-2 mb-4 text-gray-600">
-            Only {free_plan_podcast_count} podcasts can be added on the free plan.
+            Only {free_plan_podcast_count} podcasts can be added on the free
+            plan.
           </p>
         )}
       </div>
