@@ -81,7 +81,7 @@ export default function Login({
         <input
           className="rounded-md px-4 py-2 bg-inherit border mb-6"
           name="email"
-          placeholder="tim@example.com"
+          placeholder="podcapsuleapp@gmail.com"
           required
         />
         <label className="text-md" htmlFor="password">
