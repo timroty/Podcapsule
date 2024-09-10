@@ -13,7 +13,7 @@ export async function Get(
   const { data, error } = await supabaseClient
     .from("UserPodcast")
     .select()
-    .eq("id", UserId)
+    .eq("user_id", UserId)
     .eq("podcast_id", PodcastId)
     .single();
 

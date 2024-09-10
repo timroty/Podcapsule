@@ -72,14 +72,17 @@ export async function UpdateUserPodcast(
   if (newPodcast) {
     // New podcast so must add
     await user_podcast_db.Add(UserId, podcastId as number, new Date(), true);
-  } else {
+  } 
+  else {
     const userPodcastResult = await user_podcast_db.Get(
       UserId,
       podcastId as number,
     );
+
     if (!userPodcastResult) {
       await user_podcast_db.Add(UserId, podcastId as number, new Date(), true);
-    } else if (userPodcastResult.is_active != IsActive) {
+    } 
+    else if (userPodcastResult.is_active != IsActive) {
       // If podcast active status does not match incoming param, update
       await user_podcast_db.SetActive(userPodcastResult.id, IsActive);
     }
