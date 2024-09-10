@@ -4,7 +4,6 @@ import Navbar from "@/components/NavBar";
 import PageHeading from "@/components/PageHeading";
 import { PodcastList } from "./podcast-list";
 import CopyButton from "@/components/buttons/CopyButton";
-import Link from "next/link";
 
 export default async function PodcastsPage() {
   const supabase = createClient();
@@ -39,14 +38,6 @@ export default async function PodcastsPage() {
           <CopyButton copyValue={rssFeedUrl} />
         </div>
         <PodcastList></PodcastList>
-        <div className="flex justify-center">
-          <Link
-            href="/search"
-            className="w-16 py-2 px-3 mt-2 align-middle justify-center mb-4 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-          >
-            Add
-          </Link>
-        </div>
       </div>
     </>
   );

@@ -5,7 +5,7 @@ const axios = require("axios").default;
 export async function Search(podcastName: string): Promise<SearchResult[]> {
   const data = JSON.stringify({
     query: `query {
-      podcasts(searchTerm: "${podcastName}", first: 10, sort: {
+      podcasts(searchTerm: "${podcastName}", first: 8, sort: {
           sortBy: RELEVANCE,
           direction: DESCENDING
       }) {
