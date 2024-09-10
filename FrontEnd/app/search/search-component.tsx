@@ -1,13 +1,17 @@
 "use client";
 
 import { SearchPodcasts } from "@/api/podcast";
-import { AddUserPodcast } from "@/api/user";
+import { AddUserPodcast, GetUserPodcasts } from "@/api/user";
 import { createClient } from "@/utils/supabase/client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { MdAddBox } from "react-icons/md";
 
 export function SearchComponent() {
   const [podcastSearchText, setPodcastSearchText] = useState("");
   const [podcastSearchResult, setPodcastSearchResult] = useState([]);
+  const [addedPodcastCount, setAddedPodcastCount] = useState(0);
+
+  const free_plan_podcast_count = 3;
 
   const supabase = createClient();
 
@@ -48,6 +52,17 @@ export function SearchComponent() {
     return text;
   };
 
+  const fetchAddedPodcasts = useCallback(async () => {
+    let access_token =
+      (await supabase.auth.getSession()).data.session?.access_token ?? "";
+    let podcasts = (await GetUserPodcasts(access_token)) ?? [];
+    setAddedPodcastCount(podcasts?.length ?? 0);
+  }, []);
+
+  useEffect(() => {
+    fetchAddedPodcasts();
+  }, []);
+
   return (
     <>
       <div className="flex items-center space-x-4 mt-5">
@@ -62,15 +77,23 @@ export function SearchComponent() {
                 handlePodcastSearch(podcastSearchText);
               }
             }}
+            disabled={addedPodcastCount >= free_plan_podcast_count}
           />
         </div>
         <button
-          className="px-4 py-2 bg-[#01357b] text-white rounded hover:bg-white hover:text-[#01357b] border border-[#01357b] transition-colors duration-300"
+          className="px-4 py-2 bg-[#01357b] text-white rounded hover:bg-white hover:text-[#01357b] border border-[#01357b] transition-colors duration-300 disabled:opacity-50 disabled:bg-gray-400 disabled:hover:text-white"
           onClick={() => handlePodcastSearch(podcastSearchText)}
+          disabled={addedPodcastCount >= free_plan_podcast_count}
         >
           Search
         </button>
       </div>
+      {addedPodcastCount >= free_plan_podcast_count && (
+        <p className="text-center text-sm text-gray-500 mt-2">
+          You have reached the limit of {free_plan_podcast_count} podcasts on
+          the free plan.
+        </p>
+      )}
       {podcastSearchResult.map((podcast: any, index: Number) => {
         return (
           <div>
@@ -118,15 +141,16 @@ export function SearchComponent() {
               <div className="col-span-1">
                 <button
                   onClick={() => handlePodcastAdd(podcast)}
-                  className="bg-white text-[#01357B] border border-[#01357B] px-4 py-2 rounded flex items-center capitalize"
+                  className="text-white hover:text-[#4e79b0] flex items-center capitalize"
                 >
-                  Add
+                  <MdAddBox className="text-3xl" />
                 </button>
               </div>
             </div>
           </div>
         );
       })}
+      <div className="mb-8" />
     </>
   );
 }
