@@ -26,7 +26,7 @@ The sync uses a package called [bree](https://github.com/breejs/bree) to handle 
 
 ### Environment Variables
 
-The environment variables required for the project are located in the `.env.example` file. These variable values should be copied into a file named `.env` located at the root of the project and followed by their corresponding values.
+The environment variables required for the project are located in the `.env.example` file. These variable values should be copied into a file named `.env`, located at the root of the project, and followed by their corresponding values.
 
 ### Instructions
 
