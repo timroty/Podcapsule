@@ -35,7 +35,7 @@ async function UserPodcastSync(): Promise<void> {
     // Update user custom RSS feed link
     tempRSSFeed.elements[0].elements[0].elements.forEach((element:any) => {
       if (element.name == 'atom:link' && element.attributes.type == 'application/rss+xml'){
-        element.attributes.href = process.env.BASE_API_URL + '/api/user/rss/' + user.id;
+        element.attributes.href = process.env.BASE_API_URL + '/api/user/rss/' + user!.id;
       }
     });
 

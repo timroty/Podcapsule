@@ -33,6 +33,10 @@ const bree = new Bree({
   ]
 });
 
+console.log('Starting Bree.');
+
 (async () => {
   await bree.start();
 })();
+
+console.log('Bree started.');
