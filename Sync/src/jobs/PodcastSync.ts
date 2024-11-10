@@ -51,7 +51,7 @@ export async function PodcastSync(): Promise<void> {
 
     // Add to podcast episode table if episode does not exist
     if (!episodeExists){
-      await podcast_episode_db.Add(podcastIdToSync, podcastRssFeed, guid);
+      await podcast_episode_db.Add(podcastIdToSync, episodeJson, guid);
     } else {
       // If duplicate episode, most likely means rest have been synced already
       break;

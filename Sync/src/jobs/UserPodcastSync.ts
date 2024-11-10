@@ -29,7 +29,7 @@ async function UserPodcastSync(): Promise<void> {
     return;
   }
 
-  if (!user.last_sync) {
+  if (user.rss_feed == null) {
     let tempRSSFeed = RSSFeedTemplate;
 
     // Update user custom RSS feed link

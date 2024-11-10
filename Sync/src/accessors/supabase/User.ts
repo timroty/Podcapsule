@@ -10,7 +10,7 @@ export async function GetUser(Id: string): Promise<Tables<"User"> | null> {
   const { data, error } = await supabaseClient
     .from("User")
     .select()
-    .eq("Id", Id)
+    .eq("id", Id)
     .single();
 
   if (error) throw error;
