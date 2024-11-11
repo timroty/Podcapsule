@@ -9,12 +9,16 @@ export async function PodcastSync(): Promise<void> {
   const podcastIdToSync = await podcast_db.RetrieveTopPodcastFromSyncQueue();
 
   if (!podcastIdToSync) {
+    console.log(`PodcastSync: No podcast to sync.`);
     return;
   }
+
+  console.log(`PodcastSync: Syncing podcast ${podcastIdToSync}.`);
 
   const podcast = await podcast_db.GetPodcast(podcastIdToSync);
 
   if (!podcast.rss_url) {
+    console.log(`PodcastSync: Podcast ${podcastIdToSync} has no RSS URL.`);
     podcast_db.RemoveFromSyncQueue(podcastIdToSync);
     podcast_db.UpdateLastSyncDate(podcastIdToSync, new Date().toUTCString());
     return;
@@ -35,34 +39,44 @@ export async function PodcastSync(): Promise<void> {
   });
 
   for (const episodeJson of itemElements) {
-    let guid = '';
+    let guid = "";
     for (const element of episodeJson.elements) {
-        if (element.name == 'guid'){
-            const type = element.elements[0].type;
-            guid = element.elements[0][type];
-        }
+      if (element.name == "guid") {
+        const type = element.elements[0].type;
+        guid = element.elements[0][type];
+      }
 
-        // Remove query params on image url if there are any.
-        // There was a podcast where the query params were causing XML parsing issues.
-        if (element.name == 'itunes:image'){
-          element.attributes.href = element.attributes.href.split('?')[0];
-        }
+      // Remove query params on image url if there are any.
+      // There was a podcast where the query params were causing XML parsing issues.
+      if (element.name == "itunes:image") {
+        element.attributes.href = element.attributes.href.split("?")[0];
+      }
     }
 
     if (!guid) {
       continue;
     }
 
-    let episodeExists = await podcast_episode_db.GetPodcastEpisodeByGuid(podcastIdToSync, guid);
+    const episodeExists = await podcast_episode_db.GetPodcastEpisodeByGuid(
+      podcastIdToSync,
+      guid,
+    );
 
     // Add to podcast episode table if episode does not exist
-    if (!episodeExists){
+    if (!episodeExists) {
+      console.log(
+        `PodcastSync: Adding episode ${guid} to podcast ${podcastIdToSync}.`,
+      );
       await podcast_episode_db.Add(podcastIdToSync, episodeJson, guid);
     } else {
       // If duplicate episode, most likely means rest have been synced already
       break;
     }
   }
+
+  console.log(
+    `PodcastSync: Removing podcast ${podcastIdToSync} from sync queue and updating last sync date.`,
+  );
 
   podcast_db.RemoveFromSyncQueue(podcastIdToSync);
   podcast_db.UpdateLastSyncDate(podcastIdToSync, new Date().toUTCString());

@@ -18,7 +18,9 @@ export async function GetPodcast(Id: number): Promise<Tables<"Podcast">> {
   return data;
 }
 
-export async function GetPodcastsToSync(limit: number): Promise<number[] | null> {
+export async function GetPodcastsToSync(
+  limit: number,
+): Promise<number[] | null> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
@@ -31,34 +33,36 @@ export async function GetPodcastsToSync(limit: number): Promise<number[] | null>
 
   if (error) throw error;
 
-  return (data?.map(item => (item.id))) as number[] | null;
+  return data?.map((item) => item.id) as number[] | null;
 }
 
-export async function QueuePodcastsToSync(podcastsIds: number[]): Promise<void> {
+export async function QueuePodcastsToSync(
+  podcastsIds: number[],
+): Promise<void> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
   );
 
-  const items = podcastsIds.map(podcastsId => ({ podcast_id: podcastsId }));
+  const items = podcastsIds.map((podcastsId) => ({ podcast_id: podcastsId }));
 
-  const { error } = await supabaseClient
-  .from('PodcastSyncQueue')
-  .insert(items);
+  const { error } = await supabaseClient.from("PodcastSyncQueue").insert(items);
 
   if (error) throw error;
 }
 
-export async function RetrieveTopPodcastFromSyncQueue(): Promise<number | null> {
+export async function RetrieveTopPodcastFromSyncQueue(): Promise<
+  number | null
+> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
   );
 
   const { data, error } = await supabaseClient
-  .from('PodcastSyncQueue')
-  .select("*")
-  .limit(1);
+    .from("PodcastSyncQueue")
+    .select("*")
+    .limit(1);
 
   if (error) throw error;
 
@@ -67,30 +71,33 @@ export async function RetrieveTopPodcastFromSyncQueue(): Promise<number | null> 
   return data[0].podcast_id;
 }
 
-export async function RemoveFromSyncQueue(id:number): Promise<void> {
+export async function RemoveFromSyncQueue(id: number): Promise<void> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
   );
 
   const { error } = await supabaseClient
-      .from('PodcastSyncQueue')
-      .delete()
-      .eq('podcast_id', id);
-  
+    .from("PodcastSyncQueue")
+    .delete()
+    .eq("podcast_id", id);
+
   if (error) throw error;
 }
 
-export async function UpdateLastSyncDate(podcastId:number, syncDate:string): Promise<void> {
+export async function UpdateLastSyncDate(
+  podcastId: number,
+  syncDate: string,
+): Promise<void> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
   );
 
   const { error } = await supabaseClient
-    .from('Podcast')
+    .from("Podcast")
     .update({ last_sync: syncDate })
-    .eq('id', podcastId);
+    .eq("id", podcastId);
 
   if (error) throw error;
 }

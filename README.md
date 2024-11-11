@@ -6,4 +6,4 @@ Podcapsule is composed of 3 projects. The API, Sync, and Frontend. A readme with
 
 [API](./API)
 [Sync](./Sync)
-[Frontend](./Frontend)
+[Frontend](./FrontEnd)
