@@ -5,8 +5,13 @@ async function PodcastSyncQueue(): Promise<void> {
   const podcastsToSync = await podcast_db.GetPodcastsToSync(20);
 
   if (!podcastsToSync) {
+    console.log(`PodcastSyncQueue: No podcasts to sync.`);
     return;
   }
+
+  console.log(
+    `PodcastSyncQueue: Adding ${podcastsToSync.length} podcasts to sync queue.`,
+  );
 
   await podcast_db.QueuePodcastsToSync(podcastsToSync);
 }
