@@ -1,6 +1,7 @@
 import * as user_db from "../accessors/supabase/User";
 import * as podcast_db from "../accessors/supabase/Podcast";
 import * as podcast_episode_db from "../accessors/supabase/PodcastEpisode";
+import * as user_podcast_episode_db from "../accessors/supabase/UserPodcastEpisode";
 import { Template as RSSFeedTemplate } from "../constants/RSSFeedTemplate";
 
 // Add a podcast to a user's feed
@@ -54,7 +55,7 @@ async function UserPodcastSync(): Promise<void> {
   const podcast = await podcast_db.GetPodcast(podcastEpisode.podcast_id);
 
   let userRSSFeedJson = JSON.parse(user.rss_feed!);
-  let podcastEpisodeJson: any = podcastEpisode.rss_data;
+  let podcastEpisodeJson = JSON.parse(podcastEpisode.rss_data as string);
 
   podcastEpisodeJson.elements.forEach((element:any) => {
     if (element.name == 'pubDate'){
@@ -76,6 +77,7 @@ async function UserPodcastSync(): Promise<void> {
   await user_db.UpdateRSSFeed(user.id, JSON.stringify(userRSSFeedJson));
   await user_db.UpdateLastSyncDate(user.id, updatedDate);
   await user_db.RemoveFromSyncQueue(user.id);
+  await user_podcast_episode_db.AddUserEpisode(user.id, podcastEpisodeId);
 }
 
 console.log("UserPodcastSync: Starting ...");

@@ -41,6 +41,12 @@ export async function PodcastSync(): Promise<void> {
             const type = element.elements[0].type;
             guid = element.elements[0][type];
         }
+
+        // Remove query params on image url if there are any.
+        // There was a podcast where the query params were causing XML parsing issues.
+        if (element.name == 'itunes:image'){
+          element.attributes.href = element.attributes.href.split('?')[0];
+        }
     }
 
     if (!guid) {

@@ -13,4 +13,4 @@ WHERE
       "PodcastSyncQueue"
   )
 ORDER BY
-  p.last_sync DESC
+  p.last_sync DESC;

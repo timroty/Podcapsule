@@ -12,4 +12,4 @@ WHERE
   AND upe IS NULL
   AND pe.created_at <= (up.valid_at + INTERVAL '2 days')
 ORDER BY
-  RANDOM()
+  RANDOM();
