@@ -1,7 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { Database, Tables } from "./generated/Types";
 
-export async function GetPodcastEpisodeById(podcastEpisodeId: number): Promise<Tables<"PodcastEpisode">> {
+export async function GetPodcastEpisodeById(
+  podcastEpisodeId: number,
+): Promise<Tables<"PodcastEpisode">> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
@@ -18,7 +20,9 @@ export async function GetPodcastEpisodeById(podcastEpisodeId: number): Promise<T
   return data!;
 }
 
-export async function GetPodcastEpisodeToSync(userId: string): Promise<number | null> {
+export async function GetPodcastEpisodeToSync(
+  userId: string,
+): Promise<number | null> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
@@ -37,7 +41,10 @@ export async function GetPodcastEpisodeToSync(userId: string): Promise<number | 
   return data[0].podcast_episode_id;
 }
 
-export async function GetPodcastEpisodeByGuid(podcastId: number, guid: string): Promise<Tables<"PodcastEpisode"> | null> {
+export async function GetPodcastEpisodeByGuid(
+  podcastId: number,
+  guid: string,
+): Promise<Tables<"PodcastEpisode"> | null> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
@@ -57,7 +64,11 @@ export async function GetPodcastEpisodeByGuid(podcastId: number, guid: string): 
   return data[0];
 }
 
-export async function Add(podcastId: number, rssData: string, guid: string): Promise<void> {
+export async function Add(
+  podcastId: number,
+  rssData: string,
+  guid: string,
+): Promise<void> {
   const supabaseClient = createClient<Database>(
     process.env.SUPABASE_PROJECT_URL ?? "",
     process.env.SUPABASE_PROJECT_SECRET ?? "",
@@ -65,9 +76,7 @@ export async function Add(podcastId: number, rssData: string, guid: string): Pro
 
   const item = { podcast_id: podcastId, rss_data: rssData, guid: guid };
 
-  const { error } = await supabaseClient
-  .from('PodcastEpisode')
-  .insert(item);
+  const { error } = await supabaseClient.from("PodcastEpisode").insert(item);
 
   if (error) throw error;
 }
